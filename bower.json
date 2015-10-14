@@ -1,0 +1,25 @@
+{
+  "name": "Panacea",
+  "version": "1.0.0",
+  "homepage": "https://github.com/panacea-crowdsourcing-app/panacea.git",
+  "authors": [
+    "Melinda Budde",
+    "Tisha Greenidge",
+    "Yeon Seo",
+    "Boshika Tara"
+  ],
+  "description": "Crowdsourced disease-tracking app",
+  "main": "index.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7"
+  }
+}
