@@ -9,7 +9,6 @@
     "Boshika Tara"
   ],
   "description": "Crowdsourced disease-tracking app",
-  "main": "index.js",
   "license": "MIT",
   "ignore": [
     "**/.*",
