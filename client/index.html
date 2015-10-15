@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="panacea">
+
+  <head>
+    <meta charset="utf-8">    
+    <title>Panacea Crowdsourced Disease Tracker</title>
+    <link rel="stylesheet" href="styles/style.css">
+  </head>    
+
+  <body>
+    <header>
+      <h1 href="index.html">Panacea</h1>
+    </header>
+
+    <nav class="navigation">
+      <ul>
+        <li><a href="#/dashboard">Dashboard</a></li><!--
+        --><li><a href="#"></a></li><!--
+        --><li><a href="#"></a></li><!--
+        --><li><a href="#"></a></li>
+      </ul>
+    </nav>
+
+    <div ng-view>
+    </div>
+
+    <footer>
+      <small>&copy; 2015 Panacea Disease Tracker</small>
+    </footer>
+
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular-route/angular-route.js"></script>
+
+    <script src="app/services/services.js"></script>
+    <script src="app/dashboard/dashboard.js"></script>
+    <script src="app/app.js"></script>
+  </body>
+
+</html>
