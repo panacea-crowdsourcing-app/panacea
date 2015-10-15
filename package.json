@@ -1,0 +1,26 @@
+{
+  "name": "Panacea",
+  "version": "0.0.1",
+  "description": "Crowdsourced disease tracking application",
+  "engines": {
+    "node": "0.12.7"
+  },
+  "main": "server.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/panacea-crowdsourcing-app/panacea.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/greenfield-apollo/greenfield-apollo/issues"
+  },
+  "homepage": "https://github.com/panacea-crowdsourcing-app/panacea#readme",
+  "dependencies": {
+    "body-parser":"^1.14.0",
+    "express": "^4.13.3",
+    "request": "^2.64.0"
+  },
+  "devDependencies": {}
+}
