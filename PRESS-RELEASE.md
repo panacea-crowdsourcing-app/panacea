@@ -16,29 +16,24 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
  
-## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+## Panacea - Disease Tracker ##
 
-## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath e title.
+  Panacea helps raise awareness of health threats across the globe by using crowdsourcing to track and report disease outbreaks.
 
-## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make is paragraph good.
+## Crowdsourcing for Disease Prevention ##
 
-## Problem ##
-  > Describe the problem your product solves.
+Panacea is a web app that aims to provide early notification of health threats to people across the world, helping to increase response times for health organizations and raise awareness of health risks in the general population. Preventing the spread of infectious diseases is a time-critical issue. Diseases can spread faster than traditional news outlets can detect and report them. Social media, on the other hand, can provide instant updates on events as they occur. Panacea collects and analyzes social media for data on disease outbreaks, while also collecting direct reports from users via text. Outbreak zones are visualized on an interactive and intuitive world map. Users can search by disease or location, and can click on areas of the map to get more information. 
 
-## Solution ##
-  > Describe how your product elegantly solves the problem.
+Panacea also strives to provide outbreak information and alerts to those who have limited access to the internet, particularly in developing countries. While many people may not use the internet in parts of the world, cell phones are becoming increasingly commonplace everywhere. Panacea aims to bridge the information gap by sending text alerts to users about outbreaks at locations they specify. People can also report outbreaks to Panacea via text.  
 
-## Quote from You ##
-  > A quote from a spokesperson in your company.
+## Quote from [], Co-Founder, Panacea ##
 
-## How to Get Started ##
-  > Describe how easy it is to get started.
+[A quote from a spokesperson in your company.]
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
 
-## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+"Panacea reported a measles outbreak at a local daycare days before it appeared on the news. Because of that, I was able to keep my child who is too young for the vaccination away from that area."
+
+## How to Get Started ##
+
+Visit [website name] today to view current outbreak locations and sign up for text notifications.
