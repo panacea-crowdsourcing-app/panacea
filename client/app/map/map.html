@@ -1,3 +1,7 @@
 <div class="map-view-container">
+  <form ng-submit="goToLocation()">
+    <input type="text" ng-model="search"/>
+    <input type="submit" value="Go to location"/>
+  </form>
   <div id="map" style="height: 100%"></div>
 </div>
