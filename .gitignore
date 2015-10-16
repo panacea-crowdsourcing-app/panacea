@@ -27,3 +27,6 @@ dist/
 # see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
 node_modules/
 client/lib
+
+# tisha update
+server/api_key.txt
