@@ -29,6 +29,4 @@ node_modules/
 client/lib
 
 # tisha update
-api_key.txt
-node_modules
-.*.swp
+server/api_key.txt
