@@ -42,6 +42,8 @@ var mapModule = angular.module('panacea.map', [])
     $scope.geocoder.geocode({'address': address}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
         $scope.map.setCenter(results[0].geometry.location);
+        $scope.search = results[0].formatted_address;
+        $scope.$apply("search");
       } else {
         alert('Geocode was not sucessful: ' + status);
       }
