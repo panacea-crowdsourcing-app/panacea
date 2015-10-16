@@ -8,4 +8,17 @@ angular.module('panacea.map', [])
 
   $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
+  // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        $scope.map.setCenter(pos);
+      });
+    } else {
+      // Browser doesn't support Geolocation
+      throw new Error();
+    }
 });
