@@ -20,6 +20,10 @@ angular.module('panacea.map', [])
     });
   }
 
+  $scope.goToCurrentLocation = function() {
+    $scope.map.setCenter($scope.currentLocation);
+  }
+
   // Try HTML5 geolocation.
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
@@ -27,6 +31,7 @@ angular.module('panacea.map', [])
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
+        $scope.currentLocation = pos;
         $scope.map.setCenter(pos);
       });
     } else {
