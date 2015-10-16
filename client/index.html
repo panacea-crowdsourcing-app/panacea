@@ -3,10 +3,10 @@
 <html lang="en" ng-app="panacea">
 
   <head>
-    <meta charset="utf-8">    
+    <meta charset="utf-8">
     <title>Panacea Crowdsourced Disease Tracker</title>
     <link rel="stylesheet" href="styles/style.css">
-  </head>    
+  </head>
 
   <body>
     <header>
@@ -16,7 +16,7 @@
     <nav class="navigation">
       <ul>
         <li><a href="#/dashboard">Dashboard</a></li><!--
-        --><li><a href="#"></a></li><!--
+        --><li><a href="#/map">Map</a></li><!--
         --><li><a href="#"></a></li><!--
         --><li><a href="#"></a></li>
       </ul>
@@ -29,11 +29,16 @@
       <small>&copy; 2015 Panacea Disease Tracker</small>
     </footer>
 
+
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular-route/angular-route.js"></script>
 
+
     <script src="app/services/services.js"></script>
     <script src="app/dashboard/dashboard.js"></script>
+    <script src="app/map/map.js"></script>
     <script src="app/app.js"></script>
   </body>
 
