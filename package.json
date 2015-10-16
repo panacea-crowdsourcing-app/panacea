@@ -19,7 +19,9 @@
   "homepage": "https://github.com/panacea-crowdsourcing-app/panacea#readme",
   "dependencies": {
     "body-parser":"^1.14.0",
+    "cron": "^1.0.9",
     "express": "^4.13.3",
+    "path": "^0.12.7",
     "request": "^2.64.0",
     "socket.io": "^1.3.6",
     "twitter": "^1.2.5",
