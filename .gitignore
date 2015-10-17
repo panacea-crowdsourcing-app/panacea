@@ -28,5 +28,8 @@ dist/
 node_modules/
 client/lib
 
-# tisha update
+# secret keys
 server/api_key.txt
+server/api_key.txt
+
+
