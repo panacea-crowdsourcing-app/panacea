@@ -5,19 +5,22 @@ var express = require('express')
   , cronJob = require('cron').CronJob
   , _ = require('underscore')
   , path = require('path')
-  ,bodyParser = require("body-parser");
+  , bodyParser = require("body-parser")
+  , AlchemyAPI = require('./server/alchemyapi')
+  , alchemyapi = new AlchemyAPI()
+  , keys = require('./server/twitterKeys');
 
 
 var app = express();
 
 var server = http.createServer(app);
 
-////Instantiate the twitter component
+//Instantiate the twitter component
 var t = new twitter({
-    consumer_key: 'XHt82KR3OHnFr03oVCGFal85d',
-    consumer_secret: 'gbJObOVe4yftDLT4OrspjycOGbKmoCnOepxMgVzutSCflZSMtv',
-    access_token_key: '2936332038-xfFZw4Qp6xIKmSX8LHF89qgwJ8IdnPt8YEwjyin',
-    access_token_secret: 'LfLh0YqH5nGCb31qJ3j1S4zDY7JaOwa6OtV75vCjpLXhp'
+    consumer_key: keys.consumer_key,
+    consumer_secret: keys.consumer_secret,
+    access_token_key: keys.access_token_key,
+    access_token_secret: keys.access_token_secret
 });
 
 //Set the sockets.io configuration.
@@ -45,11 +48,20 @@ var watchList = {
 _.each(watchSymbols, function(v) { watchList.symbols[v] = 0; });
 
 
-
-
 t.stream('statuses/filter', { track: watchSymbols}, function(stream) {
   stream.on('data', function (data) {
     console.log(data);
   });
 });
+
+//Tisha's fiddle
+// t.stream('statuses/filter', { track: watchSymbols}, function(stream) {
+//   stream.on('data', function (data) {
+//     alchemyapi.sentiment("text", data.text, {sentiment: 1}, function(response) {
+//       console.log("Sentiment: " + response["docSentiment"]["type"]);
+//     });
+//     // console.log(data);
+//   });
+// });
+
 
