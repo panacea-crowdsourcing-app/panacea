@@ -30,6 +30,6 @@ client/lib
 
 # secret keys
 server/api_key.txt
-server/api_key.txt
+server/twitterKeys.js
 
 
