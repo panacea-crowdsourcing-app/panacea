@@ -2,10 +2,14 @@ var express = require('express')
   , io = require('socket.io').listen(server)
   , http = require('http')
 <<<<<<< HEAD
+<<<<<<< HEAD
   , twitter = require('twit')
 =======
   , twitter = require('ntwitter')
 >>>>>>> 7aab954272c5137fef5b8b4e3a80bc1e492a30a4
+=======
+  , twitter = require('twit')
+>>>>>>> origin/feat/server
   , cronJob = require('cron').CronJob
   , _ = require('underscore')
   , path = require('path')
@@ -51,14 +55,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/feat/server
 //Twitter symbols array
 var watchSymbols = ["malaria outbreaks", "malaria in Africa", "malaria in Asia", "parasitic disease","falciparum","ebola virus",
 "ebola outbreaks", "bird flu", "avian influenza","bird flu outbreaks","H5N1", "malaria WHO", "ebola WHO", "CDC ebola", "avian flu outbreaks", 
 "malaria symptoms", "ebola symptoms", "ebola outbreaks" ];
+<<<<<<< HEAD
 =======
 // Twitter symbols array
 var watchSymbols = ['ebola'];
 >>>>>>> 7aab954272c5137fef5b8b4e3a80bc1e492a30a4
+=======
+>>>>>>> origin/feat/server
 //This structure will keep the total number of tweets received and a map of all the symbols and how many tweets received of that symbol
 var watchList = {
     total: 0,
@@ -66,6 +76,7 @@ var watchList = {
 };
 //Set the watch symbols to zero.
 _.each(watchSymbols, function(v) { watchList.symbols[v] = 0; });
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 
@@ -86,10 +97,16 @@ t.stream('statuses/filter', { track: watchSymbols}, function(stream) {
 //   });
 // });
 >>>>>>> 7aab954272c5137fef5b8b4e3a80bc1e492a30a4
+=======
+>>>>>>> origin/feat/server
 
 
 var stream = t.stream('statuses/filter', { track: watchSymbols, language: 'en', since: '2015-10-01' })
  
 stream.on('tweet', function (tweet) {
   console.log(tweet.text + tweet.user.date + tweet.user.location);
+<<<<<<< HEAD
 })
+=======
+})
+>>>>>>> origin/feat/server
