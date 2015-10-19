@@ -1,5 +1,6 @@
 ### node etc ###
-node_modules
+node_modules/
+
 # Logs
 logs
 *.log
@@ -25,5 +26,10 @@ dist/
 # Dependency directories
 # Deployed apps should consider commenting these lines out:
 # see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
-node_modules/
 client/lib
+
+# secret keys
+server/api_key.txt
+server/twitterKeys.js
+
+

@@ -1,0 +1,8 @@
+<div class="map-view-container">
+  <form ng-submit="goToGeocodeLocation()">
+    <input type="text" ng-model="search"/>
+    <input type="submit" value="Go to location"/>
+  </form>
+  <button ng-click="goToCurrentLocation()"> Return to current location </button>
+  <div id="map" style="height: 100%"></div>
+</div>
