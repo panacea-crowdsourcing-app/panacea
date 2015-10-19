@@ -8,8 +8,8 @@ angular.module('panacea', [
 .config(function($routeProvider) {
   $routeProvider
     .when('/', {
-      templateUrl: 'app/dashboard/dashboard.html',
-      controller: 'DashController'
+      templateUrl: 'app/map/map.html',
+            controller: 'MapController'
     })
     .when('/dashboard', {
       templateUrl: 'app/dashboard/dashboard.html',
@@ -24,6 +24,6 @@ angular.module('panacea', [
       controller: 'GlobeController'
     })
     .otherwise({
-      redirectTo: '/'
+      redirectTo: '/map'
     });
 });

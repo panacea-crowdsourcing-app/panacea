@@ -32,8 +32,8 @@ angular.module('panacea.globe', [])
   .attr("class", "water")
   .attr("d", path);
 
-  var countryTooltip = d3.select("body").append("div").attr("class", "countryTooltip"),
-  countryList = d3.select("body").append("select").attr("name", "countries");
+  var countryTooltip = d3.select(".globe-view-container").append("div").attr("class", "countryTooltip"),
+  countryList = d3.select(".globe-view-container").append("select").attr("name", "countries");
 
 
   queue()
@@ -49,7 +49,6 @@ angular.module('panacea.globe', [])
     countries = topojson.feature(world, world.objects.countries).features;
 
     //Adding countries to select
-
     countryData.forEach(function(d) {
       countryById[d.id] = d.name;
       option = countryList.append("option");
@@ -58,7 +57,6 @@ angular.module('panacea.globe', [])
     });
 
     //Drawing countries on the globe
-
     var world = svg.selectAll("path.land")
     .data(countries)
     .enter().append("path")

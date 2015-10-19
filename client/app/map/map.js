@@ -6,8 +6,10 @@ var mapModule = angular.module('panacea.map', [])
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       $scope.currentLocation = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
+        // lat: position.coords.latitude,
+        lat: 37,
+        // lng: position.coords.longitude
+        lng: 127.30
       };
       // Intiate map after retreiving user's current location
       initMap($scope.currentLocation);
