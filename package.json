@@ -22,23 +22,10 @@
     "cron": "^1.0.9",
     "ejs": "~0.8.5",
     "express": "^4.13.3",
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
     "path": "^0.12.7",
     "request": "^2.64.0",
     "socket.io": "^1.3.6",
     "twit": "^2.1.0",
-=======
->>>>>>> feat/server
-    "ntwitter": "^0.5.0",
-    "path": "^0.12.7",
-    "request": "^2.64.0",
-    "socket.io": "^1.3.6",
-<<<<<<< HEAD
-=======
->>>>>>> 7aab954272c5137fef5b8b4e3a80bc1e492a30a4
->>>>>>> feat/server
     "underscore": "^1.8.3"
   },
   "devDependencies": {}
