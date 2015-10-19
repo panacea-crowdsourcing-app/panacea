@@ -47,7 +47,7 @@ var watchList = {
 _.each(watchSymbols, function(v) { watchList.symbols[v] = 0; });
 
 
-var stream = t.stream('statuses/filter', { track: watchSymbols, language: 'en', {'locations':'-180,-90,180,90'}, since: '2015-10-01' })
+var stream = t.stream('statuses/filter', { track: watchSymbols, language: 'en', since: '2015-10-01' })
  
 stream.on('tweet', function (tweet) {
   console.log(tweet.text + tweet.user.date);
