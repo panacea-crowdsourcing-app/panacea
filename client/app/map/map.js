@@ -11,6 +11,10 @@ var mapModule = angular.module('panacea.map', [])
       };
       // Intiate map after retreiving user's current location
       initMap($scope.currentLocation);
+      $scope.currentLocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
     });
   } else {
     // Throw error if browser doesn't support Geolocation
