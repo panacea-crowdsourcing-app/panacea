@@ -1,5 +1,5 @@
 angular.module('panacea.globe', [])
-.controller('GlobeController', function($scope) {
+.controller('GlobeController', function($scope, $rootScope, $location) {
 
   $(".globe-view-container").html();
 
@@ -9,7 +9,6 @@ angular.module('panacea.globe', [])
   focused;
 
   //Setting projection
-
   var projection = d3.geo.orthographic()
   .scale(245)
   .rotate([0, 0])
@@ -20,13 +19,11 @@ angular.module('panacea.globe', [])
   .projection(projection);
 
   //SVG container
-
   var svg = d3.select(".globe-view-container").append("svg")
   .attr("width", width)
   .attr("height", height);
 
   //Adding water
-
   svg.append("path")
   .datum({type: "Sphere"})
   .attr("class", "water")
@@ -37,12 +34,11 @@ angular.module('panacea.globe', [])
 
 
   queue()
-  .defer(d3.json, "/globe/world-110m.json")
-  .defer(d3.tsv, "/globe/world-110m-country-names.tsv")
+  .defer(d3.json, "app/globe/world-110m.json")
+  .defer(d3.tsv, "app/globe/world-110m-country-names.tsv")
   .await(ready);
 
   //Main function
-
   function ready(error, world, countryData) {
 
     var countryById = {},
@@ -50,7 +46,7 @@ angular.module('panacea.globe', [])
 
     //Adding countries to select
     countryData.forEach(function(d) {
-      countryById[d.id] = d.name;
+      countryById[d.id] = [d.name, d.lat, d.lng];
       option = countryList.append("option");
       option.text(d.name);
       option.property("value", d.id);
@@ -64,7 +60,6 @@ angular.module('panacea.globe', [])
     .attr("d", path)
 
     //Drag event
-
     .call(d3.behavior.drag()
       .origin(function() { var r = projection.rotate(); return {x: r[0] / sens, y: -r[1] / sens}; })
       .on("drag", function() {
@@ -75,9 +70,8 @@ angular.module('panacea.globe', [])
       }))
 
     //Mouse events
-
     .on("mouseover", function(d) {
-      countryTooltip.text(countryById[d.id])
+      countryTooltip.text(countryById[d.id][0])
       .style("left", (d3.event.pageX + 7) + "px")
       .style("top", (d3.event.pageY - 15) + "px")
       .style("display", "block")
@@ -90,10 +84,18 @@ angular.module('panacea.globe', [])
     .on("mousemove", function(d) {
       countryTooltip.style("left", (d3.event.pageX + 7) + "px")
       .style("top", (d3.event.pageY - 15) + "px");
+    })
+    .on("click", function(d) {
+      $rootScope.$apply(function() {
+        $rootScope.center = {
+          lat: Number(countryById[d.id][1]),
+          lng: Number(countryById[d.id][2])
+        };
+        $location.path("map");
+      });
     });
 
     //Country focus on option select
-
     d3.select("select").on("change", function() {
       var rotate = projection.rotate(),
       focusedCountry = country(countries, this),
@@ -102,7 +104,6 @@ angular.module('panacea.globe', [])
       svg.selectAll(".focused").classed("focused", focused = false);
 
     //Globe rotating
-
     (function transition() {
       d3.transition()
       .duration(2500)

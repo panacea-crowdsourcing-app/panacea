@@ -1,175 +1,174 @@
-id	name
-4	Afghanistan
-8	Albania
-12	Algeria
-24	Angola
-10	Antarctica
-32	Argentina
-51	Armenia
-36	Australia
-40	Austria
-31	Azerbaijan
-44	Bahamas
-50	Bangladesh
-112	Belarus
-56	Belgium
-84	Belize
-204	Benin
-64	Bhutan
-68	Bolivia, Plurinational State of
-70	Bosnia and Herzegovina
-72	Botswana
-76	Brazil
-96	Brunei Darussalam
-100	Bulgaria
-854	Burkina Faso
-108	Burundi
-116	Cambodia
-120	Cameroon
-124	Canada
-140	Central African Republic
-148	Chad
-152	Chile
-156	China
-170	Colombia
-178	Congo
-180	Congo, the Democratic Republic of the
-188	Costa Rica
-384	Cote d'Ivoire
-191	Croatia
-192	Cuba
-196	Cyprus
-203	Czech Republic
-208	Denmark
-262	Djibouti
-214	Dominican Republic
-218	Ecuador
-818	Egypt
-222	El Salvador
-226	Equatorial Guinea
-232	Eritrea
-233	Estonia
-231	Ethiopia
-238	Falkland Islands (Malvinas)
-242	Fiji
-246	Finland
-250	France
-260	French Southern Territories
-266	Gabon
-270	Gambia
-268	Georgia
-276	Germany
-288	Ghana
-300	Greece
-304	Greenland
-320	Guatemala
-324	Guinea
-624	Guinea-Bissau
-328	Guyana
-332	Haiti
-340	Honduras
-348	Hungary
-352	Iceland
-356	India
-360	Indonesia
-364	Iran, Islamic Republic of
-368	Iraq
-372	Ireland
-376	Israel
-380	Italy
-388	Jamaica
-392	Japan
-400	Jordan
-398	Kazakhstan
-404	Kenya
-408	Korea, Democratic People's Republic of
-410	Korea, Republic of
-414	Kuwait
-417	Kyrgyzstan
-418	Lao People's Democratic Republic
-428	Latvia
-422	Lebanon
-426	Lesotho
-430	Liberia
-434	Libya
-440	Lithuania
-442	Luxembourg
-807	Macedonia, the former Yugoslav Republic of
-450	Madagascar
-454	Malawi
-458	Malaysia
-466	Mali
-478	Mauritania
-484	Mexico
-498	Moldova, Republic of
-496	Mongolia
-499	Montenegro
-504	Morocco
-508	Mozambique
-104	Myanmar
-516	Namibia
-524	Nepal
-528	Netherlands
-540	New Caledonia
-554	New Zealand
-558	Nicaragua
-562	Niger
-566	Nigeria
-578	Norway
-512	Oman
-586	Pakistan
-275	Palestinian Territory, Occupied
-591	Panama
-598	Papua New Guinea
-600	Paraguay
-604	Peru
-608	Philippines
-616	Poland
-620	Portugal
-630	Puerto Rico
-634	Qatar
-642	Romania
-643	Russian Federation
-646	Rwanda
-682	Saudi Arabia
-686	Senegal
-688	Serbia
-694	Sierra Leone
-703	Slovakia
-705	Slovenia
-90	Solomon Islands
-706	Somalia
-710	South Africa
-728	South Sudan
-724	Spain
-144	Sri Lanka
-729	Sudan
-740	Suriname
-748	Swaziland
-752	Sweden
-756	Switzerland
-760	Syrian Arab Republic
-158	Taiwan, Province of China
-762	Tajikistan
-834	Tanzania, United Republic of
-764	Thailand
-626	Timor-Leste
-768	Togo
-780	Trinidad and Tobago
-788	Tunisia
-792	Turkey
-795	Turkmenistan
-800	Uganda
-804	Ukraine
-784	United Arab Emirates
-826	United Kingdom
-840	United States
-858	Uruguay
-860	Uzbekistan
-548	Vanuatu
-862	Venezuela, Bolivarian Republic of
-704	Viet Nam
-732	Western Sahara
-887	Yemen
-894	Zambia
-716	Zimbabwe
+id	name	lat	lng
+4	Afghanistan	33	66
+8	Albania	41	20
+12	Algeria	28	3
+24	Angola	-12.5	18.5
+10	Antarctica	90	0
+32	Argentina	-34	-64
+51	Armenia	40	45
+36	Australia	-25	135
+40	Austria	47.33	13.33
+31	Azerbaijan	40.5	47.5
+44	Bahamas	24	-76
+50	Bangladesh	24	90
+112	Belarus	53	28
+56	Belgium	50.833	4
+84	Belize	17.25	-88.75
+204	Benin	9.5	2.25
+64	Bhutan	27.5	90.5
+68	Bolivia, Plurinational State of	-17	-65
+70	Bosnia and Herzegovina	44.25	17.833
+72	Botswana	-22	24
+76	Brazil	-10	-55
+96	Brunei	4.5	114.667
+100	Bulgaria	43	25
+854	Burkina Faso	13	-2
+108	Burundi	-3.5	30
+116	Cambodia	13	105
+120	Cameroon	6	12
+124	Canada	60	-96
+140	Central African Republic	7	21
+148	Chad	15	19
+152	Chile	-30	-71
+156	China	35	105
+170	Colombia	4	-72
+178	Congo	-1	15
+180	Congo, the Democratic Republic of the	0	25
+188	Costa Rica	10	-84
+384	Cote d'Ivoire	8	-5
+191	Croatia	45.1667	15.5
+192	Cuba	22	-79.5
+196	Cyprus	35	33
+203	Czech Republic	49.75	15
+208	Denmark	56	10
+262	Djibouti	11.5	42.5
+214	Dominican Republic	19	-70.667
+218	Ecuador	-2	-77.5
+818	Egypt	27	30
+222	El Salvador	13.833	-88.91667
+226	Equatorial Guinea	2	10
+232	Eritrea	15	39
+233	Estonia	59	26
+231	Ethiopia	8	38
+238	Falkland Islands (Malvinas)	-51.75	-59.1667
+242	Fiji	-18	178
+246	Finland	64	26
+250	France	46	2
+260	French Southern Territories	-43	67
+266	Gabon	-1	11.75
+270	Gambia	13.5	-15.5
+268	Georgia	41.999	43.499
+276	Germany	51.5	10.5
+288	Ghana	8	-2
+300	Greece	39	22
+304	Greenland	72	-40
+320	Guatemala	15.5	-90.25
+324	Guinea	11	-10
+624	Guinea-Bissau	12	-15
+328	Guyana	5	-59
+332	Haiti	19	-72.41667
+340	Honduras	15	-86.5
+348	Hungary	47	20
+352	Iceland	65	-18
+356	India	20	77
+360	Indonesia	-5	120
+364	Iran, Islamic Republic of	32	53
+368	Iraq	33	44
+372	Ireland	53	-8
+376	Israel	31.5	34.75
+380	Italy	42.833	12.833
+388	Jamaica	18.25	-77.5
+392	Japan	36	138
+400	Jordan	31	36
+398	Kazakhstan	48	68
+404	Kenya	1	38
+408	Korea, Democratic People's Republic of	40	127
+410	Korea, Republic of	37	127.5
+414	Kuwait	29.5	47.75
+417	Kyrgyzstan	41	75
+418	Lao People's Democratic Republic	18	105
+428	Latvia	57	25
+422	Lebanon	33.8333	35.8333
+426	Lesotho	-29.5	28.25
+430	Liberia	6.5	-9.5
+434	Libya	25	17
+440	Lithuania	56	25
+442	Luxembourg	49.75	6.1667
+807	Macedonia, the former Yugoslav Republic of	41.8333	22
+450	Madagascar	-20	47
+454	Malawi	-13.5	34
+458	Malaysia	2.5	112.5
+466	Mali	17	-4
+478	Mauritania	20	-12
+484	Mexico	23	-102
+498	Moldova, Republic of	47	29
+496	Mongolia	46	105
+499	Montenegro	42.5	19.3
+504	Morocco	32	-5
+508	Mozambique	-18.25	35
+104	Myanmar	22	96
+516	Namibia	-22	17
+524	Nepal	28	84
+528	Netherlands	52.5	5.75
+540	New Caledonia	-21.5	165.5
+554	New Zealand	-42	174
+558	Nicaragua	13	-85
+562	Niger	16	8
+566	Nigeria	10	8
+578	Norway	62	10
+512	Oman	21	57
+586	Pakistan	30	70
+591	Panama	9	-80
+598	Papua New Guinea	-6	147
+600	Paraguay	-22.99333	-57.996389
+604	Peru	-10	-76
+608	Philippines	13	122
+616	Poland	52	20
+620	Portugal	39.5	-8
+630	Puerto Rico	18.243	-66.499
+634	Qatar	25.5	51.25
+642	Romania	46	25
+643	Russian Federation	60	100
+646	Rwanda	-2	30
+682	Saudi Arabia	25	45
+686	Senegal	14	-14
+688	Serbia	44	21
+694	Sierra Leone	8.5	-11.5
+703	Slovakia	48.667	19.5
+705	Slovenia	46.25	15.1667
+90	Solomon Islands	-8	159
+706	Somalia	6	48
+710	South Africa	-30	26
+728	South Sudan	8	30
+724	Spain	40	-4
+144	Sri Lanka	7	81
+729	Sudan	16	30
+740	Suriname	4	-56
+748	Swaziland	-26.5	31.5
+752	Sweden	62	15
+756	Switzerland	47	8
+760	Syrian Arab Republic	35	38
+158	Taiwan	24	121
+762	Tajikistan	39	71
+834	Tanzania, United Republic of	-6	35
+764	Thailand	15	100
+626	Timor-Leste	-8.333	125.75
+768	Togo	8	1.1667
+780	Trinidad and Tobago	11	-61
+788	Tunisia	34	9
+792	Turkey	39.059	34.911
+795	Turkmenistan	40	60
+800	Uganda	2	33
+804	Ukraine	49	32
+784	United Arab Emirates	24	54
+826	United Kingdom	54	-4
+840	United States	39.828	-98.57
+858	Uruguay	-33	-56
+860	Uzbekistan	41.707	63.849
+548	Vanuatu	-16	167
+862	Venezuela, Bolivarian Republic of	8	-66
+704	Vietnam	16.1667	107.8333
+732	Western Sahara	25	-13.5
+887	Yemen	15.5	47.5
+894	Zambia	-15	30
+716	Zimbabwe	-19	29
