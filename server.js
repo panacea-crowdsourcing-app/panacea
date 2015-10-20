@@ -5,7 +5,7 @@ var express = require('express')
   , cronJob = require('cron').CronJob
   , _ = require('underscore')
   , path = require('path')
-  , bodyParser = require("body-parser")
+  , bodyParser = require("body-parser") 
   , AlchemyAPI = require('./server/alchemyapi')
   , alchemyapi = new AlchemyAPI()
   , keys = require('./server/twitterKeys');
@@ -32,8 +32,13 @@ var t = new twitter({
 
 //Express set-up
 server.listen(process.env.PORT || 3000);
-app.set('views', __dirname + '/client');
-app.set('view engine', 'ejs');
+
+// app.set('views', __dirname + '/client');
+// app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/client'));
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname + '/client/index.html'));
+});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -50,9 +55,9 @@ var watchList = {
 //Set the watch symbols to zero.
 _.each(watchSymbols, function(v) { watchList.symbols[v] = 0; });
 
-var stream = t.stream('statuses/filter', { track: watchSymbols, language: 'en', since: '2015-10-01' })
+var stream = t.stream('statuses/filter', { track: watchSymbols, language: 'en', since: '2015-10-01' });
  
 stream.on('tweet', function (tweet) {
   console.log(tweet.text + tweet.user.date + tweet.user.location);
 
-})
+});

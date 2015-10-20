@@ -1,6 +1,6 @@
 angular.module('panacea', [
+  'ngMaterial',
   'panacea.services',
-  'panacea.dashboard', // can change this to "home" or "map," whatever we decide
   'panacea.map',
   'panacea.globe',
   'ngRoute'
@@ -9,11 +9,7 @@ angular.module('panacea', [
   $routeProvider
     .when('/', {
       templateUrl: 'app/map/map.html',
-            controller: 'MapController'
-    })
-    .when('/dashboard', {
-      templateUrl: 'app/dashboard/dashboard.html',
-      controller: 'DashController'
+      controller: 'MapController'
     })
     .when('/map', {
       templateUrl: 'app/map/map.html',
@@ -27,3 +23,4 @@ angular.module('panacea', [
       redirectTo: '/map'
     });
 });
+
