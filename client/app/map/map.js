@@ -1,11 +1,11 @@
 var mapModule = angular.module('panacea.map', [])
 
-.controller('MapController', function($scope, heatmapData) {
+.controller('MapController', function($scope, $rootScope, heatmapData) {
 
   // Set current location with HTML5 geolocation.
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-      $scope.currentLocation = {
+      $scope.currentLocation = $rootScope.center || {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
@@ -21,7 +21,7 @@ var mapModule = angular.module('panacea.map', [])
 
     var mapOptions = {
       center: currentLocation,
-      zoom: 11
+      zoom: 4
     };
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
