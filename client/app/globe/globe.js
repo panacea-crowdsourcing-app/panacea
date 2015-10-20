@@ -27,7 +27,15 @@ angular.module('panacea.globe', [])
   svg.append("path")
   .datum({type: "Sphere"})
   .attr("class", "water")
-  .attr("d", path);
+  .attr("d", path)
+  .call(d3.behavior.drag()
+    .origin(function() { var r = projection.rotate(); return {x: r[0] / sens, y: -r[1] / sens}; })
+    .on("drag", function() {
+      var rotate = projection.rotate();
+      projection.rotate([d3.event.x * sens, -d3.event.y * sens, rotate[2]]);
+      svg.selectAll("path.land").attr("d", path);
+      svg.selectAll(".focused").classed("focused", focused = false);
+    }));
 
   var countryTooltip = d3.select(".globe-view-container").append("div").attr("class", "countryTooltip"),
   countryList = d3.select(".globe-view-container").append("select").attr("name", "countries");
