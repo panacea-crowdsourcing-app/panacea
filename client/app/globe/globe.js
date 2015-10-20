@@ -86,6 +86,7 @@ angular.module('panacea.globe', [])
       .style("top", (d3.event.pageY - 15) + "px");
     })
     .on("click", function(d) {
+      if (d3.event.defaultPrevented) return;
       $rootScope.$apply(function() {
         $rootScope.center = {
           lat: Number(countryById[d.id][1]),
