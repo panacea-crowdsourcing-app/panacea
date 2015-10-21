@@ -74,6 +74,7 @@ angular.module('panacea.globe', [])
         var rotate = projection.rotate();
         projection.rotate([d3.event.x * sens, -d3.event.y * sens, rotate[2]]);
         svg.selectAll("path.land").attr("d", path);
+        svg.selectAll("path.cities").attr("d", path);
         svg.selectAll(".focused").classed("focused", focused = false);
       }))
 
@@ -102,6 +103,41 @@ angular.module('panacea.globe', [])
         };
         $location.path("map");
       });
+    });
+
+    var rScale = d3.scale.sqrt();
+    var peoplePerPixel = 50000;
+    var max_population = [];
+
+    // loading city locations from geoJSON
+    d3.json("app/globe/geonames_cities_100k.geojson", function(error, data) {
+
+             // Handle errors getting and parsing the data
+             if (error) { return error; }
+
+             // setting the circle size (not radius!) according to the number of inhabitants per city
+             population_array = [];
+             for (i = 0; i < data.features.length; i++) {
+                population_array.push(data.features[i].properties.population);
+             }
+             max_population = population_array.sort(d3.descending)[0]
+             var rMin = 0;
+             var rMax = Math.sqrt(max_population / (peoplePerPixel * Math.PI));
+             rScale.domain([0, max_population]);
+             rScale.range([rMin, rMax]);
+
+             path.pointRadius(function(d) {
+                return d.properties ? rScale(d.properties.population) : 1;
+
+             });
+
+             // Drawing transparent circle markers for cities
+             svg.selectAll("path.cities").data(data.features)
+                .enter().append("path")
+                .attr("class", "cities")
+                .attr("d", path)
+                .attr("fill", "#ff0000")
+                .attr("fill-opacity", 0.8);
     });
 
     //Country focus on option select
