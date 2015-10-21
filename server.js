@@ -6,8 +6,8 @@ var express = require('express')
   , _ = require('underscore')
   , path = require('path')
   , bodyParser = require("body-parser") 
-  , AlchemyAPI = require('./server/alchemyapi')
-  , alchemyapi = new AlchemyAPI()
+  // , AlchemyAPI = require('./server/alchemyapi') // Uncomment lines 9 and 10 before push
+  // , alchemyapi = new AlchemyAPI()
   , keys = require('./server/twitterKeys');
 
 
