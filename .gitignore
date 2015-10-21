@@ -32,4 +32,7 @@ client/lib
 server/api_key.txt
 server/twitterKeys.js
 
+#temp tweet file
+tweetFile.json
+
 
