@@ -1,13 +1,15 @@
 <div class="map-view-container">
-  <form ng-submit="goToGeocodeLocation()" layout="row" layout-sm="column">
-    <md-input-container>
-      <input type="text" ng-model="search" layout="column" placeholder="Search a location" required/>
-    </md-input-container>
-    <md-button type="submit" class="md-raised" layout="column"> Go to location </md-button>
-  </form>
-  <!-- Placed this button outside of the form so that goToGeocodeLocation doesn't get invoked.
-  Need to find a way to work around this because it would make more sense to put this button inside the form. -->
-  <md-button class="md-raised" ng-click="goToCurrentLocation()" layout="column"> Return to current location </md-button>
+  <div class="map-input-controls">
+    <form ng-submit="goToGeocodeLocation()" layout="row" layout-sm="column" class="inline-elem">
+      <md-input-container layout="column" class="inline-elem search-box">
+        <input type="text" ng-model="search" placeholder="Search a location" required />
+      </md-input-container>
+      <md-button type="submit" class="md-raised md-primary inline-elem" layout="column"> Go to location </md-button>
+    </form>
+    <!-- Placed this button outside of the form so that goToGeocodeLocation doesn't get invoked.
+    Need to find a way to work around this because it would make more sense to put this button inside the form. -->
+    <md-button class="md-raised inline-elem" ng-click="goToCurrentLocation()" layout="column"> Return to current location </md-button>
+  </div>
   <div id="map" style="height: 100%" layout="row">
     <md-progress-linear md-mode="indeterminate"></md-progress-linear>
   </div>
