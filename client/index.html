@@ -17,24 +17,24 @@
 
   <body layout="column">
     <header class="md-menu-demo">
-      <md-toolbar layout="row">
+      <md-toolbar layout="row" class="md-primary">
         <h1 class="md-toolbar-tools">Panacea Disease Tracker</h1>
       </md-toolbar>
     </header>
 
-    <section layout="row" layout-sm="column" layout-align="center" layout-wrap>
-      <md-button class="md-raised md-primary" ng-href="#/globe">Globe View</md-button>
-      <md-button class="md-raised md-warn" ng-href="#/map">Map View</md-button>
-    </section>
+    <md-toolbar layout="row" layout-align="center center" class="md-primary md-hue-1 glow" layout-wrap>
+      <md-button class="md-raised md-accent" ng-href="#/globe">Globe View</md-button>
+      <md-button class="md-raised md-accent" ng-href="#/map">Map View</md-button>
+    </md-toolbar>
 
     <md-content flex layout-padding>
       <div ng-view>
       </div>
     </md-content>
 
-    <footer layout="row" layout-sm="column" layout-align="left" layout-wrap>
+    <!-- <md-content layout="row" layout-align="left" class="md-caption md-padding" layout-wrap>
       <small>&copy; 2015 Panacea Disease Tracker</small>
-    </footer>
+    </md-content> -->
 
     <script src="https://maps.googleapis.com/maps/api/js?v=3.20&libraries=visualization"></script>
 
