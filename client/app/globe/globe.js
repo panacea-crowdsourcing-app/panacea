@@ -34,6 +34,7 @@ angular.module('panacea.globe', [])
       var rotate = projection.rotate();
       projection.rotate([d3.event.x * sens, -d3.event.y * sens, rotate[2]]);
       svg.selectAll("path.land").attr("d", path);
+      svg.selectAll("path.cities").attr("d", path);
       svg.selectAll(".focused").classed("focused", focused = false);
     }));
 
@@ -128,7 +129,6 @@ angular.module('panacea.globe', [])
 
              path.pointRadius(function(d) {
                 return d.properties ? rScale(d.properties.population) : 1;
-
              });
 
              // Drawing transparent circle markers for cities
@@ -137,7 +137,7 @@ angular.module('panacea.globe', [])
                 .attr("class", "cities")
                 .attr("d", path)
                 .attr("fill", "#ff0000")
-                .attr("fill-opacity", 0.8);
+                .attr("fill-opacity", 0.4);
     });
 
     //Country focus on option select
