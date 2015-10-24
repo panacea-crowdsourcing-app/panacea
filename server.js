@@ -13,7 +13,9 @@ var express = require('express')
   ,sequelize = require('./server/database/database.js')
   ,models = require('./server/database/index.js');
   , jsonFile = require('jsonfile') /*remember to remove used to observe dummy data*/
-  
+  , yandexKey = require('./server/yandexKey')
+  , translate = require('yandex-translate-api')(yandexKey.key);
+
 
 var app = express();
 
@@ -187,9 +189,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
     
   // }
-
-
-});
+// });
 
 
 
