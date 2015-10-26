@@ -5,9 +5,9 @@ var express = require('express')
   , cronJob = require('cron').CronJob
   , _ = require('underscore')
   , path = require('path')
-  , bodyParser = require("body-parser") 
-  , AlchemyAPI = require('./server/alchemyapi') // Uncomment lines 9 and 10 before push
-  , alchemyapi = new AlchemyAPI()
+  , bodyParser = require("body-parser")
+  // , AlchemyAPI = require('./server/alchemyapi') // Uncomment lines 9 and 10 before push
+  // , alchemyapi = new AlchemyAPI()
   , keys = require('./server/twitterKeys');
 
 
