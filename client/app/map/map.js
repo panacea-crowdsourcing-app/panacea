@@ -73,10 +73,10 @@ var mapModule = angular.module('panacea.map', [])
         alert('Geocode was not sucessful: ' + status);
       }
     });
-  }
+  };
 
   $scope.goToCurrentLocation = function() {
     $scope.map.setCenter($scope.currentLocation);
-  }
+  };
 
 });
