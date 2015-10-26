@@ -22,6 +22,7 @@ var app = express();
 var server = http.createServer(app);
 
 //Instantiate the twitter component
+
 // var t = new twitter({
 //     consumer_key: keys.consumer_key,
 //     consumer_secret: keys.consumer_secret,
@@ -68,8 +69,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // //var stream = t.stream('statuses/sample');
 
 // var alchemyLanguages = ['en', 'fr', 'ru', 'pt', 'de', 'es', 'it']; //languages supported by ALCHEMY API
-
-
 
 //stream.on('tweet', function (tweet) {
   // 1. determine text that needs direct translation; 
@@ -190,7 +189,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
     
   // }
 // });
-
 
 
 
