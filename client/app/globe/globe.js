@@ -48,10 +48,10 @@ angular.module('panacea.globe', [])
   .await(ready);
 
   //Main function
-  function ready(error, world, countryData) {
+  function ready(error, earth, countryData) { // if breaks, change "earth" back to world
 
     var countryById = {},
-    countries = topojson.feature(world, world.objects.countries).features;
+    countries = topojson.feature(earth, earth.objects.countries).features; // if breaks, change "earth" back to world
 
     //Adding countries to select
     countryData.forEach(function(d) {
@@ -121,7 +121,7 @@ angular.module('panacea.globe', [])
              for (i = 0; i < data.features.length; i++) {
                 population_array.push(data.features[i].properties.population);
              }
-             max_population = population_array.sort(d3.descending)[0]
+             max_population = population_array.sort(d3.descending)[0];
              var rMin = 0;
              var rMax = Math.sqrt(max_population / (peoplePerPixel * Math.PI));
              rScale.domain([0, max_population]);
@@ -159,7 +159,7 @@ angular.module('panacea.globe', [])
           svg.selectAll("path").attr("d", path)
           .classed("focused", function(d, i) { return d.id == focusedCountry.id ? focused = d : false; });
         };
-      })
+      });
       })();
     });
 
@@ -167,7 +167,7 @@ angular.module('panacea.globe', [])
       for(var i = 0, l = cnt.length; i < l; i++) {
         if(cnt[i].id == sel.value) {return cnt[i];}
       }
-    };
+    }
 
-  };
+  }
 });

@@ -13,6 +13,7 @@ var express = require('express')
   ,sequelize = require('./server/database/database.js')
   ,models = require('./server/database/index.js');
   
+
 var app = express();
 
 var server = http.createServer(app);

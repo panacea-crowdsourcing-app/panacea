@@ -6,7 +6,9 @@
     "node": "0.12.7"
   },
   "main": "server.js",
-  "scripts": {},
+  "scripts": {
+    "test": "grunt test"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/panacea-crowdsourcing-app/panacea.git"
@@ -31,5 +33,26 @@
     "twit": "^2.1.0",
     "underscore": "^1.8.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "chai": "^3.4.0",
+    "grunt": "^0.4.5",
+    "grunt-casperjs": "^2.0.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-jshint": "^0.11.3",
+    "grunt-contrib-uglify": "^0.5.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-express-server": "^0.4.19",
+    "grunt-karma": "^0.8.3",
+    "grunt-mocha": "^0.4.11",
+    "karma": "^0.12.22",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.1.4",
+    "karma-coverage": "^0.2.6",
+    "karma-mocha": "^0.1.9",
+    "karma-sinon": "^1.0.3",
+    "mocha": "^2.3.3",
+    "sinon": "^1.10.3"
+  }
 }
