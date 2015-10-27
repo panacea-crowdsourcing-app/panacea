@@ -9,13 +9,17 @@ var express = require('express')
   , AlchemyAPI = require('./server/alchemyapi') // Uncomment lines 9 and 10 before push
   , alchemyapi = new AlchemyAPI()
   , keys = require('./server/twitterKeys')
-  ,request = require('request')
-  ,sequelize = require('./server/database/database.js')
-  ,models = require('./server/database/index.js');
+  , request = require('request')
+  , sequelize = require('./server/database/database.js')
+  , models = require('./server/database/index.js')
   , jsonFile = require('jsonfile') /*remember to remove used to observe dummy data*/
   , yandexKey = require('./server/yandexKey')
   , translate = require('yandex-translate-api')(yandexKey.key);
 
+var  models = models()
+  , Web_SMS = models.Web_SMS
+  , Disease_Incidence = models.Disease_Incidence
+  , Social_Media = models.Social_Media;
 
 var app = express();
 
