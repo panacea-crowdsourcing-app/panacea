@@ -1,6 +1,7 @@
 var app = require('../../server.js')
   , Sequelize = require('sequelize')
-  , sequelize = require('./database');
+  , sequelize = require('./database')
+  , dbLogin = require('./dbLogin');
 
 /*
 Database connection configuration for heroku. Refer to Local configuration for parameters.
@@ -15,14 +16,15 @@ Database connection configuration for heroku. Refer to Local configuration for p
 
 Database connection configuration for Local host.
 */
-var sequelize = new Sequelize('panacea', 'postgres', 'md5e8e092439af890f7e6eae1224664963a', {
+var sequelize = new Sequelize('panacea', dbLogin.username, dbLogin.password, {
   host: 'localhost',
   dialect: 'postgres',
-  port: 5432,
+  port: 5432
   //schema: 'public'
  });
 
 /*
+
 
 /*
 Establishes connection to database.
@@ -46,15 +48,17 @@ module.exports = function() {
     primaryKey: true,
     autoIncrement: true
   },
-  diseasename: Sequelize.String,
-  text: Sequelize.Text,
-  address: Sequelize.String,
-  city: Sequelize.String,
-  country: Sequelize.String,
-  source_type: Sequelize.String,
-  latitude: Sequelize.Float,
-  longitude: Sequelize.Float,
-  date: Sequelize.Date
+  diseasename: Sequelize.STRING,
+  text: Sequelize.TEXT,
+  address: Sequelize.STRING,
+  city: Sequelize.STRING,
+  country: Sequelize.STRING,
+  source_type: Sequelize.STRING,
+  latitude: Sequelize.FLOAT
+  ,
+  longitude: Sequelize.FLOAT
+  ,
+  date: Sequelize.DATE
   });
 
   var Web_SMS = sequelize.define('messages', {
@@ -63,19 +67,19 @@ module.exports = function() {
     primaryKey: true,
     autoIncrement: true
   },
-  persons_name: Sequelize.String,
-  email: Sequelize.String,
-  phone: Sequelize.Integer,
-  text: Sequelize.Text,
-  diseasename: Sequelize.String,
-  text: Sequelize.Text,
-  incidence_address: Sequelize.String,
-  incidence_city: Sequelize.String,
-  incidence_country: Sequelize.String,
-  source_type: Sequelize.Text,
-  latitude: Sequelize.Float,
-  longitude: Sequelize.Float,
-  date: Sequelize.Date
+  persons_name: Sequelize.STRING,
+  email: Sequelize.STRING,
+  phone: Sequelize.INTEGER,
+  text: Sequelize.TEXT,
+  diseasename: Sequelize.STRING,
+  text: Sequelize.TEXT,
+  incidence_address: Sequelize.STRING,
+  incidence_city: Sequelize.STRING,
+  incidence_country: Sequelize.STRING,
+  source_type: Sequelize.TEXT,
+  latitude: Sequelize.FLOAT,
+  longitude: Sequelize.FLOAT,
+  date: Sequelize.DATE
   });
 
   var Disease_Incidence = sequelize.define('incidences', {
@@ -85,16 +89,16 @@ module.exports = function() {
     autoIncrement: true
     },    
     social_media: {
-      type: Sequelize.Integer,
+      type: Sequelize.INTEGER,
       references: {
         model: Social_Media,
-        key: id
+        key: 'id'
       },
      web_sms: {
-      type: Sequelize.Integer,
+      type: Sequelize.INTEGER,
       references: {
         model: Web_SMS,
-        key:id
+        key:'id'
       }
      }
     }

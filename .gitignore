@@ -32,6 +32,8 @@ client/lib
 server/api_key.txt
 server/twitterKeys.js
 /server/yandexKey.txt
+server/database/dbLogin.js
+
 
 #temp tweet file
 tweetFile.json
