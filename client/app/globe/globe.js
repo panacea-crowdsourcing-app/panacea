@@ -116,6 +116,14 @@ angular.module('panacea.globe', [])
              // Handle errors getting and parsing the data
              if (error) { return error; }
 
+             // filter data set to only include cities with population greater than or equal to 800k
+             var cities = [];
+             for (var i = 0; i < data.features.length; i++) {
+              if (data.features[i].properties.population >= 800000) {
+                cities.push(data.features[i]);
+              }
+             }
+
              // setting the circle size (not radius!) according to the number of inhabitants per city
              population_array = [];
              for (i = 0; i < data.features.length; i++) {
@@ -132,7 +140,7 @@ angular.module('panacea.globe', [])
              });
 
              // Drawing transparent circle markers for cities
-             svg.selectAll("path.cities").data(data.features)
+             svg.selectAll("path.cities").data(cities)
                 .enter().append("path")
                 .attr("class", "cities")
                 .attr("d", path)
