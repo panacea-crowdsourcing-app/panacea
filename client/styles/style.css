@@ -79,3 +79,12 @@ select {
   padding: 2px;
 }
 
+.report-max-width {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.card-background {
+  background-color: white;
+}
