@@ -7,12 +7,20 @@
       </md-input-container> 
       <md-input-container>
         <label>Email</label>        
-        <input ng-model="report.email" required /> 
+        <input ng-model="report.email" type="email" required /> 
+      </md-input-container>
+      <md-input-container>
+        <label>Phone</label>        
+        <input ng-model="report.phone" type="number" required /> 
       </md-input-container>
       <md-input-container>
         <label>Disease</label>        
         <input ng-model="report.diseasename" required /> 
       </md-input-container> 
+      <md-input-container>
+        <label>Number of Cases</label>        
+        <input ng-model="report.cases" type="number" required /> 
+      </md-input-container>
       <md-input-container>
         <label>Address</label>        
         <input ng-model="report.incidence_address" /> 
@@ -33,5 +41,6 @@
         Submit 
       </md-button>                                 
     </form>
+    <pre>report = {{report | json}}</pre>
   </md-content>
 </div>
