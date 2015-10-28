@@ -1,7 +1,17 @@
 angular.module('panacea.globe', [])
-.controller('GlobeController', function($scope, $rootScope, $location) {
+.controller('GlobeController', function($scope, $rootScope, $location, $http) {
 
   $(".globe-view-container").html();
+
+  var globeData;
+
+  $http({
+          method: 'GET',
+          url: '/api/globe'
+  })
+  .then(function(resp) {
+    globeData = resp;
+  });
 
   var width = 600,
   height = 500,
@@ -21,13 +31,7 @@ angular.module('panacea.globe', [])
   //SVG container
   var svg = d3.select(".globe-view-container").append("svg")
   .attr("width", width)
-  .attr("height", height);
-
-  //Adding water
-  svg.append("path")
-  .datum({type: "Sphere"})
-  .attr("class", "water")
-  .attr("d", path)
+  .attr("height", height)
   .call(d3.behavior.drag()
     .origin(function() { var r = projection.rotate(); return {x: r[0] / sens, y: -r[1] / sens}; })
     .on("drag", function() {
@@ -37,6 +41,12 @@ angular.module('panacea.globe', [])
       svg.selectAll("path.cities").attr("d", path);
       svg.selectAll(".focused").classed("focused", focused = false);
     }));
+
+  //Adding water
+  svg.append("path")
+  .datum({type: "Sphere"})
+  .attr("class", "water")
+  .attr("d", path);
 
   var countryTooltip = d3.select(".globe-view-container").append("div").attr("class", "countryTooltip"),
   countryList = d3.select(".globe-view-container").append("select").attr("name", "countries");
@@ -67,17 +77,6 @@ angular.module('panacea.globe', [])
     .enter().append("path")
     .attr("class", "land")
     .attr("d", path)
-
-    //Drag event
-    .call(d3.behavior.drag()
-      .origin(function() { var r = projection.rotate(); return {x: r[0] / sens, y: -r[1] / sens}; })
-      .on("drag", function() {
-        var rotate = projection.rotate();
-        projection.rotate([d3.event.x * sens, -d3.event.y * sens, rotate[2]]);
-        svg.selectAll("path.land").attr("d", path);
-        svg.selectAll("path.cities").attr("d", path);
-        svg.selectAll(".focused").classed("focused", focused = false);
-      }))
 
     //Mouse events
     .on("mouseover", function(d) {
