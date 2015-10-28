@@ -6,9 +6,16 @@
       </md-input-container>
       <md-button type="submit" class="md-raised md-primary inline-elem" layout="column"> Go to location </md-button>
     </form>
-    <!-- Placed this button outside of the form so that goToGeocodeLocation doesn't get invoked.
-    Need to find a way to work around this because it would make more sense to put this button inside the form. -->
     <md-button class="md-raised inline-elem" ng-click="goToCurrentLocation()" layout="column"> Return to current location </md-button>
+    <md-button class="md-raised inline-elem" ng-click="changeHeatmap()" layout="column">change</md-button>
+    <md-input-container>
+            <label>Disease</label>
+            <md-select ng-model="userChoice">
+              <md-option ng-repeat="data in heatmapChoices">
+                {{data}}
+              </md-option>
+            </md-select>
+          </md-input-container>
   </div>
   <div id="map" style="height: 100%" layout="row">
     <md-progress-linear md-mode="indeterminate"></md-progress-linear>

@@ -1,7 +1,17 @@
 angular.module('panacea.globe', [])
-.controller('GlobeController', function($scope, $rootScope, $location) {
+.controller('GlobeController', function($scope, $rootScope, $location, $http) {
 
   $(".globe-view-container").html();
+
+  var globeData;
+
+  $http({
+          method: 'GET',
+          url: '/api/globe'
+  })
+  .then(function(resp) {
+    globeData = resp;
+  });
 
   var width = 600,
   height = 500,
@@ -21,13 +31,7 @@ angular.module('panacea.globe', [])
   //SVG container
   var svg = d3.select(".globe-view-container").append("svg")
   .attr("width", width)
-  .attr("height", height);
-
-  //Adding water
-  svg.append("path")
-  .datum({type: "Sphere"})
-  .attr("class", "water")
-  .attr("d", path)
+  .attr("height", height)
   .call(d3.behavior.drag()
     .origin(function() { var r = projection.rotate(); return {x: r[0] / sens, y: -r[1] / sens}; })
     .on("drag", function() {
@@ -37,6 +41,12 @@ angular.module('panacea.globe', [])
       svg.selectAll("path.cities").attr("d", path);
       svg.selectAll(".focused").classed("focused", focused = false);
     }));
+
+  //Adding water
+  svg.append("path")
+  .datum({type: "Sphere"})
+  .attr("class", "water")
+  .attr("d", path);
 
   var countryTooltip = d3.select(".globe-view-container").append("div").attr("class", "countryTooltip"),
   countryList = d3.select(".globe-view-container").append("select").attr("name", "countries");
@@ -67,17 +77,6 @@ angular.module('panacea.globe', [])
     .enter().append("path")
     .attr("class", "land")
     .attr("d", path)
-
-    //Drag event
-    .call(d3.behavior.drag()
-      .origin(function() { var r = projection.rotate(); return {x: r[0] / sens, y: -r[1] / sens}; })
-      .on("drag", function() {
-        var rotate = projection.rotate();
-        projection.rotate([d3.event.x * sens, -d3.event.y * sens, rotate[2]]);
-        svg.selectAll("path.land").attr("d", path);
-        svg.selectAll("path.cities").attr("d", path);
-        svg.selectAll(".focused").classed("focused", focused = false);
-      }))
 
     //Mouse events
     .on("mouseover", function(d) {
@@ -116,6 +115,14 @@ angular.module('panacea.globe', [])
              // Handle errors getting and parsing the data
              if (error) { return error; }
 
+             // filter data set to only include cities with population greater than or equal to 800k
+             var cities = [];
+             for (var i = 0; i < data.features.length; i++) {
+              if (data.features[i].properties.population >= 800000) {
+                cities.push(data.features[i]);
+              }
+             }
+
              // setting the circle size (not radius!) according to the number of inhabitants per city
              population_array = [];
              for (i = 0; i < data.features.length; i++) {
@@ -132,7 +139,7 @@ angular.module('panacea.globe', [])
              });
 
              // Drawing transparent circle markers for cities
-             svg.selectAll("path.cities").data(data.features)
+             svg.selectAll("path.cities").data(cities)
                 .enter().append("path")
                 .attr("class", "cities")
                 .attr("d", path)
