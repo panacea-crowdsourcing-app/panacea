@@ -6,13 +6,13 @@ var express = require('express')
   , _ = require('underscore')
   , path = require('path')
   , bodyParser = require("body-parser") 
-  , AlchemyAPI = require('./server/alchemyapi') // Uncomment lines 9 and 10 before push
-  , alchemyapi = new AlchemyAPI()
-  , keys = require('./server/twitterKeys')
+  // , AlchemyAPI = require('./server/alchemyapi') // Uncomment lines 9 and 10 before push
+  // , alchemyapi = new AlchemyAPI()
+  // , keys = require('./server/twitterKeys')
   , request = require('request')
   , sequelize = require('./server/database/database.js')
   , models = require('./server/database/index.js')
-  , jsonFile = require('jsonfile') /*remember to remove used to observe dummy data*/
+  , jsonFile = require('jsonfile') remember to remove used to observe dummy data
   , yandexKey = require('./server/yandexKey')
   , translate = require('yandex-translate-api')(yandexKey.key);
 
