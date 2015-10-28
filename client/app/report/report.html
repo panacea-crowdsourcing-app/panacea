@@ -1,0 +1,46 @@
+<div ng-controller="ReportController" layout="column" ng-cloak>
+  <md-content layout-padding>
+    <form name="reportForm" ng-submit="createReport()" novalidate>    
+      <md-input-container>
+        <label>Full Name</label>        
+        <input ng-model="report.persons_name" required /> 
+      </md-input-container> 
+      <md-input-container>
+        <label>Email</label>        
+        <input ng-model="report.email" type="email" required /> 
+      </md-input-container>
+      <md-input-container>
+        <label>Phone</label>        
+        <input ng-model="report.phone" type="number" required /> 
+      </md-input-container>
+      <md-input-container>
+        <label>Disease</label>        
+        <input ng-model="report.diseasename" required /> 
+      </md-input-container> 
+      <md-input-container>
+        <label>Number of Cases</label>        
+        <input ng-model="report.cases" type="number" required /> 
+      </md-input-container>
+      <md-input-container>
+        <label>Address</label>        
+        <input ng-model="report.incidence_address" /> 
+      </md-input-container> 
+      <md-input-container>
+        <label>City/Town/Locality</label>        
+        <input ng-model="report.incidence_city" required /> 
+      </md-input-container>  
+      <md-input-container>
+        <label>State/Province/Region</label>        
+        <input ng-model="report.incidence_state" required /> 
+      </md-input-container>
+      <md-input-container>
+        <label>Country</label>        
+        <input ng-model="report.incidence_country" required /> 
+      </md-input-container>
+      <md-button class="md-raised md-primary"> 
+        Submit 
+      </md-button>                                 
+    </form>
+    <pre>report = {{report | json}}</pre>
+  </md-content>
+</div>

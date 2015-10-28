@@ -1,6 +1,19 @@
 angular.module('panacea.services', [])
-.factory('Dashboard', function($http) {
+.factory('Report', function($http, $location) {
+  var sendReport = function(report) {
+    return $http({
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      url: '/api/reports', // need path to backend. this one is not confirmed.
+      data: report
+    });
+  };
 
+  return {
+    sendReport: sendReport
+  };
 })
 .service('heatmapData', function(){
   return [
