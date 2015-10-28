@@ -35,6 +35,9 @@ angular.module('panacea', [
         'hue-2': '700', // use shade for the <code>md-hue-2</code> class
         'hue-3': 'A100' // use shade for the <code>md-hue-3</code> class
       })
+      .backgroundPalette('grey', {
+        'default': '200'
+      })
       .accentPalette('light-green', {
         'default': 'A200' // use shade 200 for default, and keep all other shades the same
       });
