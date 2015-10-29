@@ -2,6 +2,11 @@ angular.module('panacea.report', [])
 .controller('ReportController', function($scope, $location, Report) {
   $scope.report = {};
   $scope.report.date = new Date();
+  $scope.diseases = [
+    "African Trypanosomiasis", "Cholera", "Cryptosporidiosis", "Dengue", "Hepatitis A", "Hepatitis B", "Hepatitis C", 
+    "HIV/AIDS", "Influenza", "Japanese Encephalitis", "Leishmaniasis", "Malaria", "Measles", "Meningitis", "Onchocerciasis",
+    "Pneumonia", "Rotavirus", "Schistosomiasis", "Shigellosis", "Strep Throat", "Tuberculosis", "Typhoid", "Yellow Fever"
+  ];
 
   $scope.createReport = function() {
     Report.sendReport($scope.report)

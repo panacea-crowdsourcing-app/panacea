@@ -1,5 +1,6 @@
 angular.module('panacea', [
   'ngMaterial',
+  'ngMessages',
   'panacea.services',
   'panacea.map',
   'panacea.globe',
