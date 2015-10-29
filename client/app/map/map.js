@@ -25,7 +25,7 @@ var mapModule = angular.module('panacea.map', [])
 
     var mapOptions = {
       center: currentLocation,
-      zoom: 4,
+      zoom: 3,
       disableDefaultUI: true,
       zoomControl: true,
       zoomControlOptions: {

@@ -1,10 +1,10 @@
 <div class="map-view-container">
   <div class="map-input-controls" layout="row" layout-align="center">
-    <form ng-submit="goToGeocodeLocation()">
+    <form>
       <md-input-container class="map-search">
         <input type="text" ng-model="search" placeholder="Search a location" required />
       </md-input-container>
-      <md-button type="submit" class="md-raised md-primary"> Go to location </md-button>
+      <md-button ng-click="goToGeocodeLocation()" class="md-raised md-primary"> Go to location </md-button>
       <!-- NEED TO REFACTOR THE LOGIC FOR THIS FUNCTION -->
       <md-button class="md-raised" ng-click="goToCurrentLocation()"> Return to current location </md-button>
     </form>

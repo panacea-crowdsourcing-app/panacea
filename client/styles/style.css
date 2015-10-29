@@ -50,6 +50,18 @@
   width: 100%;
 }
 
+#feed {
+  height: 100%;
+  width: 380px;
+  position: relative;
+}
+
+#feed-container {
+  height: 100%;
+  width: 100%;
+  background: #3F51B5;
+}
+
 .map-view-container {
   position: relative;
   width: 100%;
@@ -95,15 +107,15 @@ md-input-container#disease-search md-select-value {
 }
 
 #globe-view-container {
-  display: block;
+  width: 100%;
   height: 100vh;
   position: relative;
 }
 
 md-input-container#globe-search {
   position: absolute;
-  right: 0;
-  margin: 5%;
+  left: 50px;
+  bottom: 66%;
 }
 
 md-input-container#globe-search md-select-value {

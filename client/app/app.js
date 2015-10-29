@@ -5,6 +5,7 @@ angular.module('panacea', [
   'panacea.map',
   'panacea.globe',
   'panacea.report',
+  'panacea.feed',
   'ui.router'
 ])
 .config(function($mdThemingProvider, $locationProvider, $stateProvider) {
