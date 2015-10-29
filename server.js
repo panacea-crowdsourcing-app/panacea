@@ -9,7 +9,7 @@ var express = require('express')
   , pg = require('pg') 
   // , AlchemyAPI = require('./server/alchemyapi') // Uncomment lines 9 and 10 before push
   // , alchemyapi = new AlchemyAPI()
-  // , keys = require('./server/twitterKeys')
+  , keys = require('./server/twitterKeys')
   , request = require('request')
   , sequelize = require('./server/database/database.js')
   , models = require('./server/database/index.js')
@@ -31,12 +31,12 @@ var server = http.createServer(app);
 
 // ############ Instantiate the twitter component ####################################
 
-// var t = new twitter({
-//     consumer_key: keys.consumer_key,
-//     consumer_secret: keys.consumer_secret,
-//     access_token: keys.access_token,
-//     access_token_secret: keys.access_token_secret
-// });
+var t = new twitter({
+    consumer_key: keys.consumer_key,
+    consumer_secret: keys.consumer_secret,
+    access_token: keys.access_token,
+    access_token_secret: keys.access_token_secret
+});
 
 //Set the sockets.io configuration.
 //THIS IS NECESSARY ONLY FOR HEROKU!
