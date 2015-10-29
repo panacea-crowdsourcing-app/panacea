@@ -15,26 +15,25 @@
     <script src="lib/jquery/dist/jquery.min.js"></script>
   </head>
 
-  <body layout="column">
-    <header class="md-menu-demo">
-      <md-toolbar layout="row" class="md-primary">
-        <h1 class="md-toolbar-tools">Panacea Disease Tracker</h1>
-        <md-button class="md-raised" ng-href="#/report">Report Disease</md-button>
-      </md-toolbar>
-    </header>
+  <body layout="row" ng-controller="mainController">
 
-    <md-toolbar layout="row" layout-align="center center" class="md-primary md-hue-1 glow" layout-wrap>
-      <md-button class="md-raised md-accent" ng-href="#/globe">Globe View</md-button>
-      <md-button class="md-raised md-accent" ng-href="#/map">Map View</md-button>
-    </md-toolbar>
-
-    <md-content flex layout-padding>
+    <div flex>
+      <div id="dash">
+        <h1>Panacea</h1>
+        <div layout="row" layout-align="center center">
+          <md-button class="dash-btn left" ng-href="#/globe">Globe View</md-button>
+          <md-button class="dash-btn right" ng-href="#/map">Map View</md-button>
+        </div>
+        <div ui-view="dropdown" id="dropdown"></div>
+      </div>
       <div ui-view="content">
       </div>
-        <div ui-view="second">
-      </div>
-    </md-content>
+    </div>
 
+    <md-button class="md-raised md-primary" ng-click="toggleSide()" id="toggle-side-button">Report Disease</md-button>
+
+    <div  id="side" ng-hide="!hide" ui-view="report">
+    </div>
 
     <script src="https://maps.googleapis.com/maps/api/js?v=3.20&libraries=visualization"></script>
 

@@ -16,6 +16,14 @@ angular.module('panacea', [
                     'content': {
                         templateUrl: 'app/map/map.html',
                         controller: 'MapController'
+                    },
+                    'dropdown': {
+                        templateUrl: 'app/map/map-dropdown.html',
+                        controller: 'MapController'
+                    },
+                    'report': {
+                        templateUrl: 'app/report/report.html',
+                        controller: 'ReportController'
                     }
                 }
             })
@@ -25,8 +33,17 @@ angular.module('panacea', [
                     'content': {
                         templateUrl: 'app/globe/globe.html',
                         controller: 'GlobeController'
-
+                    },
+                    'report': {
+                        templateUrl: 'app/report/report.html',
+                        controller: 'ReportController'
                     }
+                    // Need to change GlobeController to a sigleton so that the dropdown menu
+                    // can interact with the globe
+                    // 'dropdown': {
+                    //     templateUrl: 'app/globe/globe-dropdown.html',
+                    //     controller: 'GlobeController'
+                    // }
                 }
             });
 
@@ -43,5 +60,9 @@ angular.module('panacea', [
       .accentPalette('light-green', {
         'default': 'A200' // use shade 200 for default, and keep all other shades the same
       });
+})
+.controller('mainController', function($scope){
+  $scope.toggleSide = function() {
+    $scope.hide = !$scope.hide;
+  };
 });
-
