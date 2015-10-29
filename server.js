@@ -69,7 +69,7 @@ app.get('/api/globe', function(req, res) {
       return res.status(500).json({ success: false, data: err});
     } 
 // SQL Query > Select Data
-    var query = client.query("SELECT diseasename, no_of_cases, latitude, longitude FROM  messages ");
+    var query = client.query("");
   })
 // Stream results back one row at a time
     query.on('row', function(row) {

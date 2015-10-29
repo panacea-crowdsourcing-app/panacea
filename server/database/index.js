@@ -116,7 +116,7 @@ Web_SMS.hasMany(Disease_Incidence);
 Creates database structure.
 */
 sequelize
-  .sync({ force: true })
+  .sync()
   .then(function(err) {
     console.log('It worked!');
   }, function (err) { 
