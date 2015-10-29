@@ -1,6 +1,6 @@
 var app = require('../../server.js')
   , Sequelize = require('sequelize')
-  , sequelize = require('./database');
+  , sequelize = require('./database')
   , dbLogin = require('./dbLogin');
 
 /*
