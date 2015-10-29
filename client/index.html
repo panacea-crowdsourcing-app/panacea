@@ -29,29 +29,28 @@
     </md-toolbar>
 
     <md-content flex layout-padding>
-      <div ng-view>
+      <div ui-view="content">
+      </div>
+        <div ui-view="second">
       </div>
     </md-content>
 
-    <!-- <md-content layout="row" layout-align="left" class="md-caption md-padding" layout-wrap>
-      <small>&copy; 2015 Panacea Disease Tracker</small>
-    </md-content> -->
 
     <script src="https://maps.googleapis.com/maps/api/js?v=3.20&libraries=visualization"></script>
 
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular-route/angular-route.js"></script>
+    <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="lib/angular-aria/angular-aria.js"></script>
     <script src="lib/angular-animate/angular-animate.js"></script>
     <script src="lib/angular-material/angular-material.js"></script>
     <script src="lib/angular-messages/angular-messages.js"></script>
 
-    <!-- <script src="scripts/panacea.js"></script> -->
     <script src="app/services/services.js"></script>
     <script src="app/map/map.js"></script>
     <script src="app/globe/globe.js"></script>
     <script src="app/report/report.js"></script>
-    <script src="app/app.js"></script> 
+    <script src="app/app.js"></script>
   </body>
 
 </html>

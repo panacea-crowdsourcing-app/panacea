@@ -5,29 +5,30 @@ angular.module('panacea', [
   'panacea.map',
   'panacea.globe',
   'panacea.report',
-  'ngRoute'
+  'ui.router'
 ])
-.config(function($routeProvider, $mdThemingProvider) {
-  $routeProvider
-    .when('/', {
-      templateUrl: 'app/globe/globe.html',
-      controller: 'GlobeController'
-    })
-    .when('/map', {
-      templateUrl: 'app/map/map.html',
-      controller: 'MapController'
-    })
-    .when('/globe', {
-      templateUrl: 'app/globe/globe.html',
-      controller: 'GlobeController'
-    })
-    .when('/report', {
-      templateUrl: 'app/report/report.html',
-      controller: 'ReportController'
-    })
-    .otherwise({
-      redirectTo: '/globe'
-    });
+.config(function($mdThemingProvider, $locationProvider, $stateProvider) {
+
+    $stateProvider
+            .state('map', {
+                url: '/map',
+                views: {
+                    'content': {
+                        templateUrl: 'app/map/map.html',
+                        controller: 'MapController'
+                    }
+                }
+            })
+            .state('globe', {
+                url: '/globe',
+                views: {
+                    'content': {
+                        templateUrl: 'app/globe/globe.html',
+                        controller: 'GlobeController'
+
+                    }
+                }
+            });
 
     $mdThemingProvider.theme('default')
       .primaryPalette('indigo', {
