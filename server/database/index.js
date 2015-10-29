@@ -1,6 +1,6 @@
 var app = require('../../server.js')
   , Sequelize = require('sequelize')
-  , sequelize = require('./database')
+  , sequelize = require('./database');
   , dbLogin = require('./dbLogin');
 
 /*
@@ -19,7 +19,10 @@ Database connection configuration for Local host.
 var sequelize = new Sequelize('panacea', dbLogin.username, dbLogin.password, {
   host: 'localhost',
   dialect: 'postgres',
-  port: 5432
+  port: 5432,
+  define: {
+    timestamps: false,
+  }
   //schema: 'public'
  });
 
@@ -57,11 +60,7 @@ module.exports = function() {
   no_of_cases: Sequelize.INTEGER,
   source_type: Sequelize.STRING,
   latitude: Sequelize.FLOAT,
-  longitude: Sequelize.FLOAT,
-  date: {
-    type: Sequelize.DATE,
-    defaultValue: Sequelize.NOW
-    }
+  longitude: Sequelize.FLOAT
   });
 
   var Web_SMS = sequelize.define('messages', {
@@ -73,7 +72,6 @@ module.exports = function() {
   persons_name: Sequelize.STRING,
   email: Sequelize.STRING,
   phone: Sequelize.INTEGER,
-  text: Sequelize.TEXT,
   diseasename: Sequelize.STRING,
   text: Sequelize.TEXT,
   incidence_address: Sequelize.STRING,
@@ -83,11 +81,7 @@ module.exports = function() {
   no_of_cases: Sequelize.INTEGER,
   source_type: Sequelize.TEXT,
   latitude: Sequelize.FLOAT,
-  longitude: Sequelize.FLOAT,
-  date: {
-    type: Sequelize.DATE,
-    defaultValue: Sequelize.NOW
-    }
+  longitude: Sequelize.FLOAT
   });
 
   var Disease_Incidence = sequelize.define('incidences', {
@@ -122,7 +116,7 @@ Web_SMS.hasMany(Disease_Incidence);
 Creates database structure.
 */
 sequelize
-  .sync({ force: true })
+  .sync()
   .then(function(err) {
     console.log('It worked!');
   }, function (err) { 
