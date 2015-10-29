@@ -25,7 +25,12 @@ var mapModule = angular.module('panacea.map', [])
 
     var mapOptions = {
       center: currentLocation,
-      zoom: 4
+      zoom: 4,
+      disableDefaultUI: true,
+      zoomControl: true,
+      zoomControlOptions: {
+              position: google.maps.ControlPosition.RIGHT_CENTER
+      }
     };
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
@@ -68,6 +73,7 @@ var mapModule = angular.module('panacea.map', [])
 
   $scope.changeHeatmap = function() {
     if ($scope.userChoice == 1) {
+      console.log($scope.userChoice);
       $scope.heatmap.setData(heatmapData);
     } else {
       $scope.heatmap.setData(heatmapData2);

@@ -1,0 +1,8 @@
+<md-input-container id="disease-search">
+  <label>Disease</label>
+  <md-select ng-model="userChoice" ng-change="changeHeatmap()">
+    <md-option ng-repeat="data in heatmapChoices">
+      {{data}}
+    </md-option>
+  </md-select>
+</md-input-container>

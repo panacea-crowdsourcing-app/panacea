@@ -1,75 +1,69 @@
-<div ng-controller="ReportController" layout="column" flex class="report-max-width" ng-cloak>
-  <md-content layout-padding>    
-    <md-card class="card-background">
-      <md-card-content>
-        <form name="reportForm" ng-submit="reportForm.$valid && createReport()" novalidate>    
-          <md-input-container>
-            <label>Full name</label>        
-            <input ng-model="report.persons_name" name="persons_name" required /> 
-            <div ng-messages="reportForm.persons_name.$error" ng-if="reportForm.$submitted">
-              <div ng-message="required">This is required.</div>
-            </div>
-          </md-input-container> 
-          <md-input-container>
-            <label>Email</label>        
-            <input ng-model="report.email" type="email" name="email" required /> 
-            <div ng-messages="report.email.$error" ng-if="reportForm.$submitted">
-              <div ng-message="required">This is required.</div>
-            </div>
-          </md-input-container>
-          <!-- row that contains Disease and number of cases -->
-          <div layout layout-sm="column">
-            <md-input-container style="width:70%">
-              <label>Disease</label>
-              <md-select ng-model="report.diseasename" name="diseasename" required>
-                <md-option ng-repeat="disease in diseases" value="{{disease}}">
-                  {{disease}}
-                </md-option>
-              </md-select>
-              <div ng-messages="reportForm.diseasename.$error" ng-if="reportForm.$submitted">
-                <div ng-message="required">This is required.</div>
-              </div>
-            </md-input-container>
-            <md-input-container style="width:30%">
-              <label>Number of cases</label>          
-              <input ng-model="report.no_of_cases" type="number" min="1" name="no_of_cases" required /> 
-              <div ng-messages="reportForm.no_of_cases.$error" ng-if="reportForm.$submitted">
-                <div ng-message="required">This is required.</div>
-              </div>
-            </md-input-container>
-          </div>
-          <!-- end of row -->
-          <md-input-container>
-            <label>Address</label>        
-            <input ng-model="report.incidence_address" name="incidence_address" /> 
-          </md-input-container> 
-          <md-input-container>
-            <label>City/town/locality</label>        
-            <input ng-model="report.incidence_city" name="incidence_city" required /> 
-            <div ng-messages="reportForm.incidence_city.$error" ng-if="reportForm.$submitted">
-              <div ng-message="required">This is required.</div>
-            </div>
-          </md-input-container>  
-          <md-input-container>
-            <label>State/province/region</label>        
-            <input ng-model="report.incidence_state" name="incidence_state" required /> 
-            <div ng-messages="reportForm.incidence_state.$error" ng-if="reportForm.$submitted">
-              <div ng-message="required">This is required.</div>
-            </div>
-          </md-input-container>
-          <md-input-container>
-            <label>Country</label>        
-            <input ng-model="report.incidence_country" name="incidence_country" required /> 
-            <div ng-messages="reportForm.incidence_country.$error" ng-if="reportForm.$submitted">
-              <div ng-message="required">This is required.</div>
-            </div>
-          </md-input-container>
-          <md-button class="md-raised md-primary"> 
-            Submit 
-          </md-button>                                 
-        </form>
-        <!-- <pre>report = {{report | json}}</pre> -->
-      </md-card-content>
-    </md-card>    
-  </md-content>
-</div>
+<md-content layout-padding ng-controller="ReportController" layout="column" layout-align="center" ng-cloak>
+  <form name="reportForm" ng-submit="reportForm.$valid && createReport()" novalidate>
+    <md-input-container>
+      <label>Full name</label>
+      <input ng-model="report.persons_name" name="persons_name" required />
+      <div ng-messages="reportForm.persons_name.$error" ng-if="reportForm.$submitted">
+        <div ng-message="required">This is required.</div>
+      </div>
+    </md-input-container>
+    <md-input-container>
+      <label>Email</label>
+      <input ng-model="report.email" type="email" name="email" required />
+      <div ng-messages="report.email.$error" ng-if="reportForm.$submitted">
+        <div ng-message="required">This is required.</div>
+      </div>
+    </md-input-container>
+    <!-- row that contains Disease and number of cases -->
+    <div layout layout-sm="column">
+      <md-input-container style="width:70%">
+        <label>Disease</label>
+        <md-select ng-model="report.diseasename" name="diseasename" required>
+          <md-option ng-repeat="disease in diseases" value="{{disease}}">
+            {{disease}}
+          </md-option>
+        </md-select>
+        <div ng-messages="reportForm.diseasename.$error" ng-if="reportForm.$submitted">
+          <div ng-message="required">This is required.</div>
+        </div>
+      </md-input-container>
+      <md-input-container style="width:30%">
+        <label>Number of cases</label>
+        <input ng-model="report.no_of_cases" type="number" min="1" name="no_of_cases" required />
+        <div ng-messages="reportForm.no_of_cases.$error" ng-if="reportForm.$submitted">
+          <div ng-message="required">This is required.</div>
+        </div>
+      </md-input-container>
+    </div>
+    <!-- end of row -->
+    <md-input-container>
+      <label>Address</label>
+      <input ng-model="report.incidence_address" name="incidence_address" />
+    </md-input-container>
+    <md-input-container>
+      <label>City/town/locality</label>
+      <input ng-model="report.incidence_city" name="incidence_city" required />
+      <div ng-messages="reportForm.incidence_city.$error" ng-if="reportForm.$submitted">
+        <div ng-message="required">This is required.</div>
+      </div>
+    </md-input-container>
+    <md-input-container>
+      <label>State/province/region</label>
+      <input ng-model="report.incidence_state" name="incidence_state" required />
+      <div ng-messages="reportForm.incidence_state.$error" ng-if="reportForm.$submitted">
+        <div ng-message="required">This is required.</div>
+      </div>
+    </md-input-container>
+    <md-input-container>
+      <label>Country</label>
+      <input ng-model="report.incidence_country" name="incidence_country" required />
+      <div ng-messages="reportForm.incidence_country.$error" ng-if="reportForm.$submitted">
+        <div ng-message="required">This is required.</div>
+      </div>
+    </md-input-container>
+    <md-button class="md-raised md-primary">
+      Submit
+    </md-button>
+  </form>
+  <!-- <pre>report = {{report | json}}</pre> -->
+</md-content>
