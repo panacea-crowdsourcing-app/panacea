@@ -63,24 +63,25 @@ app.get('/api/globe', function(req, res) {
 
   pg.connect(sequelize, function(err, client, done) {
  // Handle connection errors
-    if(err) {
+     if(err) {
       done();
       console.log(err);
       return res.status(500).json({ success: false, data: err});
     } 
 // SQL Query > Select Data
-    var query = client.query("");
+    var query = client.query("SELECT * FROM messages");
   })
 // Stream results back one row at a time
     query.on('row', function(row) {
         results.push(row);
+        console.log(results);
     });
 // After all data is returned, close connection and return results
     query.on('end', function() {
-        done();
         return res.json(results);
     });
-});
+    res.send('')
+  });
 
 
 
