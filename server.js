@@ -5,10 +5,11 @@ var express = require('express')
   , cronJob = require('cron').CronJob
   , _ = require('underscore')
   , path = require('path')
-  , bodyParser = require("body-parser") 
+  , bodyParser = require("body-parser")
+  , pg = require('pg') 
   // , AlchemyAPI = require('./server/alchemyapi') // Uncomment lines 9 and 10 before push
   // , alchemyapi = new AlchemyAPI()
-  , keys = require('./server/twitterKeys')
+  // , keys = require('./server/twitterKeys')
   , request = require('request')
   , sequelize = require('./server/database/database.js')
   , models = require('./server/database/index.js')
@@ -23,16 +24,19 @@ var  models = models()
 
 var app = express();
 
+
 var server = http.createServer(app);
 
-//Instantiate the twitter component
 
-var t = new twitter({
-    consumer_key: keys.consumer_key,
-    consumer_secret: keys.consumer_secret,
-    access_token: keys.access_token,
-    access_token_secret: keys.access_token_secret
-});
+
+// ############ Instantiate the twitter component ####################################
+
+// var t = new twitter({
+//     consumer_key: keys.consumer_key,
+//     consumer_secret: keys.consumer_secret,
+//     access_token: keys.access_token,
+//     access_token_secret: keys.access_token_secret
+// });
 
 //Set the sockets.io configuration.
 //THIS IS NECESSARY ONLY FOR HEROKU!
@@ -41,7 +45,8 @@ var t = new twitter({
 //   sockets.set('polling duration', 10);
 // });
 
-//Express set-up
+// #################### Express set-up #################################################
+
 server.listen(process.env.PORT || 3000);
 
 // app.set('views', __dirname + '/client');
@@ -52,6 +57,32 @@ app.get('/', function(req, res) {
 });
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get('/api/globe', function(req, res) {
+  var results = [];
+
+  pg.connect(sequelize, function(err, client, done) {
+ // Handle connection errors
+    if(err) {
+      done();
+      console.log(err);
+      return res.status(500).json({ success: false, data: err});
+    } 
+// SQL Query > Select Data
+    var query = client.query("SELECT diseasename, no_of_cases, latitude, longitude FROM  messages ");
+  })
+// Stream results back one row at a time
+    query.on('row', function(row) {
+        results.push(row);
+    });
+// After all data is returned, close connection and return results
+    query.on('end', function() {
+        done();
+        return res.json(results);
+    });
+});
+
+
 
 /*******************Alchemy API Test Code PLease do no Delete **************************/
 // //Twitter symbols array
