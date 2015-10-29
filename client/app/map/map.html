@@ -1,16 +1,15 @@
 <div class="map-view-container">
-  <div class="map-input-controls">
-    <form ng-submit="goToGeocodeLocation()" layout="row" layout-sm="column" class="inline-elem">
-      <md-input-container layout="column" class="inline-elem search-box">
+  <div class="map-input-controls" layout="row" layout-align="center">
+    <form ng-submit="goToGeocodeLocation()">
+      <md-input-container class="map-search">
         <input type="text" ng-model="search" placeholder="Search a location" required />
       </md-input-container>
-      <md-button type="submit" class="md-raised md-primary inline-elem" layout="column"> Go to location </md-button>
+      <md-button type="submit" class="md-raised md-primary"> Go to location </md-button>
+      <!-- NEED TO REFACTOR THE LOGIC FOR THIS FUNCTION -->
+      <md-button class="md-raised" ng-click="goToCurrentLocation()"> Return to current location </md-button>
     </form>
-    <!-- Placed this button outside of the form so that goToGeocodeLocation doesn't get invoked.
-    Need to find a way to work around this because it would make more sense to put this button inside the form. -->
-    <md-button class="md-raised inline-elem" ng-click="goToCurrentLocation()" layout="column"> Return to current location </md-button>
   </div>
-  <div id="map" style="height: 100%" layout="row">
-    <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+  <div id="map" layout="row" layout-align="center center">
+    <md-progress-circular  id="map-progress" md-mode="indeterminate" md-diameter="100"></md-progress-circular>
   </div>
 </div>

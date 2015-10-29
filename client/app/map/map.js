@@ -1,6 +1,6 @@
 var mapModule = angular.module('panacea.map', [])
 
-.controller('MapController', function($scope, $rootScope, heatmapData) {
+.controller('MapController', function($scope, $rootScope, heatmapData, heatmapData2) {
 
   // Set current location with HTML5 geolocation.
   if (navigator.geolocation) {
@@ -25,7 +25,12 @@ var mapModule = angular.module('panacea.map', [])
 
     var mapOptions = {
       center: currentLocation,
-      zoom: 4
+      zoom: 4,
+      disableDefaultUI: true,
+      zoomControl: true,
+      zoomControlOptions: {
+              position: google.maps.ControlPosition.RIGHT_CENTER
+      }
     };
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
@@ -56,11 +61,24 @@ var mapModule = angular.module('panacea.map', [])
         'rgba(255, 0, 0, 1)'
       ]
     };
+
     $scope.heatmap = new google.maps.visualization.HeatmapLayer(heatmapOptions);
 
     // A service for converting between an address and a LatLng
     $scope.geocoder = new google.maps.Geocoder();
   };
+
+  $scope.userChoice = "";
+  $scope.heatmapChoices = [1, 2];
+
+  $scope.changeHeatmap = function() {
+    if ($scope.userChoice == 1) {
+      console.log($scope.userChoice);
+      $scope.heatmap.setData(heatmapData);
+    } else {
+      $scope.heatmap.setData(heatmapData2);
+    }
+  }
 
   $scope.goToGeocodeLocation = function() {
     var address = $scope.search;
