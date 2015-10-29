@@ -1,2 +1,10 @@
-<div class="globe-view-container">
+<div id="globe-view-container">
+  <md-input-container id="globe-search">
+    <label>Countries</label>
+    <md-select ng-model="userChoice" ng-change="rotate()">
+      <md-option ng-value="country" ng-repeat="country in countryById">
+        {{country[0]}}
+      </md-option>
+    </md-select>
+  </md-input-container>
 </div>

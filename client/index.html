@@ -15,42 +15,41 @@
     <script src="lib/jquery/dist/jquery.min.js"></script>
   </head>
 
-  <body layout="column">
-    <header class="md-menu-demo">
-      <md-toolbar layout="row" class="md-primary">
-        <h1 class="md-toolbar-tools">Panacea Disease Tracker</h1>
-        <md-button class="md-raised" ng-href="#/report">Report Disease</md-button>
-      </md-toolbar>
-    </header>
+  <body layout="row" ng-controller="mainController">
 
-    <md-toolbar layout="row" layout-align="center center" class="md-primary md-hue-1 glow" layout-wrap>
-      <md-button class="md-raised md-accent" ng-href="#/globe">Globe View</md-button>
-      <md-button class="md-raised md-accent" ng-href="#/map">Map View</md-button>
-    </md-toolbar>
-
-    <md-content flex layout-padding>
-      <div ng-view>
+    <div flex>
+      <div id="dash">
+        <h1>Panacea</h1>
+        <div layout="row" layout-align="center center">
+          <md-button class="dash-btn left" ng-href="#/globe">Globe View</md-button>
+          <md-button class="dash-btn right" ng-href="#/map">Map View</md-button>
+        </div>
+        <div ui-view="dropdown" id="dropdown"></div>
       </div>
-    </md-content>
+      <div ui-view="content">
+      </div>
+    </div>
 
-    <!-- <md-content layout="row" layout-align="left" class="md-caption md-padding" layout-wrap>
-      <small>&copy; 2015 Panacea Disease Tracker</small>
-    </md-content> -->
+    <md-button class="md-raised md-primary" ng-click="toggleSide()" id="toggle-side-button">Report Disease</md-button>
+
+    <div  id="side" ng-hide="!hide" ui-view="report">
+    </div>
 
     <script src="https://maps.googleapis.com/maps/api/js?v=3.20&libraries=visualization"></script>
 
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular-route/angular-route.js"></script>
+    <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="lib/angular-aria/angular-aria.js"></script>
     <script src="lib/angular-animate/angular-animate.js"></script>
     <script src="lib/angular-material/angular-material.js"></script>
+    <script src="lib/angular-messages/angular-messages.js"></script>
 
-    <!-- <script src="scripts/panacea.js"></script> -->
     <script src="app/services/services.js"></script>
     <script src="app/map/map.js"></script>
     <script src="app/globe/globe.js"></script>
     <script src="app/report/report.js"></script>
-    <script src="app/app.js"></script> 
+    <script src="app/app.js"></script>
   </body>
 
 </html>
