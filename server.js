@@ -59,25 +59,13 @@ app.get('/', function(req, res) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/api', function (req, res) {
-    res.send('API is running');
-});
+//# ###############  CRUD ##############################################################
 
-app.get('/api/globe', function(req, res) {
-    return Web_SMS.find(function(err, articles) {
-     if (!err) {
-          return res.send(articles);
-          console.log(articles);
-      } else {
-        res.statusCode = 500;
-        log.error('Internal error(%d): %s',res.statusCode,err.message);
-        return res.send({ error: 'Server error' });
-      }
-    })
-    res.send('This is not implemented now');
-});
+app.post('/api/reports', serverUtils.postMethod);
+app.get('/api/globe',  serverUtils.getMethod);
 
-/*******************Alchemy API Test Code PLease do no Delete **************************/
+
+//*******************Alchemy API Test Code PLease do no Delete **************************/
 // //Twitter symbols array
 //  var watchSymbols = ["malaria outbreaks", "malaria in Africa", "malaria in Asia", "parasitic disease","falciparum","ebola virus",
 //  "ebola outbreaks", "bird flu", "avian influenza","bird flu outbreaks","H5N1", "malaria WHO", "ebola WHO", "CDC ebola", "avian flu outbreaks", 
