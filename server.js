@@ -13,6 +13,7 @@ var express = require('express')
   , request = require('request')
   , sequelize = require('./server/database/database.js')
   , models = require('./server/database/index.js')
+  , serverUtils = require('./server/serverUtils.js')
   // , jsonFile = require('jsonfile') remember to remove used to observe dummy data
   , yandexKey = require('./server/yandexKey')
   , translate = require('yandex-translate-api')(yandexKey.key);
@@ -58,34 +59,13 @@ app.get('/', function(req, res) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/api/globe', function(req, res) {
-  var results = [];
+//# ###############  CRUD ##############################################################
 
-  pg.connect(sequelize, function(err, client, done) {
- // Handle connection errors
-     if(err) {
-      done();
-      console.log(err);
-      return res.status(500).json({ success: false, data: err});
-    } 
-// SQL Query > Select Data
-    var query = client.query("SELECT * FROM messages");
-  })
-// Stream results back one row at a time
-    query.on('row', function(row) {
-        results.push(row);
-        console.log(results);
-    });
-// After all data is returned, close connection and return results
-    query.on('end', function() {
-        return res.json(results);
-    });
-    res.send('')
-  });
+app.post('/api/reports', serverUtils.postMethod);
+app.get('/api/globe',  serverUtils.getMethod);
 
 
-
-/*******************Alchemy API Test Code PLease do no Delete **************************/
+//*******************Alchemy API Test Code PLease do no Delete **************************/
 // //Twitter symbols array
 //  var watchSymbols = ["malaria outbreaks", "malaria in Africa", "malaria in Asia", "parasitic disease","falciparum","ebola virus",
 //  "ebola outbreaks", "bird flu", "avian influenza","bird flu outbreaks","H5N1", "malaria WHO", "ebola WHO", "CDC ebola", "avian flu outbreaks", 
