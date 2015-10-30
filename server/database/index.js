@@ -1,7 +1,7 @@
 var app = require('../../server.js')
   , Sequelize = require('sequelize')
   , sequelize = require('./database');
-  , dbLogin = require('./dbLogin');
+  // , dbLogin = require('./dbLogin');
 
 /*
 Database connection configuration for heroku. Refer to Local configuration for parameters.
@@ -16,7 +16,7 @@ Database connection configuration for heroku. Refer to Local configuration for p
 
 Database connection configuration for Local host.
 */
-var sequelize = new Sequelize('panacea', dbLogin.username, dbLogin.password, {
+var sequelize = new Sequelize('panacea', 'postgres', 'postgres', {
   host: 'localhost',
   dialect: 'postgres',
   port: 5432,
