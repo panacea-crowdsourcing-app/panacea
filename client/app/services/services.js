@@ -16,7 +16,6 @@ angular.module('panacea.services', [])
   };  
 
   var sendReport = function(report) {
-    console.log(report);
     return $http({
       headers: {
         'Content-Type': 'application/json'
