@@ -49,10 +49,7 @@
     </md-input-container>
     <md-input-container>
       <label>State/province/region</label>
-      <input ng-model="report.incidence_state" name="incidence_state" required />
-      <div ng-messages="reportForm.incidence_state.$error" ng-if="reportForm.$submitted">
-        <div ng-message="required">This is required.</div>
-      </div>
+      <input ng-model="report.incidence_state" name="incidence_state" />
     </md-input-container>
     <md-input-container>
       <label>Country</label>
