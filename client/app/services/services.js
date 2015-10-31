@@ -1,22 +1,22 @@
 angular.module('panacea.services', [])
 .factory('Report', function($http, $location) {
-  var getCoordsFromAddress = function(report) {
+  var getCoordsFromAddress = function(report, fn) {
     var geocoder = new google.maps.Geocoder(); 
-    var address = report.incidence_city + ", " + report.incidence_country;
+    var address = report.incidence_state ? report.incidence_city + ", " + report.incidence_state + ", " + report.incidence_country : report.incidence_city + ", " + report.incidence_country;
 
     geocoder.geocode({'address': address}, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {      
         report.latitude = results[0].geometry.location.lat();
         report.longitude = results[0].geometry.location.lng();
+        fn(report);
       } else {
         alert("Geocode was not successful for the following reason: " + status);
       }
     }); 
-
-    return report;
   };  
 
   var sendReport = function(report) {
+    console.log(report);
     return $http({
       headers: {
         'Content-Type': 'application/json'
