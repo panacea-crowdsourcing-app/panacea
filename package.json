@@ -25,6 +25,8 @@
     "ejs": "~0.8.5",
     "express": "^4.13.3",
     "jsonfile": "^2.2.3",
+    "node-geocode": "^0.2.0",
+    "node-geocoder": "^3.4.1",
     "path": "^0.12.7",
     "pg": "^4.4.3",
     "pg-hstore": "^2.3.2",
