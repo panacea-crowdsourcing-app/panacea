@@ -1,6 +1,6 @@
 var app = require('../../server.js')
   , Sequelize = require('sequelize')
-  , sequelize = require('./database')
+  , sequelize = require('./database');
   , dbLogin = require('./dbLogin');
 
 
@@ -61,7 +61,8 @@ module.exports = function() {
   no_of_cases: Sequelize.INTEGER,
   source_type: Sequelize.STRING,
   latitude: Sequelize.FLOAT,
-  longitude: Sequelize.FLOAT
+  longitude: Sequelize.FLOAT,
+  date: Sequelize.DATE
   });
 
   var Web_SMS = sequelize.define('messages', {
@@ -82,7 +83,8 @@ module.exports = function() {
   no_of_cases: Sequelize.INTEGER,
   source_type: Sequelize.TEXT,
   latitude: Sequelize.FLOAT,
-  longitude: Sequelize.FLOAT
+  longitude: Sequelize.FLOAT,
+  date: Sequelize.DATE
   });
 
   var Disease_Incidence = sequelize.define('incidences', {

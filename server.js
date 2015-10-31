@@ -59,7 +59,7 @@ app.get('/', function(req, res) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//# ###############  CRUD ##############################################################
+//# ############### RestFul ##############################################################
 
 app.post('/api/reports', serverUtils.postMethod);
 app.get('/api/globe',  serverUtils.getMethod);

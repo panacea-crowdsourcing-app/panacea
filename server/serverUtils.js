@@ -4,8 +4,8 @@ var models = models()
   , Disease_Incidence = models.Disease_Incidence
   , Social_Media = models.Social_Media;
 console.log(models);
-var express = require('express');
-var app = express();
+// var express = require('express');
+// var app = express();
 
 var sequelize = require('./database/database.js');
 
@@ -19,13 +19,17 @@ var sequelize = require('./database/database.js');
     console.log(req.body);
   // res.json(req.body);
   Web_SMS.create({
+    date: req.body.date,
     persons_name: req.body.persons_name,
     email: req.body.email,
     incidence_address: req.body.incidence_address,
     incidence_city: req.body.incidence_city,
     incidence_state: req.body.incidence_state,
+    incidence_country: req.body.incidence_country,
     diseasename: req.body.diseasename,
-    no_of_cases: req.body.no_of_cases 
+    no_of_cases: req.body.no_of_cases,
+    latitude: req.body.latitude,
+    longitude: req.body.longitude
   })
   . then(function(entry) {
     res.json(entry)
