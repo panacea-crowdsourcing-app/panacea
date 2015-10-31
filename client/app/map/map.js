@@ -1,6 +1,6 @@
 var mapModule = angular.module('panacea.map', [])
 
-.controller('MapController', function($scope, $rootScope, heatmapData, heatmapData2) {
+.controller('MapController', function($scope, $rootScope, heatmapData, heatmapData2, heatmapData3) {
 
   // Set current location with HTML5 geolocation.
   if (navigator.geolocation) {

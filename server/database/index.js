@@ -3,6 +3,7 @@ var app = require('../../server.js')
   , sequelize = require('./database')
   , dbLogin = require('./dbLogin');
 
+
 /*
 Database connection configuration for heroku. Refer to Local configuration for parameters.
 */

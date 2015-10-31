@@ -11,8 +11,9 @@ var express = require('express')
   , alchemyapi = new AlchemyAPI()
   , keys = require('./server/twitterKeys')
   , request = require('request')
-  //, sequelize = require('./server/database/database.js')
-  //, models = require('./server/database/index.js')
+  , sequelize = require('./server/database/database.js')
+  , models = require('./server/database/index.js')
+  , serverUtils = require('./server/serverUtils.js')
   // , jsonFile = require('jsonfile') remember to remove used to observe dummy data
   , yandexKey = require('./server/yandexKey')
   , translate = require('yandex-translate-api')(yandexKey.key)
@@ -59,6 +60,7 @@ app.get('/', function(req, res) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
 // app.get('/api/globe', function(req, res) {
 //   var results = [];
 
@@ -87,6 +89,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 /*******************Alchemy API Test Code PLease do no Delete **************************/
+
+//# ###############  CRUD ##############################################################
+
+app.post('/api/reports', serverUtils.postMethod);
+app.get('/api/globe',  serverUtils.getMethod);
+
+
+//*******************Alchemy API Test Code PLease do no Delete **************************/
+
 // //Twitter symbols array
 //  var watchSymbols = ["malaria outbreaks", "malaria in Africa", "malaria in Asia", "parasitic disease","falciparum","ebola virus",
 //  "ebola outbreaks", "bird flu", "avian influenza","bird flu outbreaks","H5N1", "malaria WHO", "ebola WHO", "CDC ebola", "avian flu outbreaks", 
