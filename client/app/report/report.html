@@ -52,6 +52,10 @@
       <input ng-model="report.incidence_state" name="incidence_state" />
     </md-input-container>
     <md-input-container>
+      <label>Zip code</label>
+      <input ng-model="report.incidence_zip" name="incidence_zip" />
+    </md-input-container>
+    <md-input-container>
       <label>Country</label>
       <input ng-model="report.incidence_country" name="incidence_country" required />
       <div ng-messages="reportForm.incidence_country.$error" ng-if="reportForm.$submitted">
@@ -62,5 +66,5 @@
       Submit
     </md-button>
   </form>
-  <pre>report = {{report | json}}</pre>
+  <!-- <pre>report = {{report | json}}</pre> -->
 </md-content>
