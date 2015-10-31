@@ -20,7 +20,12 @@ angular.module('panacea.report', [])
 
   $scope.createReport = function() {   
     Report.getCoordsFromAddress($scope.report, Report.sendReport);
-    $location.path('/globe');
+    // code below is temporary and will be refactored
+    $scope.report = {};
+    $scope.report.date = new Date();
+    $scope.reportForm.$setPristine();
+    $scope.reportForm.$setUntouched();
+    $scope.toggleSide();
   };
 
 });  
