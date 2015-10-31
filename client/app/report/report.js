@@ -19,11 +19,8 @@ angular.module('panacea.report', [])
   // }   
 
   $scope.createReport = function() {   
-    Report.sendReport(Report.getCoordsFromAddress($scope.report))
-      .then($location.path('/globe'))
-      .catch(function(error) {
-        console.log(error);
-      });
+    Report.getCoordsFromAddress($scope.report, Report.sendReport);
+    $location.path('/globe');
   };
 
 });  
