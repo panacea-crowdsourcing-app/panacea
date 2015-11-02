@@ -8,12 +8,24 @@ angular.module('panacea.report', [])
     "Pneumonia", "Rotavirus", "Schistosomiasis", "Shigellosis", "Strep Throat", "Tuberculosis", "Typhoid", "Yellow Fever"
   ];
 
-  $scope.createReport = function() {
-    Report.sendReport($scope.report)
-      .then($location.path('/globe'))
-      .catch(function(error) {
-        console.log(error);
-      });
+  // get latitude/longitude from current position
+  // if (navigator.geolocation) {
+  //   navigator.geolocation.getCurrentPosition(function(position) {
+  //     $scope.report.latitude = position.coords.latitude;
+  //     $scope.report.longitude = position.coords.longitude;
+  //   });
+  // } else {
+  //   throw new Error();
+  // }   
+
+  $scope.createReport = function() {   
+    Report.getCoordsFromAddress($scope.report, Report.sendReport);
+    // code below is temporary and will be refactored
+    $scope.report = {};
+    $scope.report.date = new Date();
+    $scope.reportForm.$setPristine();
+    $scope.reportForm.$setUntouched();
+    $scope.toggleSide();
   };
 
-});
+});  

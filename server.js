@@ -62,6 +62,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
+//# ############### RestFul ##############################################################
+
+
 // app.get('/api/globe', function(req, res) {
 //   var results = [];
 

@@ -56,12 +56,13 @@ module.exports = function() {
   text: Sequelize.TEXT,
   address: Sequelize.STRING,
   city: Sequelize.STRING,
-  populaion: Sequelize.INTEGER,
+  population: Sequelize.INTEGER,
   country: Sequelize.STRING,
   no_of_cases: Sequelize.INTEGER,
   source_type: Sequelize.STRING,
   latitude: Sequelize.FLOAT,
-  longitude: Sequelize.FLOAT
+  longitude: Sequelize.FLOAT,
+  date: Sequelize.DATE
   });
 
   var Web_SMS = sequelize.define('messages', {
@@ -77,12 +78,15 @@ module.exports = function() {
   text: Sequelize.TEXT,
   incidence_address: Sequelize.STRING,
   incidence_city: Sequelize.STRING,
-  populaion: Sequelize.INTEGER,
+  incidence_state: Sequelize.STRING,
+  incidence_zip: Sequelize.STRING,
+  population: Sequelize.INTEGER,
   incidence_country: Sequelize.STRING,
   no_of_cases: Sequelize.INTEGER,
   source_type: Sequelize.TEXT,
   latitude: Sequelize.FLOAT,
-  longitude: Sequelize.FLOAT
+  longitude: Sequelize.FLOAT,
+  date: Sequelize.DATE
   });
 
   var Disease_Incidence = sequelize.define('incidences', {
