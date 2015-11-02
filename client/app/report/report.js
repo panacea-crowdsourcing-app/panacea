@@ -1,7 +1,6 @@
 angular.module('panacea.report', [])
 .controller('ReportController', function($scope, $location, Report) {
   $scope.report = {};
-  $scope.report.date = new Date();
   $scope.diseases = [
     "African Trypanosomiasis", "Cholera", "Cryptosporidiosis", "Dengue", "Hepatitis A", "Hepatitis B", "Hepatitis C", 
     "HIV/AIDS", "Influenza", "Japanese Encephalitis", "Leishmaniasis", "Malaria", "Measles", "Meningitis", "Onchocerciasis",
@@ -18,11 +17,10 @@ angular.module('panacea.report', [])
   //   throw new Error();
   // }   
 
-  $scope.createReport = function() {   
-    Report.getCoordsFromAddress($scope.report, Report.sendReport);
+  $scope.submitReport = function() {   
+    Report.prepReport($scope.report, Report.sendReport);
     // code below is temporary and will be refactored
     $scope.report = {};
-    $scope.report.date = new Date();
     $scope.reportForm.$setPristine();
     $scope.reportForm.$setUntouched();
     $scope.toggleSide();

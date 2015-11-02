@@ -1,5 +1,5 @@
 <md-content layout-padding ng-controller="ReportController" layout="column" layout-align="center" ng-cloak>
-  <form name="reportForm" ng-submit="reportForm.$valid && createReport()" novalidate>
+  <form name="reportForm" ng-submit="reportForm.$valid && submitReport()" novalidate>
     <md-input-container>
       <label>Full name</label>
       <input ng-model="report.persons_name" name="persons_name" required />
