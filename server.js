@@ -11,19 +11,19 @@ var express = require('express')
   , alchemyapi = new AlchemyAPI()
   , keys = require('./server/twitterKeys')
   , request = require('request')
-  // , sequelize = require('./server/database/database.js')
-  // , models = require('./server/database/index.js')
-  //, serverUtils = require('./server/serverUtils.js')
-  // , jsonFile = require('jsonfile') remember to remove used to observe dummy data
+  , sequelize = require('./server/database/database.js')
+  , models = require('./server/database/index.js')
+  , serverUtils = require('./server/serverUtils.js')
+  , jsonFile = require('jsonfile') //remember to remove used to observe dummy data
   , yandexKey = require('./server/yandexKey')
   , translate = require('yandex-translate-api')(yandexKey.key)
   , geoKey = require('./server/geocoder')
   , Promise = require ('bluebird');
 
-// var  models = models()
-//   , Web_SMS = models.Web_SMS
-//   , Disease_Incidence = models.Disease_Incidence
-//   , Social_Media = models.Social_Media;
+var  models = models()
+  , Web_SMS = models.Web_SMS
+  , Disease_Incidence = models.Disease_Incidence
+  , Social_Media = models.Social_Media;
 
  var app = express();
 
@@ -343,8 +343,25 @@ Promise.all(twitterFeeds)
   })
   .then(function(tweet){
     //save in the database
-    console.log(tweet);
+    return new Promise( function (resolve, reject){
+      resolve(
+        Social_Media.create({    
+          diseasename: tweet.diseasename,
+          text: tweet.text,
+          country: tweet.location,
+          source_type: tweet.source_type,
+          latitude: tweet.latitude,
+          longitude: tweet.longitude,
+          date: tweet.date
+        })
+      ); 
+    });
+    
+   
   })
+  .then(function (entry){
+    console.log(entry);
+    });
   })//
 })
 .catch(function (error){
