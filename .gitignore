@@ -31,11 +31,14 @@ client/lib
 # secret keys
 server/api_key.txt
 server/twitterKeys.js
-/server/yandexKey.txt
+server/yandexKey.js
 server/database/dbLogin.js
 
 
 #temp tweet file
 tweetFile.json
+
+.DS_Store
+server/geocoder.js
 
 
