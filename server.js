@@ -356,11 +356,9 @@ Promise.all(twitterFeeds)
         })
       ); 
     });
-    
-   
   })
   .then(function (entry){
-    console.log(entry);
+    console.log("Tweets saved to database!");
     });
   })//
 })
