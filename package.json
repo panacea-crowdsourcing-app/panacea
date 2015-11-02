@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/panacea-crowdsourcing-app/panacea#readme",
   "dependencies": {
+    "bluebird": "^3.0.2",
     "body-parser": "^1.14.1",
     "cron": "^1.0.9",
     "ejs": "~0.8.5",
