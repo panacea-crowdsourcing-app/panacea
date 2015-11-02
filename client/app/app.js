@@ -3,49 +3,34 @@ angular.module('panacea', [
   'ngMessages',
   'panacea.services',
   'panacea.map',
-  'panacea.globe',
   'panacea.report',
+  'panacea.feed',
   'ui.router'
 ])
-.config(function($mdThemingProvider, $locationProvider, $stateProvider) {
+.config(function($mdThemingProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
 
     $stateProvider
-            .state('map', {
-                url: '/map',
-                views: {
-                    'content': {
-                        templateUrl: 'app/map/map.html',
-                        controller: 'MapController'
-                    },
-                    'dropdown': {
-                        templateUrl: 'app/map/map-dropdown.html',
-                        controller: 'MapController'
-                    },
-                    'report': {
-                        templateUrl: 'app/report/report.html',
-                        controller: 'ReportController'
-                    }
-                }
-            })
-            .state('globe', {
-                url: '/globe',
-                views: {
-                    'content': {
-                        templateUrl: 'app/globe/globe.html',
-                        controller: 'GlobeController'
-                    },
-                    'report': {
-                        templateUrl: 'app/report/report.html',
-                        controller: 'ReportController'
-                    }
-                    // Need to change GlobeController to a sigleton so that the dropdown menu
-                    // can interact with the globe
-                    // 'dropdown': {
-                    //     templateUrl: 'app/globe/globe-dropdown.html',
-                    //     controller: 'GlobeController'
-                    // }
-                }
-            });
+      .state("default", {
+        url: '/',
+        "views": {
+              'map': {
+                  templateUrl: 'app/templates/map.html',
+                  controller: 'MapController'
+              },
+              'about': {
+                  templateUrl: 'app/templates/about.html'
+              },
+              'feed': {
+                  templateUrl: 'app/templates/feed.html'
+              },
+              'report': {
+                  templateUrl: 'app/templates/report.html',
+                  controller: 'FeedController'
+              },
+          }
+      });
+
+      $urlRouterProvider.otherwise("/");
 
     $mdThemingProvider.theme('default')
       .primaryPalette('indigo', {
@@ -57,12 +42,24 @@ angular.module('panacea', [
       .backgroundPalette('grey', {
         'default': '200'
       })
-      .accentPalette('light-green', {
-        'default': 'A200' // use shade 200 for default, and keep all other shades the same
+      .accentPalette('green', {
+        'default': '300' // use shade 200 for default, and keep all other shades the same
       });
 })
-.controller('mainController', function($scope){
-  $scope.toggleSide = function() {
-    $scope.hide = !$scope.hide;
+.controller('MenuController', function($scope) {
+  $scope.toggleAbout = function() {
+    $scope.about = !$scope.about;
+    $scope.feed = false;
+    $scope.report = false;
+  };
+    $scope.toggleFeed = function() {
+    $scope.feed = !$scope.feed;
+    $scope.about = false;
+    $scope.report = false;
+  };
+    $scope.toggleReport = function() {
+    $scope.report = !$scope.report;
+    $scope.about = false;
+    $scope.feed = false;
   };
 });

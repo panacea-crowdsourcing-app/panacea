@@ -1,0 +1,12 @@
+  <div ng-controller="FeedController">
+    <h2> Feed </h2>
+    <md-virtual-repeat-container id="vertical-container">
+        <div md-virtual-repeat="item in items" class="repeated-item" flex>
+          {{item}}
+        </div>
+   </md-virtual-repeat-container>
+      <div ng-repeat="item in items" style="display:none">
+      {{item}}
+      </div>
+  </div>
+

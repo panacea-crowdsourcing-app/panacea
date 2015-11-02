@@ -1,0 +1,24 @@
+<!-- Google map -->
+<div id="map" layout="row" layout-align="center center">
+  <!-- Progress circle -->
+  <md-progress-circular  id="map-progress" md-mode="indeterminate" md-diameter="100" class="md-accent"></md-progress-circular>
+</div>
+
+<!-- Map Controls -->
+<div id="map-controls" layout="row" layout-align="center center">
+  <form class="map-search" layout="row" layout-align="center center" ng-submit="goToGeocodeLocation()">
+    <md-input-container >
+      <label>Location</label>
+      <input type="text" ng-model="search" placeholder="Search a location" autocomplete="off">
+    </md-input-container>
+    <md-input-container>
+      <label> Disease </label>
+      <md-select ng-model="userChoice" ng-change="changeHeatmap()">
+        <md-option ng-repeat="data in heatmapChoices" ng-value="data">
+          {{data}}
+        </md-option>
+      </md-select>
+    </md-input-container>
+  </form>
+  <md-button ng-click="goToCurrentLocation()"> Home </md-button>
+</div>

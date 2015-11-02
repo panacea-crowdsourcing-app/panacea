@@ -2,7 +2,6 @@ angular.module('panacea.globe', [])
 .controller('GlobeController', function($scope, $rootScope, $location, $http) {
 
   // var globeData;
-
   // $http({
   //         method: 'GET',
   //         url: '/api/globe'
@@ -11,25 +10,11 @@ angular.module('panacea.globe', [])
   //   globeData = resp;
   // });
 
-  var width = $('#globe-view-container').width(),
-  height = $('#globe-view-container').height(),
-  sens = 0.25,
+  var sens = 0.25,
   focused;
 
-  //Setting projection
-  var projection = d3.geo.orthographic()
-  .scale(245)
-  .rotate([0, 0])
-  .translate([width / 2, height / 2])
-  .clipAngle(90);
-
-  var path = d3.geo.path()
-  .projection(projection);
-
   //SVG container
-  var svg = d3.select("#globe-view-container").append("svg")
-  .attr("width", width)
-  .attr("height", height)
+  var svg = d3.select(".svg-container").append("svg")
   .call(d3.behavior.drag()
     .origin(function() { var r = projection.rotate(); return {x: r[0] / sens, y: -r[1] / sens}; })
     .on("drag", function() {
@@ -39,6 +24,18 @@ angular.module('panacea.globe', [])
       svg.selectAll("path.cities").attr("d", path);
       svg.selectAll(".focused").classed("focused", focused = false);
     }));
+
+  var width = $('.svg-container').width() /4 * 0.8;
+
+  //Setting projection
+  var projection = d3.geo.orthographic()
+  .scale(width)
+  .rotate([0, 0])
+  // .translate([$('#globe').width() / 4, $('#globe').width() / 4])
+  .clipAngle(90);
+
+  var path = d3.geo.path()
+  .projection(projection);
 
   //Adding water
   svg.append("path")

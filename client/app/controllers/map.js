@@ -1,7 +1,12 @@
 var mapModule = angular.module('panacea.map', [])
 
 .controller('MapController', function($scope, $rootScope, heatmapData, heatmapData2, heatmapData3) {
-
+  $scope.isOpen = false;
+        $scope.demo = {
+          isOpen: false,
+          count: 0,
+          selectedDirection: 'left'
+        };
   // Set current location with HTML5 geolocation.
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -29,7 +34,7 @@ var mapModule = angular.module('panacea.map', [])
       disableDefaultUI: true,
       zoomControl: true,
       zoomControlOptions: {
-              position: google.maps.ControlPosition.RIGHT_CENTER
+              position: google.maps.ControlPosition.LEFT_CENTER
       }
     };
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
@@ -68,7 +73,7 @@ var mapModule = angular.module('panacea.map', [])
     $scope.geocoder = new google.maps.Geocoder();
   };
 
-  $scope.userChoice = "";
+  $scope.userChoice = "1";
   $scope.heatmapChoices = [1, 2];
 
   $scope.changeHeatmap = function() {
@@ -87,8 +92,6 @@ var mapModule = angular.module('panacea.map', [])
         $scope.map.setCenter(results[0].geometry.location);
         $scope.search = results[0].formatted_address;
         $scope.$apply("search");
-      } else {
-        alert('Geocode was not sucessful: ' + status);
       }
     });
   };

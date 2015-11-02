@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en" ng-app="panacea">
 
   <head>
@@ -15,25 +14,24 @@
     <script src="lib/jquery/dist/jquery.min.js"></script>
   </head>
 
-  <body layout="row" ng-controller="mainController">
+  <body layout="column" ng-controller="MenuController">
 
-    <div flex>
-      <div id="dash">
-        <h1>Panacea</h1>
-        <div layout="row" layout-align="center center">
-          <md-button class="dash-btn left" ng-href="#/globe">Globe View</md-button>
-          <md-button class="dash-btn right" ng-href="#/map">Map View</md-button>
-        </div>
-        <div ui-view="dropdown" id="dropdown"></div>
-      </div>
-      <div ui-view="content">
-      </div>
-    </div>
+    <header layout="row">
+      <h1>PANACEA</h1>
+      <span flex></span>
+      <section layout="row" layout-sm="column" layout-align="center center">
+        <md-button class="groupX left" ng-click="toggleAbout()">About</md-button>
+        <md-button class="groupX middle" ng-click="toggleFeed()">Feed</md-button>
+        <md-button class="groupX right" ng-click="toggleReport()">Submit</md-button>
+      </section>
+    </header>
 
-    <md-button class="md-raised md-primary" ng-click="toggleSide()" id="toggle-side-button">Report Disease</md-button>
 
-    <div  id="side" ng-hide="!hide" ui-view="report" class="md-whiteframe-11dp">
-    </div>
+    <div ui-view="map" id="map-container" flex="auto"></div>
+    <div ui-view="about" ng-show="about" id="about" flex="45"></div>
+    <div ui-view="feed" ng-show="feed" id="feed" flex="45"></div>
+    <div ui-view="report" ng-show="report" id="report" flex="45"></div>
+
 
     <script src="https://maps.googleapis.com/maps/api/js?v=3.20&libraries=visualization"></script>
 
@@ -46,9 +44,9 @@
     <script src="lib/angular-messages/angular-messages.js"></script>
 
     <script src="app/services/services.js"></script>
-    <script src="app/map/map.js"></script>
-    <script src="app/globe/globe.js"></script>
-    <script src="app/report/report.js"></script>
+    <script src="app/controllers/map.js"></script>
+    <script src="app/controllers/report.js"></script>
+    <script src="app/controllers/feed.js"></script>
     <script src="app/app.js"></script>
   </body>
 
