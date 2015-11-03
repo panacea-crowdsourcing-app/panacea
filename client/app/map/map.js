@@ -78,7 +78,7 @@ var mapModule = angular.module('panacea.map', [])
     } else {
       $scope.heatmap.setData(heatmapData2);
     }
-  }
+  };
 
   $scope.goToGeocodeLocation = function() {
     var address = $scope.search;
