@@ -149,3 +149,15 @@ md-input-container#globe-search md-select-value {
 .glow {
   box-shadow: 0px 5px 5px 1px rgba(0, 0, 0, 0.2);
 }
+
+fieldset {
+  border-width: 0;
+  padding: 0;
+  margin-top: 40px;
+}
+
+legend {
+  color: #AAA;
+  margin-bottom: 5px;
+}
+
