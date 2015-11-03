@@ -3,6 +3,26 @@ var app = require('../../server.js')
   , sequelize = require('./database')
   , dbLogin = require('./dbLogin');
 
+if (process.env.HEROKU_POSTGRESQL_BRONZE_URL) {
+    // the application is executed on Heroku ... use the postgres database
+    // sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_BRONZE_URL, {
+    //   dialect:  'postgres',
+    //   protocol: 'postgres',
+    //   port:     match[4],
+    //   host:     match[3],
+    //   logging:  true //false
+    // })
+  } else {
+    var sequelize = new Sequelize('panacea', dbLogin.username, dbLogin.password, {
+      host: 'localhost',
+      dialect: 'postgres',
+      port: 5432,
+      define: {
+        timestamps: false,
+      }
+    //schema: 'public'
+   });
+  }
 
 /*
 Database connection configuration for heroku. Refer to Local configuration for parameters.
@@ -17,15 +37,15 @@ Database connection configuration for heroku. Refer to Local configuration for p
 
 Database connection configuration for Local host.
 */
-var sequelize = new Sequelize('panacea', dbLogin.username, dbLogin.password, {
-  host: 'localhost',
-  dialect: 'postgres',
-  port: 5432,
-  define: {
-    timestamps: false,
-  }
-  //schema: 'public'
- });
+// var sequelize = new Sequelize('panacea', dbLogin.username, dbLogin.password, {
+//   host: 'localhost',
+//   dialect: 'postgres',
+//   port: 5432,
+//   define: {
+//     timestamps: false,
+//   }
+//   //schema: 'public'
+//  });
 
 /*
 
