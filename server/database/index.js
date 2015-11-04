@@ -1,17 +1,15 @@
 var app = require('../../server.js')
   , Sequelize = require('sequelize')
-  , sequelize = require('./database')
-  , dbLogin = require('./dbLogin');
+  , sequelize = require('./database');
+  //, dbLogin = require('./dbLogin');
 
-if (process.env.HEROKU_POSTGRESQL_BRONZE_URL) {
-    // the application is executed on Heroku ... use the postgres database
-    // sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_BRONZE_URL, {
-    //   dialect:  'postgres',
-    //   protocol: 'postgres',
-    //   port:     match[4],
-    //   host:     match[3],
-    //   logging:  true //false
-    // })
+if (process.env.DATABASE_URL) {
+    sequelize = new Sequelize(process.env.DATABASE_URL, {
+      logging: false,
+      dialectOptions: {
+        ssl: true 
+      }
+    });
   } else {
     var sequelize = new Sequelize('panacea', dbLogin.username, dbLogin.password, {
       host: 'localhost',
