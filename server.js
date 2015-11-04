@@ -10,22 +10,23 @@ var express = require('express')
   , alchemyapi = new AlchemyAPI()
   , keys = require('./server/twitterKeys')
   , request = require('request')
-  //, sequelize = require('./server/database/database.js')
- // , models = require('./server/database/index.js')
-  //, serverUtils = require('./server/serverUtils.js')
+  , sequelize = require('./server/database/database.js')
+  , models = require('./server/database/index.js')
+  , serverUtils = require('./server/serverUtils.js')
   , yandexKey = require('./server/yandexKey')
   , translate = require('yandex-translate-api')(process.env.YANDEX_KEY || yandexKey.key)
   , geoKey = require('./server/geocoder')
   , Promise = require('bluebird')
   , io = require('socket.io')
   , twitterFeeds = require('./tweets')
+  , feeds = require('./tweetFile')
   , jsonFile = require('jsonfile'); /*remember to remove used to remove after presentation*/
 
 
-// var models = models()
-//   , Web_SMS = models.Web_SMS
-//   , Disease_Incidence = models.Disease_Incidence
-//   , Social_Media = models.Social_Media;
+var models = models()
+  , Web_SMS = models.Web_SMS
+  , Disease_Incidence = models.Disease_Incidence
+  , Social_Media = models.Social_Media;
 
 var app = express();
 
@@ -58,35 +59,35 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //# ############### RestFul ##############################################################
 
-// app.get('/api/globe', function(req, res) {
-//   var results = [];
+app.get('/api/globe', function(req, res) {
+  var results = [];
 
-//   pg.connect(sequelize, function(err, client, done) {
-//  // Handle connection errors
-//     if(err) {
-//       done();
-//       console.log(err);
-//       return res.status(500).json({ success: false, data: err});
-//     } 
-// // SQL Query > Select Data
-//     var query = sequelize.client.query("SELECT * FROM messages");
-//   });
-// // Stream results back one row at a time
-//     query.on('row', function(row) {
-//       results.push(row);
-//       console.log(results);
-//     });
-// // After all data is returned, close connection and return results
-//     query.on('end', function() {
-//       return res.json(results);
-//     });
-//     res.send('');
-//   });
+  pg.connect(sequelize, function(err, client, done) {
+ // Handle connection errors
+    if(err) {
+      done();
+      console.log(err);
+      return res.status(500).json({ success: false, data: err});
+    } 
+// SQL Query > Select Data
+    var query = sequelize.client.query("SELECT * FROM messages");
+  });
+// Stream results back one row at a time
+    query.on('row', function(row) {
+      results.push(row);
+      console.log(results);
+    });
+// After all data is returned, close connection and return results
+    query.on('end', function() {
+      return res.json(results);
+    });
+    res.send('');
+  });
 
 //# ###############  CRUD ##############################################################
 
-// app.post('/api/reports', serverUtils.postMethod);
-// app.get('/api/globe',  serverUtils.getMethod);
+app.post('/api/reports', serverUtils.postMethod);
+app.get('/api/globe',  serverUtils.getMethod);
 
 
 //*******************Alchemy API Test Code PLease do no Delete **************************/
@@ -97,7 +98,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
   "malaria symptoms", "ebola symptoms", "ebola outbreaks", "malaria", "ebola", "dengue", "avian", "African trypanosomiasis", "cholera", "cryptosporidiosis",  
   "HIV/AIDS", "influenza", "japanese encephalitis", "leishmaniasis", "Measles", "meningitis", "onchocerciasis", 'mumps', 'snail fever', "bilharzia",
   "pneumonia", "rotavirus", "schistosomiasis", "shigellosis", "strep throat", "tuberculosis", "typhoid", "yellow fever", "sleeping sickness", "rabies", "polio",
-  "lassa fever", "leptospirosis", "crypto", "hepatitis A", "hepatitis B", "hepatitis C", "hemorrhagic fever" ];
+  "lassa fever", "leptospirosis", "hepatitis A", "hepatitis B", "hepatitis C", "hemorrhagic fever" ];
 
 //This structure will keep the total number of tweets received and a map of all the symbols and how many tweets received of that symbol
 var watchList = {
@@ -107,7 +108,7 @@ var watchList = {
 //Set the watch symbols to zero.
 _.each(watchSymbols, function(v) { watchList.symbols[v] = 0; });
 
-var file = 'tweetFile.json';
+
 var stream = t.stream('statuses/filter', { track: watchSymbols, since: '2015-10-01' });
 var streaming = null;
 
@@ -162,25 +163,6 @@ var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter, geoKey);
 //   });
 // });
 
-stream.on('tweet', function(tweet){
-
-  if (tweet.user.location) {
-    var newTweet = {
-      date: tweet.created_at,
-      source_type: 'twitter',
-      location: tweet.user.location, 
-      text: tweet.text,
-      language: tweet.lang
-    };
-    twitterFeeds.push(newTweet);  
-    console.log(newTweet);
-    console.log(',');
-  }
-  //create a stopping point
-
-});
-
-
 
 //################################ Cron Job ################################################//
 //stream at midnight each day
@@ -191,13 +173,144 @@ stream.on('tweet', function(tweet){
 // }, null, true);
 
 
-//#########################################################################################//
+//###################################  Asynchronous text processing and save to Database ###################################################//
 
-Promise.all(twitterFeeds)
+// Promise.all(twitterFeeds)
+//   .then( function(tweets) {
+//   tweets.forEach( function(tweet) {
+//     //get lat and long
+//     geocoder.geocode(tweet.location, function(geoResponse) {
+
+//    })
+//   .then( function (location) {
+//     //latitude and longitude using mapQuest
+//     tweet.latitude = location[0].latitude;
+//     tweet.longitude = location[0].longitude;
+
+//     // non english translation using Yandex Translator
+//     return new Promise( function( resolve, reject){
+//       if(tweet.lang !== 'en') {
+//         translate.translate(tweet.text, function(error, yandexResponse) {
+//           if(yandexResponse.code === 200){
+//             tweet.text = yandexResponse.text[0];
+//             resolve(tweet);
+//           }
+//         });
+//       }
+//     });
+//   })
+//   .then(function(tweet){
+//      //sentiment analysis using Alchemy API
+//     return new Promise ( function (resolve, reject){
+//       alchemyapi.sentiment("text", tweet.text, {sentiment: 1}, function(response) {
+//         if( response["docSentiment"] && ((response["docSentiment"]["type"] === 'neutral' || response["docSentiment"]["type"] === 'negative') )){
+//           resolve(tweet);
+//         } else {
+//           reject(tweet);
+//         }
+//       });
+//     });
+  
+
+//   })
+//   .then(function(tweet){
+//     //taxonomy analysis using Alchemy API
+//     var confident = false;
+//     return new Promise ( function (resolve, reject){
+//       alchemyapi.taxonomy("text", tweet.text, {sentiment: 1}, function(response, error) {
+//         response.taxonomy.forEach( function (taxon) {
+//           if (!taxon['confident'] && taxon['label'].split('/').indexOf("disease") > 0){
+//             confident = true;
+//           }
+//         });
+//         if (confident === true){
+//           resolve(tweet)
+//         }else{
+//           reject(tweet);
+//         }
+//       });
+//     });
+//   })
+//   .then(function(tweet){
+//     //disease classification
+//     var classified = false;
+//     return new Promise ( function (resolve, reject){
+//       alchemyapi.entities("text", tweet.text, {sentiment: 1}, function(response) {
+//         response.entities.forEach( function (entity) {
+//           if(entity['type']==="HealthCondition" ){
+//             classified = true;
+//             if(entity['disambiguated']){
+//               tweet.diseasename = entity['disambiguated']['name'].toUpperCase();
+//             } else {
+//               tweet.diseasename = entity['text'].toUpperCase();
+//             }
+//           }
+//         });
+//         if(classified){
+//           resolve(tweet);
+//         } else {
+//           reject(tweet);
+//         }
+//       });
+//     });
+//   })
+//   .then(function(tweet){
+//    // save in the database
+//     return new Promise( function (resolve, reject){
+//       resolve(
+//         Social_Media.create({    
+//           diseasename: tweet.diseasename,
+//           text: tweet.text,
+//           country: tweet.location,
+//           source_type: tweet.source_type,
+//           latitude: tweet.latitude,
+//           longitude: tweet.longitude,
+//           date: tweet.date
+//         })
+//       ); 
+//     });
+//   })
+//   .then(function (entry){
+//     console.log("Tweets saved to database!");
+//     });
+//   })//
+// })
+// .catch(function (error){
+//   throw error;
+// });
+
+
+//################################ DEMO DATA START HERE ########################################//
+// stream.on('tweet', function(tweet){
+
+//   if (tweet.user.location) {
+//     var newTweet = {
+//       date: tweet.created_at,
+//       source_type: 'twitter',
+//       location: tweet.user.location, 
+//       text: tweet.text,
+//       language: tweet.lang
+//     };
+//     feeds.push(newTweet); 
+//     console.log(newTweet);
+       // console.log(",");
+//     
+//   }
+
+ 
+//   //stop your server whenever you think you have enough tweets prob after 20 - 30 min.
+//   //
+
+// });
+
+// ###################### Step 2 Process tweets ... comment out lines 283 to 302 above ################//
+
+Promise.all(twitterFeeds.twitterFeeds)
   .then( function(tweets) {
   tweets.forEach( function(tweet) {
     //get lat and long
     geocoder.geocode(tweet.location, function(geoResponse) {
+      console.log(tweet);
 
    })
   .then( function (location) {
@@ -273,36 +386,20 @@ Promise.all(twitterFeeds)
     });
   })
   .then(function(tweet){
-    //push dummy data into a json file for now
-    //remove after demo
-    twitterFeeds.push(newTweet);
-      //create json file
+   // save in the database
     return new Promise( function (resolve, reject){
-
-      resolve
-      jsonFile.writeFile(file, twitterFeeds, function (err) {
-        if(err){
-          console.error("error");
-        }
-      });
+      resolve(
+        Social_Media.create({    
+          diseasename: tweet.diseasename,
+          text: tweet.text,
+          country: tweet.location,
+          source_type: tweet.source_type,
+          latitude: tweet.latitude,
+          longitude: tweet.longitude,
+          date: tweet.date
+        })
+      ); 
     });
-
-    
-
-    //save in the database
-    // return new Promise( function (resolve, reject){
-    //   resolve(
-    //     Social_Media.create({    
-    //       diseasename: tweet.diseasename,
-    //       text: tweet.text,
-    //       country: tweet.location,
-    //       source_type: tweet.source_type,
-    //       latitude: tweet.latitude,
-    //       longitude: tweet.longitude,
-    //       date: tweet.date
-    //     })
-    //   ); 
-    // });
   })
   .then(function (entry){
     console.log("Tweets saved to database!");
@@ -312,8 +409,4 @@ Promise.all(twitterFeeds)
 .catch(function (error){
   throw error;
 });
-
-
-
-
 

@@ -40,6 +40,8 @@ tweetFile.json
 
 .DS_Store
 server/geocoder.js
-tweets.js
+dbFile.json
+tweetFile.js
+
 
 
