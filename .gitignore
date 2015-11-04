@@ -26,7 +26,7 @@ dist/
 # Dependency directories
 # Deployed apps should consider commenting these lines out:
 # see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
-# client/lib
+client/lib
 
 # secret keys
 server/api_key.txt
