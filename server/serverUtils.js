@@ -31,6 +31,7 @@ exports.postMethod = function(req, res) {
     population: req.body.population,
     incidence_country: req.body.incidence_country,
     no_of_cases: req.body.no_of_cases,
+    source_type: req.body.source_type,
     latitude: req.body.latitude,
     longitude: req.body.longitude,
     date: req.body.date

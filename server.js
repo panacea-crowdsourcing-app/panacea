@@ -11,10 +11,9 @@ var express = require('express')
   , alchemyapi = new AlchemyAPI()
   , keys = require('./server/twitterKeys')
   , request = require('request')
-  , sequelize = require('./server/database/database.js')
-  , models = require('./server/database/index.js')
-  , serverUtils = require('./server/serverUtils.js')
-  , jsonFile = require('jsonfile') //remember to remove used to observe dummy data
+  //, sequelize = require('./server/database/database.js')
+ // , models = require('./server/database/index.js')
+  //, serverUtils = require('./server/serverUtils.js')
   , yandexKey = require('./server/yandexKey')
   , translate = require('yandex-translate-api')(yandexKey.key)
   , geoKey = require('./server/geocoder')
@@ -23,12 +22,12 @@ var express = require('express')
   , cronJob = require('cron').CronJob;
 
 
-var models = models()
-  , Web_SMS = models.Web_SMS
-  , Disease_Incidence = models.Disease_Incidence
-  , Social_Media = models.Social_Media;
+// var models = models()
+//   , Web_SMS = models.Web_SMS
+//   , Disease_Incidence = models.Disease_Incidence
+//   , Social_Media = models.Social_Media;
 
- var app = express();
+var app = express();
 
 
 var server = http.createServer(app);
@@ -50,8 +49,6 @@ var t = new twitter({
 
 server.listen(process.env.PORT || 3000);
 
-// app.set('views', __dirname + '/client');
-// app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/client'));
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname + '/client/index.html'));
@@ -59,7 +56,33 @@ app.get('/', function(req, res) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//# ############### RestFul ##############################################################
 
+
+// app.get('/api/globe', function(req, res) {
+//   var results = [];
+
+//   pg.connect(sequelize, function(err, client, done) {
+//  // Handle connection errors
+//     if(err) {
+//       done();
+//       console.log(err);
+//       return res.status(500).json({ success: false, data: err});
+//     } 
+// // SQL Query > Select Data
+//     var query = sequelize.client.query("SELECT * FROM messages");
+//   });
+// // Stream results back one row at a time
+//     query.on('row', function(row) {
+//       results.push(row);
+//       console.log(results);
+//     });
+// // After all data is returned, close connection and return results
+//     query.on('end', function() {
+//       return res.json(results);
+//     });
+//     res.send('');
+//   });
 
 //# ###############  CRUD ##############################################################
 
@@ -71,11 +94,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //Twitter symbols array
  var watchSymbols = ["malaria outbreaks", "malaria in Africa", "malaria in Asia", "parasitic disease","falciparum","ebola virus",
- "ebola outbreaks", "bird flu", "avian influenza","bird flu outbreaks","H5N1", "malaria WHO", "ebola WHO", "CDC ebola", "avian flu outbreaks", 
- "malaria symptoms", "ebola symptoms", "ebola outbreaks", "malaria", "ebola", "dengue", "avian", "African trypanosomiasis", "cholera", "cryptosporidiosis",  
- "HIV/AIDS", "influenza", "japanese encephalitis", "leishmaniasis", "Measles", "meningitis", "onchocerciasis", 'mumps', 'snail fever', 'bilharzia'
- "pneumonia", "rotavirus", "schistosomiasis", "shigellosis", "strep throat", "tuberculosis", "typhoid", "yellow fever", 'sleeping sickness', "rabies", "polio",
- "lassa fever", "leptospirosis", "crypto", "hepatitis A", "hepatitis B", "hepatitis C", "hemorrhagic fever" ];
+  "ebola outbreaks", "bird flu", "avian influenza","bird flu outbreaks","H5N1", "malaria WHO", "ebola WHO", "CDC ebola", "avian flu outbreaks", 
+  "malaria symptoms", "ebola symptoms", "ebola outbreaks", "malaria", "ebola", "dengue", "avian", "African trypanosomiasis", "cholera", "cryptosporidiosis",  
+  "HIV/AIDS", "influenza", "japanese encephalitis", "leishmaniasis", "Measles", "meningitis", "onchocerciasis", 'mumps', 'snail fever', 'bilharzia'
+  "pneumonia", "rotavirus", "schistosomiasis", "shigellosis", "strep throat", "tuberculosis", "typhoid", "yellow fever", 'sleeping sickness', "rabies", "polio",
+  "lassa fever", "leptospirosis", "crypto", "hepatitis A", "hepatitis B", "hepatitis C", "hemorrhagic fever" ];
 
 //This structure will keep the total number of tweets received and a map of all the symbols and how many tweets received of that symbol
 var watchList = {
@@ -84,7 +107,6 @@ var watchList = {
 };
 //Set the watch symbols to zero.
 _.each(watchSymbols, function(v) { watchList.symbols[v] = 0; });
-var file = 'tweetFile.json';
 var twitterFeeds = []; 
 var stream = t.stream('statuses/filter', { track: watchSymbols, since: '2015-10-01' });
 var streaming === null;
@@ -101,60 +123,56 @@ var geoKey = {
 var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter, geoKey);
 
 
-
-
-
-
-
 //############################# Sockets Integration ########################################//
 
 
-//Start a Socket.IO listen
-var sockets = io.listen(server);
+// //Start a Socket.IO listen
+// var sockets = io.listen(server);
 
-//THIS IS NECESSARY ONLY FOR HEROKU!
-sockets.configure(function() {
-  sockets.set('transports', ['xhr-polling']);
-  sockets.set('polling duration', 10);
-});
-
-sockets.sockets.on('connection', function (socket) {
-  socket.on("start streaming", function() {
-    if (streaming === null) {
-      stream.on('tweet', function (tweet) {
-
-        if (tweet.user.location) {
-          if ()
-          var newTweet = {
-            date: tweet.created_at,
-            source_type: 'twitter',
-            location: tweet.user.location, 
-            text: tweet.text,
-            language: tweet.lang
-          };
-          console.log(newTweet);
-        }
-      });
-    }
-  });
-});
-
-// stream.on('tweet', function(tweet){
-
-//   if (tweet.user.location) {
-//     var newTweet = {
-//       date: tweet.created_at,
-//       source_type: 'twitter',
-//       location: tweet.user.location, 
-//       text: tweet.text,
-//       language: tweet.lang
-//     };
-//     twitterFeeds.push(newTweet);  
-//     console.log(newTweet);
-//   }
-//   //create a stopping point
-
+// //THIS IS NECESSARY ONLY FOR HEROKU!
+// sockets.configure(function() {
+//   sockets.set('transports', ['xhr-polling']);
+//   sockets.set('polling duration', 10);
 // });
+
+// sockets.sockets.on('connection', function (socket) {
+//   socket.on("start streaming", function() {
+//     if (streaming === null) {
+//       stream.on('tweet', function (tweet) {
+
+//         if (tweet.user.location) {
+//           if ()
+//           var newTweet = {
+//             date: tweet.created_at,
+//             source_type: 'twitter',
+//             location: tweet.user.location, 
+//             text: tweet.text,
+//             language: tweet.lang
+//           };
+//           console.log(newTweet);
+//         }
+//       });
+//     }
+//   });
+// });
+
+stream.on('tweet', function(tweet){
+
+  if (tweet.user.location) {
+    var newTweet = {
+      date: tweet.created_at,
+      source_type: 'twitter',
+      location: tweet.user.location, 
+      text: tweet.text,
+      language: tweet.lang
+    };
+    twitterFeeds.push(newTweet);  
+    console.log(newTweet);
+  }
+  //create a stopping point
+
+});
+
 
 
 //################################ Cron Job ################################################//
@@ -279,7 +297,6 @@ sockets.sockets.on('connection', function (socket) {
 //   tweets.forEach( function(tweet) {
 //     //get lat and long
 //     geocoder.geocode(tweet.location, function(geoResponse) {
-  
 //    })
 //   .then( function (location) {
 //     //latitude and longitude using mapQuest
@@ -309,6 +326,7 @@ sockets.sockets.on('connection', function (socket) {
 //         }
 //       }); 
 //     });
+  
 
 //   })
 //   .then(function(tweet){

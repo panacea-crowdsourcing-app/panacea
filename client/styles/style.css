@@ -1,151 +1,167 @@
-#dash {
-  z-index: 10;
-  position:fixed;
-  padding: 1% 0 0 2%;
+/*=== GENERAL STYLES ===*/
+body {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+}
+/*--- ng-cloak ---*/
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+/*--- placeholder text styles ---*/
+::-webkit-input-placeholder {
+   color: white;
+}
+:-moz-placeholder { /* Firefox 18- */
+   color: white;
+}
+::-moz-placeholder {  /* Firefox 19+ */
+   color: white;
+}
+:-ms-input-placeholder {
+   color: white;
 }
 
-#dash h1 {
-  text-align: center;
-}
-
-.dash-btn {
-  font-size: 16px;
-  margin: 0;
-  padding: 3px 15px 3px 15px;
-  color: rgb(49, 46, 46);
-  background-color: rgba(224, 224, 224, 0.96);
-  text-transform: none;
-  font-weight: 400;
-  min-width:100px;
-}
-
-.md-button.left {
-    border-radius: 10px 0 0 10px;
-}
-.md-button.right {
-    border-radius: 0 10px 10px 0;
-}
-.md-button:not([disabled]):hover {
-    background-color: rgba(193, 193, 193, 0.96);
-    color: rgba(44, 65, 164, 0.96);
-    transition: 0.3s;
-}
-
-#toggle-side-button {
+/*=== HEADER STYLES ===*/
+header {
   position: fixed;
-  top: 1%;
-  right: 1%;
-  z-index: 50;
+  top: 0;
+  z-index: 100;
+  height: 32px;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.50);
+}
+header h1 {
+  margin: 0;
+  background-color: #66BB6A;
+  color: white;
+  padding: 0px 2%;
+  font-size: 1.3rem;
+  /* line-height based on header height */
+  line-height: 32px;
+}
+header .md-button {
+  min-height: 22px;
+  background-color: #66BB6A;
+  color: white;
+  padding: 4px 16px;
+  margin: 0 5px;
+  line-height: 14px;
+}
+header .md-button:not([disabled]).md-focused {
+  background-color: #66BB6A;
+}
+header .md-button:not([disabled]):hover {
+  background-color: #4CAF50;
+  color: white;
+  transition: 0.3s;
 }
 
-#side {
-  width: 380px;
-  background: #3F51B5;
+/*=== VIEW CONTAINER STYLES ===*/
+main {
   position: relative;
-}
-
-#side md-content {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-}
-
-.map-view-container {
-  position: relative;
-  width: 100%;
   height: 100vh;
+  width: 100vw;
 }
-
-.map-input-controls {
-  position: absolute;
-  bottom: 0%;
+.bottom-content {
+  background-color: rgba(255, 255, 255, 0.92);
+  position: relative;
+}
+.bottom-content h2 {
+  color: white;
+  background-color: black;
   width: 100%;
-  z-index: 1;
+  margin: 0;
+  padding:  10px 0;
+  text-align: center;
+  font-size: 1.15rem;
 }
 
-.map-input-controls form {
-  padding: 2.5% 5%;
-}
-
-md-input-container.map-search {
-  padding-bottom: 2.5%;
-}
-
-md-input-container.map-search label {
-  color: black;
-}
-
-md-input-container.map-search input {
-  border-color: blue;
-  border-width: 0 0 2px 0;
-}
-
-md-input-container#disease-search md-select-value {
-  min-width: 150px;
-  color: black;
-  border-bottom: blue;
-  border-bottom-width: 2px;
-  border-bottom-style: solid;
-}
-
+/*===MAP VIEW STYLES ===*/
 #map {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-#globe-view-container {
-  display: block;
+  position: absolute;
   height: 100vh;
-  position: relative;
+  width: 100vw;
 }
-
-md-input-container#globe-search {
-  position: absolute;
+#map md-progress-linear {
+  position: fixed;
+  /* top off-set based on height of header */
+  top: 32px;
+  left: 0;
   right: 0;
-  margin: 5%;
 }
-
-md-input-container#globe-search md-select-value {
-  min-width: 150px;
-  color: black;
-  border-bottom: blue;
-  border-bottom-width: 2px;
-  border-bottom-style: solid;
-}
-
-.water {
-  fill: #3F51B5;
-}
-
-.land {
-  fill: #8BC34A;
-  stroke: #FFF;
-  stroke-width: 0.7px;
-}
-
-.land:hover {
-  fill: #558B2F;
-  stroke-width: 1px;
-}
-
-.focused {
-  fill: #ff00ff;
-}
-
-.countryTooltip {
+.map-controls {
   position: absolute;
-  display: none;
-  pointer-events: none;
-  background: #fff;
-  padding: 5px;
-  text-align: left;
-  border: solid #ccc 1px;
-  color: #666;
-  font-size: 14px;
-  font-family: sans-serif;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.50);
+  color: white;
+}
+.map-controls md-input-container {
+    padding: 12px 10px;
+}
+.map-controls md-input-container label {
+  color: white;
+}
+.map-controls md-input-container:not(.md-input-invalid).md-input-has-value label {
+  color: white;
+}
+.map-controls md-input-container .md-input {
+  border-bottom-color: #4CAF50;
+  color: white;
+}
+.map-controls md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+  border-bottom-color: #4CAF50;
+}
+.map-controls md-input-container:not(.md-input-invalid).md-input-focused label {
+  color: white;
+}
+.map-controls md-select:focus .md-select-value {
+  border-bottom-color: #4CAF50;
+}
+.map-controls md-select:not([disabled]):focus .md-select-value {
+  color: white;
+}
+.map-controls md-input-container md-select .md-select-value {
+  border-bottom-color: #4CAF50;
+  color: white;
+}
+.map-controls .md-button {
+  background-color: #66BB6A;
+  color: white;
+}
+.map-controls .md-button:not([disabled]):hover {
+    background-color: #4CAF50;
+    color: white;
 }
 
-.glow {
-  box-shadow: 0px 5px 5px 1px rgba(0, 0, 0, 0.2);
+/*=== FEED VIEW STYLES ===*/
+.feed-container {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+}
+.feed-container ul {
+  margin: 0;
+  padding: 0;
+}
+.feed-container ul li {
+  border-bottom: 1px solid rgba(192, 192, 192, 0.4);
+}
+.feed-container h3 {
+  margin: 0;
+  padding: 1rem 4rem 0.5rem;
+  font-size: 0.9rem;
+  font-weight: normal;
+}
+
+/*=== FORM VIEW STYLES ===*/
+.form-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.form-container form {
+  overflow: scroll;
+  max-width: 900px;
 }

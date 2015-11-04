@@ -18,7 +18,7 @@ module.exports = function(grunt) {
   // project configuration
   grunt.initConfig({
     //tasks
-    pkg: grunt.file.readJSON('package.json'), // pass config data
+    pkg: grunt.file.readJSON('package.json'), 
 
     clean: {
       dist: 'dist/*',
@@ -49,16 +49,23 @@ module.exports = function(grunt) {
       client: {
         // Copy everything except for the js files getting concatenated
         src: ['client/**', 
-        '!client/app/services/services.js',
-        '!client/app/map/map.js',
-        '!client/app/globe/globe.js',
-        '!client/app/app.js'
+          '!client/app/services/services.js',
+          '!client/app/map/map.js',
+          '!client/app/globe/globe.js',
+          '!client/app/app.js'
         ],
         dest: 'dist/'
       },
 
       server: {
-        src: ['server/**', './server.js'],
+        src: ['server/**', 
+          './server.js', 
+          '!server/api_key.txt', 
+          '!server/geocoder.js',
+          '!server/twitterKeys.js',
+          '!server/yandexKey.js',
+          '!server/database/dbLogin.js'
+        ],
         dest: 'dist/'
       }
     },
