@@ -10,11 +10,11 @@ var mapModule = angular.module('panacea.map', [])
       } else {
         diseaseList[$rootScope.data[i].name] = [new google.maps.LatLng($rootScope.data[i].coords[0], $rootScope.data[i].coords[1])];
       }
-    };
+    }
     $scope.heatmapChoices = [];
-    for (disease in diseaseList) {
-      $scope.heatmapChoices.push(disease)
-    };
+    for (var disease in diseaseList) {
+      $scope.heatmapChoices.push(disease);
+    }
   };
 
   var diseaseList = {};
@@ -24,7 +24,7 @@ var mapModule = angular.module('panacea.map', [])
     } else {
       diseaseList[$rootScope.data[i].name] = [new google.maps.LatLng($rootScope.data[i].coords[0], $rootScope.data[i].coords[1])];
     }
-  };
+  }
 
   // Set current location with HTML5 geolocation.
   if (navigator.geolocation) {
@@ -92,9 +92,9 @@ var mapModule = angular.module('panacea.map', [])
   };
 
   $scope.heatmapChoices = [];
-  for (disease in diseaseList) {
-    $scope.heatmapChoices.push(disease)
-  };
+  for (var disease in diseaseList) {
+    $scope.heatmapChoices.push(disease);
+  }
 
   $rootScope.userChoice = $scope.heatmapChoices[0];
   $scope.userChoice = $rootScope.userChoice;

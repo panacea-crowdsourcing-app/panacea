@@ -48,7 +48,7 @@ angular.module('panacea.report', [])
     $scope.report = {};
     $scope.reportForm.$setPristine();
     $scope.reportForm.$setUntouched();
-    $scope.toggleSide();
+    $scope.toggleReport();
   };
 
 });  

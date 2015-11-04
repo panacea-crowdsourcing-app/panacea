@@ -3,7 +3,7 @@ angular.module('panacea.feed', [])
   $rootScope.updateFeed = function() {
     var reverse = $rootScope.data.slice(0);
     $scope.items = reverse.reverse();
-  }
+  };
   var reverse = $rootScope.data.slice(0);
   $scope.items = reverse.reverse();
   $scope.viewOnMap = function(name, coords){
