@@ -16,7 +16,7 @@ var express = require('express')
   , serverUtils = require('./server/serverUtils.js')
   //, jsonFile = require('jsonfile') //remember to remove used to observe dummy data
   , yandexKey = require('./server/yandexKey')
-  , translate = require('yandex-translate-api')(yandexKey.key)
+  , translate = require('yandex-translate-api')(process.env.YANDEX_KEY || yandexKey.key)
   , geoKey = require('./server/geocoder')
   , Promise = require ('bluebird');
 
@@ -35,10 +35,10 @@ var server = http.createServer(app);
 // ############ Instantiate the twitter component ####################################
 
 var t = new twitter({
-    consumer_key: keys.consumer_key,
-    consumer_secret: keys.consumer_secret,
-    access_token: keys.access_token,
-    access_token_secret: keys.access_token_secret
+    consumer_key: process.env.TWITTER_CONSUMER_KEY || keys.consumer_key,
+    consumer_secret: process.env.TWITTER_CONSUMER_SECRET || keys.consumer_secret,
+    access_token: process.env.TWITTER_ACCESS_TOKEN || keys.access_token,
+    access_token_secret: process.env.TWITTER_TOKEN_SECRET || keys.access_token_secret
 });
 
 //Set the sockets.io configuration.
@@ -118,8 +118,8 @@ var geocoderProvider = 'mapquest';
 var httpAdapter = 'http';
 
 var geoKey = {
-  apiKey: geoKey.geoKey, // for Mapquest, OpenCage, Google Premier
-  formatter: null         // 'gpx', 'string', ...
+  apiKey: process.env.MAPQUEST_GEOKEY || geoKey.geoKey, // for Mapquest, OpenCage, Google Premier 
+  formatter: null         // 'gpx', 'string', ... 
 };
 
 var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter, geoKey);
