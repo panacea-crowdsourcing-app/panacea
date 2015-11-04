@@ -1,25 +1,40 @@
 var mapModule = angular.module('panacea.map', [])
 
-.controller('MapController', function($scope, $rootScope, heatmapData, heatmapData2, heatmapData3) {
-  $scope.isOpen = false;
-        $scope.demo = {
-          isOpen: false,
-          count: 0,
-          selectedDirection: 'left'
-        };
+.controller('MapController', function($scope, $rootScope) {
+
+  $rootScope.update = function(){
+    diseaseList = {};
+    for (var i = 0; i < $rootScope.data.length; i++) {
+      if (diseaseList[$rootScope.data[i].name]) {
+        diseaseList[$rootScope.data[i].name].push(new google.maps.LatLng($rootScope.data[i].coords[0], $rootScope.data[i].coords[1]));
+      } else {
+        diseaseList[$rootScope.data[i].name] = [new google.maps.LatLng($rootScope.data[i].coords[0], $rootScope.data[i].coords[1])];
+      }
+    };
+    $scope.heatmapChoices = [];
+    for (disease in diseaseList) {
+      $scope.heatmapChoices.push(disease)
+    };
+  };
+
+  var diseaseList = {};
+  for (var i = 0; i < $rootScope.data.length; i++) {
+    if (diseaseList[$rootScope.data[i].name]) {
+      diseaseList[$rootScope.data[i].name].push(new google.maps.LatLng($rootScope.data[i].coords[0], $rootScope.data[i].coords[1]));
+    } else {
+      diseaseList[$rootScope.data[i].name] = [new google.maps.LatLng($rootScope.data[i].coords[0], $rootScope.data[i].coords[1])];
+    }
+  };
+
   // Set current location with HTML5 geolocation.
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-      $scope.currentLocation = $rootScope.center || {
+      $scope.currentLocation = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       };
       // Intiate map after retreiving user's current location
       initMap($scope.currentLocation);
-      $scope.currentLocation = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
     });
   } else {
     // Throw error if browser doesn't support Geolocation
@@ -31,20 +46,23 @@ var mapModule = angular.module('panacea.map', [])
     var mapOptions = {
       center: currentLocation,
       zoom: 3,
+      minZoom: 2,
+      backgroundColor: '#B3D1FF',
       disableDefaultUI: true,
       zoomControl: true,
       zoomControlOptions: {
-              position: google.maps.ControlPosition.LEFT_CENTER
+        position: google.maps.ControlPosition.LEFT_CENTER
       }
     };
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    $rootScope.map = $scope.map;
 
     var heatmapOptions = {
-      data: heatmapData,
+      data: diseaseList["Disease Name 1"],
       map: $scope.map,
-      dissipating: true,
-      maxIntensity: 14,
-      radius: 12,
+      dissipating: false,
+      maxIntensity: 5,
+      radius: 3,
       gradient: [
         // cyan/teal
         'rgba(0, 255, 255, 0)',
@@ -73,16 +91,19 @@ var mapModule = angular.module('panacea.map', [])
     $scope.geocoder = new google.maps.Geocoder();
   };
 
-  $scope.userChoice = "1";
-  $scope.heatmapChoices = [1, 2];
-
-  $scope.changeHeatmap = function() {
-    if ($scope.userChoice == 1) {
-      $scope.heatmap.setData(heatmapData);
-    } else {
-      $scope.heatmap.setData(heatmapData2);
-    }
+  $scope.heatmapChoices = [];
+  for (disease in diseaseList) {
+    $scope.heatmapChoices.push(disease)
   };
+
+  $rootScope.userChoice = $scope.heatmapChoices[0];
+  $scope.userChoice = $rootScope.userChoice;
+
+  $scope.changeHeatmap = function(diseaseName) {
+    $scope.heatmap.setData(diseaseList[diseaseName]);
+  };
+
+  $rootScope.changeHeatmap = $scope.changeHeatmap;
 
   $scope.goToGeocodeLocation = function() {
     var address = $scope.search;

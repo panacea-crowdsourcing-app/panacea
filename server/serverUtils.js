@@ -10,7 +10,7 @@ console.log(models);
 var sequelize = require('./database/database.js');
 
 
-  
+
 var log = function(inst) {
   console.dir(inst.get());
 };
@@ -18,7 +18,7 @@ var log = function(inst) {
 exports.postMethod = function(req, res) {
   console.log(req.body);
   // res.json(req.body);
-  Web_SMS.create({    
+  Web_SMS.create({
     persons_name: req.body.persons_name,
     email: req.body.email,
     phone: req.body.phone,
@@ -43,14 +43,14 @@ exports.postMethod = function(req, res) {
 
 exports.getMethod = function(req, res) {
   Web_SMS.findAll({})
-         .then(function(posts) {
-                  posts.forEach(log);
-                  res.json({posts: posts});
-                  console.log(posts);
-                 });
+    .then(function(posts) {
+      posts.forEach(log);
+      res.json({posts: posts});
+      console.log(posts);
+    });
 };
-  
 
-  
 
-  
+
+
+

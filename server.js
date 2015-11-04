@@ -6,7 +6,7 @@ var express = require('express')
   , _ = require('underscore')
   , path = require('path')
   , bodyParser = require("body-parser")
-  , pg = require('pg') 
+  , pg = require('pg')
   , AlchemyAPI = require('./server/alchemyapi') // Uncomment lines 9 and 10 before push
   , alchemyapi = new AlchemyAPI()
   , keys = require('./server/twitterKeys')
@@ -20,7 +20,7 @@ var express = require('express')
   , geoKey = require('./server/geocoder')
   , Promise = require ('bluebird');
 
-var  models = models()
+var models = models()
   , Web_SMS = models.Web_SMS
   , Disease_Incidence = models.Disease_Incidence
   , Social_Media = models.Social_Media;
@@ -62,7 +62,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //# ############### RestFul ##############################################################
 
-
 app.get('/api/globe', function(req, res) {
   var results = [];
 
@@ -72,7 +71,7 @@ app.get('/api/globe', function(req, res) {
       done();
       console.log(err);
       return res.status(500).json({ success: false, data: err});
-    } 
+    }
 // SQL Query > Select Data
     var query = sequelize.client.query("SELECT * FROM messages");
   });
@@ -89,8 +88,6 @@ app.get('/api/globe', function(req, res) {
   });
 
 
-
-
 //# ###############  CRUD ##############################################################
 
 app.post('/api/reports', serverUtils.postMethod);
@@ -101,7 +98,7 @@ app.get('/api/globe',  serverUtils.getMethod);
 
 //Twitter symbols array
  var watchSymbols = ["malaria outbreaks", "malaria in Africa", "malaria in Asia", "parasitic disease","falciparum","ebola virus",
- "ebola outbreaks", "bird flu", "avian influenza","bird flu outbreaks","H5N1", "malaria WHO", "ebola WHO", "CDC ebola", "avian flu outbreaks", 
+ "ebola outbreaks", "bird flu", "avian influenza","bird flu outbreaks","H5N1", "malaria WHO", "ebola WHO", "CDC ebola", "avian flu outbreaks",
  "malaria symptoms", "ebola symptoms", "ebola outbreaks", "malaria", "ebola", "dengue", "avian" ];
 
 //This structure will keep the total number of tweets received and a map of all the symbols and how many tweets received of that symbol
@@ -112,7 +109,7 @@ var watchList = {
 //Set the watch symbols to zero.
 _.each(watchSymbols, function(v) { watchList.symbols[v] = 0; });
 var file = 'tweetFile.json';
-var twitterFeeds = []; 
+var twitterFeeds = [];
 var stream = t.stream('statuses/filter', { track: watchSymbols, since: '2015-10-01' });
 
 
@@ -121,13 +118,13 @@ var geocoderProvider = 'mapquest';
 var httpAdapter = 'http';
 
 var geoKey = {
-  apiKey: geoKey.geoKey, // for Mapquest, OpenCage, Google Premier 
-  formatter: null         // 'gpx', 'string', ... 
+  apiKey: geoKey.geoKey, // for Mapquest, OpenCage, Google Premier
+  formatter: null         // 'gpx', 'string', ...
 };
 
 var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter, geoKey);
 
-var latLong = function(location) { 
+var latLong = function(location) {
     geocoder.geocode(tweet.user.location, function(err, res) {
     return [res[0].latitude, res[0].longitude];
   });
@@ -142,11 +139,11 @@ var latLong = function(location) {
 //     var newTweet = {
 //       date: tweet.created_at,
 //       source_type: 'twitter',
-//       location: tweet.user.location, 
+//       location: tweet.user.location,
 //       text: tweet.text,
 //       language: tweet.lang
 //     };
-//     twitterFeeds.push(newTweet);  
+//     twitterFeeds.push(newTweet);
 //     console.log(newTweet);
 //   }
 //   //create a stopping point
@@ -265,7 +262,7 @@ Promise.all(twitterFeeds)
 
     geocoder.geocode(tweet.location, function(geoResponse) {
 
-  
+
    })
   .then( function (location) {
     //latitude and longitude using mapQuest
@@ -278,11 +275,11 @@ Promise.all(twitterFeeds)
         translate.translate(tweet.text, function(error, yandexResponse) {
           if(yandexResponse.code === 200){
             tweet.text = yandexResponse.text[0];
-            resolve(tweet);  
+            resolve(tweet);
           }
         });
       }
-    });    
+    });
   })
   .then(function(tweet){
      //sentiment analysis using Alchemy API
@@ -293,7 +290,7 @@ Promise.all(twitterFeeds)
         } else {
           reject(tweet);
         }
-      }); 
+      });
     });
 
   })
@@ -334,15 +331,15 @@ Promise.all(twitterFeeds)
           resolve(tweet);
         } else {
           reject(tweet);
-        }      
-      }); 
+        }
+      });
     });
   })
   .then(function(tweet){
     //save in the database
     return new Promise( function (resolve, reject){
       resolve(
-        Social_Media.create({    
+        Social_Media.create({
           diseasename: tweet.diseasename,
           text: tweet.text,
           country: tweet.location,
@@ -351,7 +348,7 @@ Promise.all(twitterFeeds)
           longitude: tweet.longitude,
           date: tweet.date
         })
-      ); 
+      );
     });
   })
   .then(function (entry){
@@ -363,6 +360,6 @@ Promise.all(twitterFeeds)
     throw error;
 });
 
-      
+
 
 
