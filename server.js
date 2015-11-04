@@ -43,10 +43,10 @@ var t = new twitter({
 
 //Set the sockets.io configuration.
 //THIS IS NECESSARY ONLY FOR HEROKU!
-// sockets.configure(function() {
-//   sockets.set('transports', ['xhr-polling']);
-//   sockets.set('polling duration', 10);
-// });
+sockets.configure(function() {
+  sockets.set('transports', ['xhr-polling']);
+  sockets.set('polling duration', 10);
+});
 
 // #################### Express set-up #################################################
 
