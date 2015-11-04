@@ -1,12 +1,12 @@
 <div  class="feed-container" ng-controller="FeedController" layout="column" flex="auto">
   <h2>Latest Reports</h2>
-  <ul flex style="overflow: scroll">
+  <ul layout="column" flex>
     <li layout="row" layout-align="center center" ng-repeat="item in items" layout-wrap>
-      <div style="width: 12px; height: 12px; background-color: red; border-radius: 100%"></div>
-      <h3>21:09:02 PM</h3>
-      <h3>disease name</h3>
-      <h3>Los Angeles, CA, USA</h3>
-      <md-button md-no-ink class="md-primary"> View on Map </md-button>
+      <h3 flex>{{item.time}}</h3>
+      <h3 flex>{{item.name}}</h3>
+      <h3 flex>{{item.location}}</h3>
+      <md-button ng-click="viewOnMap(item.name, item.coords)" md-no-ink class="md-primary" flex> View on Map </md-button>
     </li>
+  </ul>
 </div>
 

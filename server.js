@@ -1,12 +1,11 @@
 var express = require('express')
-  , io = require('socket.io').listen(server)
   , http = require('http')
   , twitter = require('twit')
   , cronJob = require('cron').CronJob
   , _ = require('underscore')
   , path = require('path')
   , bodyParser = require("body-parser")
-  , pg = require('pg') 
+  , pg = require('pg')
   , AlchemyAPI = require('./server/alchemyapi') // Uncomment lines 9 and 10 before push
   , alchemyapi = new AlchemyAPI()
   , keys = require('./server/twitterKeys')
@@ -15,14 +14,12 @@ var express = require('express')
  // , models = require('./server/database/index.js')
   //, serverUtils = require('./server/serverUtils.js')
   , yandexKey = require('./server/yandexKey')
-  , translate = require('yandex-translate-api')(yandexKey.key)
+  , translate = require('yandex-translate-api')(process.env.YANDEX_KEY || yandexKey.key)
   , geoKey = require('./server/geocoder')
   , Promise = require('bluebird')
   , io = require('socket.io')
-  , cronJob = require('cron').CronJob
   , twitterFeeds = require('./tweets')
   , jsonFile = require('jsonfile'); /*remember to remove used to remove after presentation*/
-
 
 
 // var models = models()
@@ -40,10 +37,10 @@ var server = http.createServer(app);
 // ############ Instantiate the twitter component ####################################
 
 var t = new twitter({
-  consumer_key: keys.consumer_key,
-  consumer_secret: keys.consumer_secret,
-  access_token: keys.access_token,
-  access_token_secret: keys.access_token_secret
+    consumer_key: process.env.TWITTER_CONSUMER_KEY || keys.consumer_key,
+    consumer_secret: process.env.TWITTER_CONSUMER_SECRET || keys.consumer_secret,
+    access_token: process.env.TWITTER_ACCESS_TOKEN || keys.access_token,
+    access_token_secret: process.env.TWITTER_TOKEN_SECRET || keys.access_token_secret
 });
 
 
@@ -60,7 +57,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //# ############### RestFul ##############################################################
-
 
 // app.get('/api/globe', function(req, res) {
 //   var results = [];
@@ -110,7 +106,8 @@ var watchList = {
 };
 //Set the watch symbols to zero.
 _.each(watchSymbols, function(v) { watchList.symbols[v] = 0; });
-var twitterFeeds = []; 
+
+var file = 'tweetFile.json';
 var stream = t.stream('statuses/filter', { track: watchSymbols, since: '2015-10-01' });
 var streaming = null;
 
@@ -119,7 +116,7 @@ var geocoderProvider = 'mapquest';
 var httpAdapter = 'http';
 
 var geoKey = {
-  apiKey: geoKey.geoKey, // for Mapquest, OpenCage, Google Premier 
+  apiKey: process.env.MAPQUEST_GEOKEY || geoKey.geoKey, // for Mapquest, OpenCage, Google Premier 
   formatter: null         // 'gpx', 'string', ... 
 };
 
@@ -201,6 +198,7 @@ Promise.all(twitterFeeds)
   tweets.forEach( function(tweet) {
     //get lat and long
     geocoder.geocode(tweet.location, function(geoResponse) {
+
    })
   .then( function (location) {
     //latitude and longitude using mapQuest
@@ -213,11 +211,11 @@ Promise.all(twitterFeeds)
         translate.translate(tweet.text, function(error, yandexResponse) {
           if(yandexResponse.code === 200){
             tweet.text = yandexResponse.text[0];
-            resolve(tweet);  
+            resolve(tweet);
           }
         });
       }
-    });    
+    });
   })
   .then(function(tweet){
      //sentiment analysis using Alchemy API
@@ -228,7 +226,7 @@ Promise.all(twitterFeeds)
         } else {
           reject(tweet);
         }
-      }); 
+      });
     });
   
 
@@ -270,8 +268,8 @@ Promise.all(twitterFeeds)
           resolve(tweet);
         } else {
           reject(tweet);
-        }      
-      }); 
+        }
+      });
     });
   })
   .then(function(tweet){
@@ -280,13 +278,13 @@ Promise.all(twitterFeeds)
     twitterFeeds.push(newTweet);
       //create json file
     return new Promise( function (resolve, reject){
+
       resolve
       jsonFile.writeFile(file, twitterFeeds, function (err) {
         if(err){
           console.error("error");
         }
       });
-      
     });
 
     
