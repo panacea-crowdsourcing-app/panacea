@@ -1,12 +1,12 @@
-  <div ng-controller="FeedController">
-    <h2> Feed </h2>
-    <md-virtual-repeat-container id="vertical-container">
-        <div md-virtual-repeat="item in items" class="repeated-item" flex>
-          {{item}}
-        </div>
-   </md-virtual-repeat-container>
-      <div ng-repeat="item in items" style="display:none">
-      {{item}}
-      </div>
-  </div>
+<div  class="feed-container" ng-controller="FeedController" layout="column" flex="auto">
+  <h2>Latest Reports</h2>
+  <ul flex style="overflow: scroll">
+    <li layout="row" layout-align="center center" ng-repeat="item in items" layout-wrap>
+      <div style="width: 12px; height: 12px; background-color: red; border-radius: 100%"></div>
+      <h3>21:09:02 PM</h3>
+      <h3>disease name</h3>
+      <h3>Los Angeles, CA, USA</h3>
+      <md-button md-no-ink class="md-primary"> View on Map </md-button>
+    </li>
+</div>
 

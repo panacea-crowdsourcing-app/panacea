@@ -1,144 +1,167 @@
+/*=== GENERAL STYLES ===*/
 body {
   height: 100vh;
   width: 100vw;
   position: relative;
 }
+/*--- ng-cloak ---*/
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+/*--- placeholder text styles ---*/
+::-webkit-input-placeholder {
+   color: white;
+}
+:-moz-placeholder { /* Firefox 18- */
+   color: white;
+}
+::-moz-placeholder {  /* Firefox 19+ */
+   color: white;
+}
+:-ms-input-placeholder {
+   color: white;
+}
 
+/*=== HEADER STYLES ===*/
 header {
   position: fixed;
   top: 0;
   z-index: 100;
+  height: 32px;
   width: 100vw;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(0, 0, 0, 0.50);
 }
-
 header h1 {
   margin: 0;
-  background-color: #81C784;
+  background-color: #66BB6A;
   color: white;
-  padding: 10px 2%;
+  padding: 0px 2%;
+  font-size: 1.3rem;
+  /* line-height based on header height */
+  line-height: 32px;
 }
-
-.md-button {
-  min-width: 0;
-}
-
 header .md-button {
-  height: 20px;
-  background-color: #81C784;
+  min-height: 22px;
+  background-color: #66BB6A;
   color: white;
+  padding: 4px 16px;
+  margin: 0 5px;
+  line-height: 14px;
 }
-
 header .md-button:not([disabled]).md-focused {
-  background-color: #81C784;
+  background-color: #66BB6A;
 }
-
-header  .md-button:not([disabled]):hover {
+header .md-button:not([disabled]):hover {
   background-color: #4CAF50;
   color: white;
   transition: 0.3s;
 }
 
-#map-container {
+/*=== VIEW CONTAINER STYLES ===*/
+main {
   position: relative;
   height: 100vh;
   width: 100vw;
 }
-
-#map {
-  position: absolute;
-  height: 100%;
+.bottom-content {
+  background-color: rgba(255, 255, 255, 0.92);
+  position: relative;
+}
+.bottom-content h2 {
+  color: white;
+  background-color: black;
   width: 100%;
+  margin: 0;
+  padding:  10px 0;
+  text-align: center;
+  font-size: 1.15rem;
 }
 
-#map-controls {
+/*===MAP VIEW STYLES ===*/
+#map {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+}
+#map md-progress-linear {
+  position: fixed;
+  /* top off-set based on height of header */
+  top: 32px;
+  left: 0;
+  right: 0;
+}
+.map-controls {
   position: absolute;
   bottom: 0;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.7);
-}
-
-#map-controls md-input-container {
-    padding: 10px;
-}
-
-#map-controls md-input-container label {
-  color: black;
-}
-
-#map-controls md-input-container:not(.md-input-invalid).md-input-has-value label {
-  color: black;
-}
-
-::-webkit-input-placeholder {
-   color: black;
-}
-
-:-moz-placeholder { /* Firefox 18- */
-   color: black;
-}
-
-::-moz-placeholder {  /* Firefox 19+ */
-   color: black;
-}
-
-:-ms-input-placeholder {
-   color: black;
-}
-
-/*#map-controls md-input-container:not(.md-input-invalid).md-input-focused .md-input {
-  border-bottom-color: #4CAF50;
-}
-
-#map-controls md-select:focus .md-select-value {
-  border-bottom-color: #4CAF50;
-}*/
-
-#map-controls md-input-container .md-input,
-#map-controls md-input-container md-select .md-select-value {
-  border-bottom-color:#4CAF50;
-}
-
-#map-controls > .md-button {
-  background-color: #81C784;
+  background-color: rgba(0, 0, 0, 0.50);
   color: white;
 }
-
-#map-controls .md-button:not([disabled]):hover {
+.map-controls md-input-container {
+    padding: 12px 10px;
+}
+.map-controls md-input-container label {
+  color: white;
+}
+.map-controls md-input-container:not(.md-input-invalid).md-input-has-value label {
+  color: white;
+}
+.map-controls md-input-container .md-input {
+  border-bottom-color: #4CAF50;
+  color: white;
+}
+.map-controls md-input-container:not(.md-input-invalid).md-input-focused .md-input {
+  border-bottom-color: #4CAF50;
+}
+.map-controls md-input-container:not(.md-input-invalid).md-input-focused label {
+  color: white;
+}
+.map-controls md-select:focus .md-select-value {
+  border-bottom-color: #4CAF50;
+}
+.map-controls md-select:not([disabled]):focus .md-select-value {
+  color: white;
+}
+.map-controls md-input-container md-select .md-select-value {
+  border-bottom-color: #4CAF50;
+  color: white;
+}
+.map-controls .md-button {
+  background-color: #66BB6A;
+  color: white;
+}
+.map-controls .md-button:not([disabled]):hover {
     background-color: #4CAF50;
     color: white;
 }
 
-#about,
-#feed,
-#report {
-  overflow: scroll;
+/*=== FEED VIEW STYLES ===*/
+.feed-container {
+  height: 100%;
+  width: 100%;
+  position: fixed;
 }
-
-.countryTooltip {
-  position: absolute;
-  display: none;
-  pointer-events: none;
-  background: #fff;
-  padding: 5px;
-  text-align: left;
-  border: solid #ccc 1px;
-  color: #666;
-  font-size: 14px;
-  font-family: sans-serif;
-}
-
-.glow {
-  box-shadow: 0px 5px 5px 1px rgba(0, 0, 0, 0.2);
-}
-
-fieldset {
-  border-width: 0;
+.feed-container ul {
+  margin: 0;
   padding: 0;
-  margin-top: 40px;
+}
+.feed-container ul li {
+  border-bottom: 1px solid rgba(192, 192, 192, 0.4);
+}
+.feed-container h3 {
+  margin: 0;
+  padding: 1rem 4rem 0.5rem;
+  font-size: 0.9rem;
+  font-weight: normal;
 }
 
-legend {
-  color: #AAA;
-  margin-bottom: 5px;
+/*=== FORM VIEW STYLES ===*/
+.form-container {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.form-container form {
+  overflow: scroll;
+  max-width: 900px;
 }

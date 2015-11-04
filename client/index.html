@@ -8,34 +8,31 @@
     <link rel="stylesheet" href="lib/angular-material/angular-material.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
     <link rel="stylesheet" href="styles/style.css">
-    <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="http://d3js.org/topojson.v1.min.js"></script>
-    <script src="http://d3js.org/queue.v1.min.js"></script>
-    <script src="lib/jquery/dist/jquery.min.js"></script>
   </head>
 
-  <body layout="column" ng-controller="MenuController">
-
+  <body ng-cloak  class="ng-cloak" ng-controller="MainController" layout="column">
     <header layout="row">
       <h1>PANACEA</h1>
       <span flex></span>
-      <section layout="row" layout-sm="column" layout-align="center center">
-        <md-button class="groupX left" ng-click="toggleAbout()">About</md-button>
-        <md-button class="groupX middle" ng-click="toggleFeed()">Feed</md-button>
-        <md-button class="groupX right" ng-click="toggleReport()">Submit</md-button>
-      </section>
+      <nav layout="row" layout-align="center center">
+        <md-button ng-click="toggleAbout()" class="groupX left">About</md-button>
+        <md-button ng-click="toggleFeed()" class="groupX middle">Feed</md-button>
+        <md-button ng-click="toggleReport()" class="groupX right">Submit</md-button>
+      </nav>
     </header>
 
+    <main ui-view="map" flex="auto"></main>
 
-    <div ui-view="map" id="map-container" flex="auto"></div>
-    <div ui-view="about" ng-show="about" id="about" flex="45"></div>
-    <div ui-view="feed" ng-show="feed" id="feed" flex="45"></div>
-    <div ui-view="report" ng-show="report" id="report" flex="45"></div>
+    <!-- Need to change to be a single view with nested view states -->
+    <section class="bottom-content" ui-view="about" ng-show="about" flex="50"></section>
+    <section class="bottom-content" ui-view="feed" ng-show="feed" flex="50"></section>
+    <section class="bottom-content" ui-view="report" ng-show="report" flex="50"></section>
 
-
+    <!-- Google Map API v3.20 -->
     <script src="https://maps.googleapis.com/maps/api/js?v=3.20&libraries=visualization"></script>
 
     <script src="lib/angular/angular.js"></script>
+    <!-- Do we still need this if we have angular-ui-router? -->
     <script src="lib/angular-route/angular-route.js"></script>
     <script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="lib/angular-aria/angular-aria.js"></script>
@@ -45,8 +42,8 @@
 
     <script src="app/services/services.js"></script>
     <script src="app/controllers/map.js"></script>
-    <script src="app/controllers/report.js"></script>
     <script src="app/controllers/feed.js"></script>
+    <script src="app/controllers/report.js"></script>
     <script src="app/app.js"></script>
   </body>
 

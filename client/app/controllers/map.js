@@ -78,7 +78,6 @@ var mapModule = angular.module('panacea.map', [])
 
   $scope.changeHeatmap = function() {
     if ($scope.userChoice == 1) {
-      console.log($scope.userChoice);
       $scope.heatmap.setData(heatmapData);
     } else {
       $scope.heatmap.setData(heatmapData2);

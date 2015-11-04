@@ -1,24 +1,30 @@
 <!-- Google map -->
 <div id="map" layout="row" layout-align="center center">
-  <!-- Progress circle -->
-  <md-progress-circular  id="map-progress" md-mode="indeterminate" md-diameter="100" class="md-accent"></md-progress-circular>
+  <!-- Progress bar-->
+  <md-progress-linear  class="md-accent" md-mode="indeterminate"></md-progress-linear>
 </div>
 
 <!-- Map Controls -->
-<div id="map-controls" layout="row" layout-align="center center">
-  <form class="map-search" layout="row" layout-align="center center" ng-submit="goToGeocodeLocation()">
+<div class="map-controls" layout="row" layout-align="center center">
+  <!-- Submit form to re-center map to that location -->
+  <form ng-submit="goToGeocodeLocation()" layout="row" layout-align="center center">
+    <!-- Search for a location -->
     <md-input-container >
       <label>Location</label>
-      <input type="text" ng-model="search" placeholder="Search a location" autocomplete="off">
+      <input placeholder="Search a location" autocomplete="off" ng-model="search">
     </md-input-container>
+
+    <!-- Choose a disease to display -->
     <md-input-container>
-      <label> Disease </label>
-      <md-select ng-model="userChoice" ng-change="changeHeatmap()">
+      <label>Disease</label>
+      <md-select ng-change="changeHeatmap()" ng-model="userChoice">
         <md-option ng-repeat="data in heatmapChoices" ng-value="data">
           {{data}}
         </md-option>
       </md-select>
     </md-input-container>
   </form>
+
+  <!-- Need to replace with an icon -->
   <md-button ng-click="goToCurrentLocation()"> Home </md-button>
 </div>
