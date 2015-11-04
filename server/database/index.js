@@ -1,52 +1,27 @@
 var app = require('../../server.js')
   , Sequelize = require('sequelize')
-  , sequelize = require('./database');
-  //, dbLogin = require('./dbLogin');
+  , sequelize = require('./database')
+  , dbLogin = require('./dbLogin');
 
 if (process.env.DATABASE_URL) {
-    sequelize = new Sequelize(process.env.DATABASE_URL, {
-      logging: false,
-      dialectOptions: {
-        ssl: true 
-      }
-    });
-  } else {
-    var sequelize = new Sequelize('panacea', dbLogin.username, dbLogin.password, {
-      host: 'localhost',
-      dialect: 'postgres',
-      port: 5432,
-      define: {
-        timestamps: false,
-      }
-    //schema: 'public'
-   });
-  }
-
-/*
-Database connection configuration for heroku. Refer to Local configuration for parameters.
-*/
-// var sequelize = new Sequelize('', '', '', {
-//     host:     '',
-//     port:     5432,
-//     dialect: "postgres",
-//     native: true
-//   });
-/*
-
-Database connection configuration for Local host.
-*/
-// var sequelize = new Sequelize('panacea', dbLogin.username, dbLogin.password, {
-//   host: 'localhost',
-//   dialect: 'postgres',
-//   port: 5432,
-//   define: {
-//     timestamps: false,
-//   }
-//   //schema: 'public'
-//  });
-
-/*
-
+  // Heroku database connection
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
+    logging: false,
+    dialectOptions: {
+      ssl: true 
+    }
+  });
+} else {
+  // localhost database connection
+  sequelize = new Sequelize('panacea', dbLogin.username, dbLogin.password, {
+    host: 'localhost',
+    dialect: 'postgres',
+    port: 5432,
+    define: {
+      timestamps: false,
+    }
+  });
+}
 
 /*
 Establishes connection to database.
