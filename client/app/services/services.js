@@ -42,7 +42,7 @@ angular.module('panacea.services', [])
 
     // Some kind of root function needs to be called to updated the data being
     // used for the Google Map
-    $rootScope.update();
+    $rootScope.update(report);
     // Some kind of root function needs to be called to updated the data being
     // used for the feed
     $rootScope.updateFeed();

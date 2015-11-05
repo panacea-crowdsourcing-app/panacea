@@ -14,6 +14,5 @@ angular.module('panacea.feed', [])
     $rootScope.userChoice = name;
     $rootScope.changeHeatmap($rootScope.userChoice);
     $scope.toggleFeed();
-    console.log("swag");
   };
 });

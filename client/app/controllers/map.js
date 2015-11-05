@@ -2,26 +2,34 @@ var mapModule = angular.module('panacea.map', [])
 
 .controller('MapController', function($scope, $rootScope) {
 
-  $rootScope.update = function(){
+  $rootScope.update = function(report){
     diseaseList = {
     "All Diseases": []
-  };
+    };
 
-  for (var i = 0; i < $rootScope.data.length; i++) {
-    diseaseList["All Diseases"].push(new google.maps.LatLng($rootScope.data[i].coords[0], $rootScope.data[i].coords[1]));
-  }
     for (var i = 0; i < $rootScope.data.length; i++) {
-      if (diseaseList[$rootScope.data[i].name]) {
-        diseaseList[$rootScope.data[i].name].push(new google.maps.LatLng($rootScope.data[i].coords[0], $rootScope.data[i].coords[1]));
-      } else {
-        diseaseList[$rootScope.data[i].name] = [new google.maps.LatLng($rootScope.data[i].coords[0], $rootScope.data[i].coords[1])];
+      diseaseList["All Diseases"].push(new google.maps.LatLng($rootScope.data[i].coords[0], $rootScope.data[i].coords[1]));
+    }
+      for (var i = 0; i < $rootScope.data.length; i++) {
+        if (diseaseList[$rootScope.data[i].name]) {
+          diseaseList[$rootScope.data[i].name].push(new google.maps.LatLng($rootScope.data[i].coords[0], $rootScope.data[i].coords[1]));
+        } else {
+          diseaseList[$rootScope.data[i].name] = [new google.maps.LatLng($rootScope.data[i].coords[0], $rootScope.data[i].coords[1])];
+        }
       }
-    }
-    $scope.heatmapChoices = [];
-    for (var disease in diseaseList) {
-      $scope.heatmapChoices.push(disease);
-    }
-    $scope.heatmapChoices.sort();
+      $scope.heatmapChoices = [];
+      for (var disease in diseaseList) {
+        $scope.heatmapChoices.push(disease);
+      }
+      $scope.heatmapChoices.sort();
+
+      $rootScope.map.setCenter({
+        lat: report.coords[0],
+        lng: report.coords[1]
+      });
+      $rootScope.userChoice = report.name;
+      $rootScope.changeHeatmap($scope.heatmapChoices[0]);
+
   };
 
   var diseaseList = {
