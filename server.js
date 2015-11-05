@@ -308,108 +308,108 @@ var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter, geoKey);
 
 // ###################### Step 2 Process tweets ... comment out lines 283 to 302 above ################//
 
-Promise.all(twitterFeeds.twitterFeeds)
-  .then( function(tweets) {
-  tweets.forEach( function(tweet) {
-    //get lat and long
-    geocoder.geocode(tweet.location, function(geoResponse) {
-      console.log(tweet);
+// Promise.all(twitterFeeds.twitterFeeds)
+//   .then( function(tweets) {
+//   tweets.forEach( function(tweet) {
+//     //get lat and long
+//     geocoder.geocode(tweet.location, function(geoResponse) {
+//       console.log(tweet);
 
-   })
-  .then( function (location) {
-    //latitude and longitude using mapQuest
-    tweet.latitude = location[0].latitude;
-    tweet.longitude = location[0].longitude;
+//    })
+//   .then( function (location) {
+//     //latitude and longitude using mapQuest
+//     tweet.latitude = location[0].latitude;
+//     tweet.longitude = location[0].longitude;
 
-    // non english translation using Yandex Translator
-    return new Promise( function( resolve, reject){
-      if(tweet.lang !== 'en') {
-        translate.translate(tweet.text, function(error, yandexResponse) {
-          if(yandexResponse.code === 200){
-            tweet.text = yandexResponse.text[0];
-            resolve(tweet);
-          }
-        });
-      }
-    });
-  })
-  .then(function(tweet){
-     //sentiment analysis using Alchemy API
-    return new Promise ( function (resolve, reject){
-      alchemyapi.sentiment("text", tweet.text, {sentiment: 1}, function(response) {
-        if( response["docSentiment"] && ((response["docSentiment"]["type"] === 'neutral' || response["docSentiment"]["type"] === 'negative') )){
-          resolve(tweet);
-        } else {
-          reject(tweet);
-        }
-      });
-    });
+//     // non english translation using Yandex Translator
+//     return new Promise( function( resolve, reject){
+//       if(tweet.lang !== 'en') {
+//         translate.translate(tweet.text, function(error, yandexResponse) {
+//           if(yandexResponse.code === 200){
+//             tweet.text = yandexResponse.text[0];
+//             resolve(tweet);
+//           }
+//         });
+//       }
+//     });
+//   })
+//   .then(function(tweet){
+//      //sentiment analysis using Alchemy API
+//     return new Promise ( function (resolve, reject){
+//       alchemyapi.sentiment("text", tweet.text, {sentiment: 1}, function(response) {
+//         if( response["docSentiment"] && ((response["docSentiment"]["type"] === 'neutral' || response["docSentiment"]["type"] === 'negative') )){
+//           resolve(tweet);
+//         } else {
+//           reject(tweet);
+//         }
+//       });
+//     });
 
 
-  })
-  .then(function(tweet){
-    //taxonomy analysis using Alchemy API
-    var confident = false;
-    return new Promise ( function (resolve, reject){
-      alchemyapi.taxonomy("text", tweet.text, {sentiment: 1}, function(response, error) {
-        response.taxonomy.forEach( function (taxon) {
-          if (!taxon['confident'] && taxon['label'].split('/').indexOf("disease") > 0){
-            confident = true;
-          }
-        });
-        if (confident === true){
-          resolve(tweet)
-        }else{
-          reject(tweet);
-        }
-      });
-    });
-  })
-  .then(function(tweet){
-    //disease classification
-    var classified = false;
-    return new Promise ( function (resolve, reject){
-      alchemyapi.entities("text", tweet.text, {sentiment: 1}, function(response) {
-        response.entities.forEach( function (entity) {
-          if(entity['type']==="HealthCondition" ){
-            classified = true;
-            if(entity['disambiguated']){
-              tweet.diseasename = entity['disambiguated']['name'].toUpperCase();
-            } else {
-              tweet.diseasename = entity['text'].toUpperCase();
-            }
-          }
-        });
-        if(classified){
-          resolve(tweet);
-        } else {
-          reject(tweet);
-        }
-      });
-    });
-  })
-  .then(function(tweet){
-   // save in the database
-    return new Promise( function (resolve, reject){
-      resolve(
-        Social_Media.create({
-          diseasename: tweet.diseasename,
-          text: tweet.text,
-          country: tweet.location,
-          source_type: tweet.source_type,
-          latitude: tweet.latitude,
-          longitude: tweet.longitude,
-          date: tweet.date
-        })
-      );
-    });
-  })
-  .then(function (entry){
-    console.log("Tweets saved to database!");
-    });
-  })//
-})
-.catch(function (error){
-  throw error;
-});
+//   })
+//   .then(function(tweet){
+//     //taxonomy analysis using Alchemy API
+//     var confident = false;
+//     return new Promise ( function (resolve, reject){
+//       alchemyapi.taxonomy("text", tweet.text, {sentiment: 1}, function(response, error) {
+//         response.taxonomy.forEach( function (taxon) {
+//           if (!taxon['confident'] && taxon['label'].split('/').indexOf("disease") > 0){
+//             confident = true;
+//           }
+//         });
+//         if (confident === true){
+//           resolve(tweet)
+//         }else{
+//           reject(tweet);
+//         }
+//       });
+//     });
+//   })
+//   .then(function(tweet){
+//     //disease classification
+//     var classified = false;
+//     return new Promise ( function (resolve, reject){
+//       alchemyapi.entities("text", tweet.text, {sentiment: 1}, function(response) {
+//         response.entities.forEach( function (entity) {
+//           if(entity['type']==="HealthCondition" ){
+//             classified = true;
+//             if(entity['disambiguated']){
+//               tweet.diseasename = entity['disambiguated']['name'].toUpperCase();
+//             } else {
+//               tweet.diseasename = entity['text'].toUpperCase();
+//             }
+//           }
+//         });
+//         if(classified){
+//           resolve(tweet);
+//         } else {
+//           reject(tweet);
+//         }
+//       });
+//     });
+//   })
+//   .then(function(tweet){
+//    // save in the database
+//     return new Promise( function (resolve, reject){
+//       resolve(
+//         Social_Media.create({
+//           diseasename: tweet.diseasename,
+//           text: tweet.text,
+//           country: tweet.location,
+//           source_type: tweet.source_type,
+//           latitude: tweet.latitude,
+//           longitude: tweet.longitude,
+//           date: tweet.date
+//         })
+//       );
+//     });
+//   })
+//   .then(function (entry){
+//     console.log("Tweets saved to database!");
+//     });
+//   })//
+// })
+// .catch(function (error){
+//   throw error;
+// });
 
