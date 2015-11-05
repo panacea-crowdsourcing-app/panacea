@@ -8,7 +8,7 @@ if (process.env.DATABASE_URL) {
   sequelize = new Sequelize(process.env.DATABASE_URL, {
     logging: false,
     dialectOptions: {
-      ssl: true 
+      ssl: true
     }
   });
 } else {
@@ -30,7 +30,7 @@ sequelize
   .authenticate()
   .then(function(err) {
     console.log('Connection has been established successfully.');
-  }, function (err) { 
+  }, function (err) {
     console.log('Unable to connect to the database:', err);
   });
 
@@ -87,7 +87,7 @@ module.exports = function() {
     type: Sequelize.INTEGER,
     primaryKey: true,
     autoIncrement: true
-    },    
+    },
     social_media: {
       type: Sequelize.INTEGER,
       references: {
@@ -117,7 +117,7 @@ sequelize
   .sync()
   .then(function(err) {
     console.log('It worked!');
-  }, function (err) { 
+  }, function (err) {
     console.log('An error occurred while creating the table:', err);
   });
 

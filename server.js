@@ -19,7 +19,7 @@ var express = require('express')
   , Promise = require('bluebird')
   , io = require('socket.io')
   , twitterFeeds = require('./tweets')
-  , feeds = require('./tweetFile')
+  // , feeds = require('./tweetFile')
   , jsonFile = require('jsonfile'); /*remember to remove used to remove after presentation*/
 
 
@@ -68,7 +68,7 @@ app.get('/api/globe', function(req, res) {
       done();
       console.log(err);
       return res.status(500).json({ success: false, data: err});
-    } 
+    }
 // SQL Query > Select Data
     var query = sequelize.client.query("SELECT * FROM messages");
   });
@@ -94,8 +94,8 @@ app.get('/api/globe',  serverUtils.getMethod);
 
 //Twitter symbols array
  var watchSymbols = ["malaria outbreaks", "malaria in Africa", "malaria in Asia", "parasitic disease","falciparum","ebola virus",
-  "ebola outbreaks", "bird flu", "avian influenza","bird flu outbreaks","H5N1", "malaria WHO", "ebola WHO", "CDC ebola", "avian flu outbreaks", 
-  "malaria symptoms", "ebola symptoms", "ebola outbreaks", "malaria", "ebola", "dengue", "avian", "African trypanosomiasis", "cholera", "cryptosporidiosis",  
+  "ebola outbreaks", "bird flu", "avian influenza","bird flu outbreaks","H5N1", "malaria WHO", "ebola WHO", "CDC ebola", "avian flu outbreaks",
+  "malaria symptoms", "ebola symptoms", "ebola outbreaks", "malaria", "ebola", "dengue", "avian", "African trypanosomiasis", "cholera", "cryptosporidiosis",
   "HIV/AIDS", "influenza", "japanese encephalitis", "leishmaniasis", "Measles", "meningitis", "onchocerciasis", 'mumps', 'snail fever', "bilharzia",
   "pneumonia", "rotavirus", "schistosomiasis", "shigellosis", "strep throat", "tuberculosis", "typhoid", "yellow fever", "sleeping sickness", "rabies", "polio",
   "lassa fever", "leptospirosis", "hepatitis A", "hepatitis B", "hepatitis C", "hemorrhagic fever" ];
@@ -117,8 +117,8 @@ var geocoderProvider = 'mapquest';
 var httpAdapter = 'http';
 
 var geoKey = {
-  apiKey: process.env.MAPQUEST_GEOKEY || geoKey.geoKey, // for Mapquest, OpenCage, Google Premier 
-  formatter: null         // 'gpx', 'string', ... 
+  apiKey: process.env.MAPQUEST_GEOKEY || geoKey.geoKey, // for Mapquest, OpenCage, Google Premier
+  formatter: null         // 'gpx', 'string', ...
 };
 
 var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter, geoKey);
@@ -137,7 +137,7 @@ var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter, geoKey);
 // });
 
 // //If the client just connected, fetch data from database
-// sockets.sockets.on('connection', function(socket) { 
+// sockets.sockets.on('connection', function(socket) {
 //   socket.emit('');
 // });
 
@@ -152,7 +152,7 @@ var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter, geoKey);
 //           var newTweet = {
 //             date: tweet.created_at,
 //             source_type: 'twitter',
-//             location: tweet.user.location, 
+//             location: tweet.user.location,
 //             text: tweet.text,
 //             language: tweet.lang
 //           };
@@ -166,7 +166,7 @@ var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter, geoKey);
 
 //################################ Cron Job ################################################//
 //stream at midnight each day
-// new cronJob('0 0 0 * * *', function(){ 
+// new cronJob('0 0 0 * * *', function(){
 //   //Send the update to the database
 //   sockets.sockets.emit('tweet');
 
@@ -210,7 +210,7 @@ var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter, geoKey);
 //         }
 //       });
 //     });
-  
+
 
 //   })
 //   .then(function(tweet){
@@ -258,7 +258,7 @@ var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter, geoKey);
 //    // save in the database
 //     return new Promise( function (resolve, reject){
 //       resolve(
-//         Social_Media.create({    
+//         Social_Media.create({
 //           diseasename: tweet.diseasename,
 //           text: tweet.text,
 //           country: tweet.location,
@@ -267,7 +267,7 @@ var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter, geoKey);
 //           longitude: tweet.longitude,
 //           date: tweet.date
 //         })
-//       ); 
+//       );
 //     });
 //   })
 //   .then(function (entry){
@@ -287,17 +287,17 @@ var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter, geoKey);
 //     var newTweet = {
 //       date: tweet.created_at,
 //       source_type: 'twitter',
-//       location: tweet.user.location, 
+//       location: tweet.user.location,
 //       text: tweet.text,
 //       language: tweet.lang
 //     };
-//     feeds.push(newTweet); 
+//     feeds.push(newTweet);
 //     console.log(newTweet);
        // console.log(",");
-//     
+//
 //   }
 
- 
+
 //   //stop your server whenever you think you have enough tweets prob after 20 - 30 min.
 //   //
 
@@ -341,7 +341,7 @@ Promise.all(twitterFeeds.twitterFeeds)
         }
       });
     });
-  
+
 
   })
   .then(function(tweet){
@@ -389,7 +389,7 @@ Promise.all(twitterFeeds.twitterFeeds)
    // save in the database
     return new Promise( function (resolve, reject){
       resolve(
-        Social_Media.create({    
+        Social_Media.create({
           diseasename: tweet.diseasename,
           text: tweet.text,
           country: tweet.location,
@@ -398,7 +398,7 @@ Promise.all(twitterFeeds.twitterFeeds)
           longitude: tweet.longitude,
           date: tweet.date
         })
-      ); 
+      );
     });
   })
   .then(function (entry){
