@@ -8,20 +8,18 @@ var express = require('express')
   , pg = require('pg')
   , AlchemyAPI = require('./server/alchemyapi') // Uncomment lines 9 and 10 before push
   , alchemyapi = new AlchemyAPI()
-  , keys = require('./server/twitterKeys')
   , request = require('request')
   , sequelize = require('./server/database/database.js')
   , models = require('./server/database/index.js')
   , serverUtils = require('./server/serverUtils.js')
-  , yandexKey = require('./server/yandexKey')
-  , translate = require('yandex-translate-api')(process.env.YANDEX_KEY || yandexKey.key)
-  , geoKey = require('./server/geocoder')
-  , Promise = require('bluebird')
+  , yandexKey = process.env.YANDEX_KEY || require('./server/yandexKey')
+  , translate = require('yandex-translate-api')(yandexKey.key)
+  , geoKey = process.env.MAPQUEST_GEOKEY || require('./server/geocoder').geoKey
+  , Promise = require ('bluebird')
   , io = require('socket.io')
   , twitterFeeds = require('./tweets')
   // , feeds = require('./tweetFile')
   , jsonFile = require('jsonfile'); /*remember to remove used to remove after presentation*/
-
 
 var models = models()
   , Web_SMS = models.Web_SMS
@@ -30,18 +28,23 @@ var models = models()
 
 var app = express();
 
-
 var server = http.createServer(app);
 
-
-
 // ############ Instantiate the twitter component ####################################
+var twitEnvVars = {
+  consumer_key: process.env.TWITTER_CONSUMER_KEY,
+  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+  access_token: process.env.TWITTER_ACCESS_TOKEN,
+  access_token_secret: process.env.TWITTER_TOKEN_SECRET
+};
+
+var keys = twitEnvVars.consumer_key ? twitEnvVars : require('./server/twitterKeys');
 
 var t = new twitter({
-    consumer_key: process.env.TWITTER_CONSUMER_KEY || keys.consumer_key,
-    consumer_secret: process.env.TWITTER_CONSUMER_SECRET || keys.consumer_secret,
-    access_token: process.env.TWITTER_ACCESS_TOKEN || keys.access_token,
-    access_token_secret: process.env.TWITTER_TOKEN_SECRET || keys.access_token_secret
+  consumer_key: keys.consumer_key,
+  consumer_secret: keys.consumer_secret,
+  access_token: keys.access_token,
+  access_token_secret: keys.access_token_secret
 });
 
 
@@ -117,8 +120,8 @@ var geocoderProvider = 'mapquest';
 var httpAdapter = 'http';
 
 var geoKey = {
-  apiKey: process.env.MAPQUEST_GEOKEY || geoKey.geoKey, // for Mapquest, OpenCage, Google Premier
-  formatter: null         // 'gpx', 'string', ...
+  apiKey: geoKey, // for Mapquest, OpenCage, Google Premier 
+  formatter: null         // 'gpx', 'string', ... 
 };
 
 var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter, geoKey);
