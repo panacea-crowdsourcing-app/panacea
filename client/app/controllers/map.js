@@ -3,7 +3,13 @@ var mapModule = angular.module('panacea.map', [])
 .controller('MapController', function($scope, $rootScope) {
 
   $rootScope.update = function(){
-    diseaseList = {};
+    diseaseList = {
+    "All Diseases": []
+  };
+
+  for (var i = 0; i < $rootScope.data.length; i++) {
+    diseaseList["All Diseases"].push(new google.maps.LatLng($rootScope.data[i].coords[0], $rootScope.data[i].coords[1]));
+  }
     for (var i = 0; i < $rootScope.data.length; i++) {
       if (diseaseList[$rootScope.data[i].name]) {
         diseaseList[$rootScope.data[i].name].push(new google.maps.LatLng($rootScope.data[i].coords[0], $rootScope.data[i].coords[1]));
@@ -15,9 +21,17 @@ var mapModule = angular.module('panacea.map', [])
     for (var disease in diseaseList) {
       $scope.heatmapChoices.push(disease);
     }
+    $scope.heatmapChoices.sort();
   };
 
-  var diseaseList = {};
+  var diseaseList = {
+    "All Diseases": []
+  };
+
+  for (var i = 0; i < $rootScope.data.length; i++) {
+    diseaseList["All Diseases"].push(new google.maps.LatLng($rootScope.data[i].coords[0], $rootScope.data[i].coords[1]));
+  }
+
   for (var i = 0; i < $rootScope.data.length; i++) {
     if (diseaseList[$rootScope.data[i].name]) {
       diseaseList[$rootScope.data[i].name].push(new google.maps.LatLng($rootScope.data[i].coords[0], $rootScope.data[i].coords[1]));
@@ -45,23 +59,23 @@ var mapModule = angular.module('panacea.map', [])
 
     var mapOptions = {
       center: currentLocation,
-      zoom: 3,
+      zoom: 2,
       minZoom: 2,
       backgroundColor: '#B3D1FF',
       disableDefaultUI: true,
       zoomControl: true,
       zoomControlOptions: {
-        position: google.maps.ControlPosition.LEFT_CENTER
+        position: google.maps.ControlPosition.RIGHT_CENTER
       }
     };
     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
     $rootScope.map = $scope.map;
 
     var heatmapOptions = {
-      data: diseaseList["Disease Name 1"],
+      data: diseaseList["All Diseases"],
       map: $scope.map,
       dissipating: false,
-      maxIntensity: 5,
+      maxIntensity: 2,
       radius: 3,
       gradient: [
         // cyan/teal
@@ -95,6 +109,7 @@ var mapModule = angular.module('panacea.map', [])
   for (var disease in diseaseList) {
     $scope.heatmapChoices.push(disease);
   }
+  $scope.heatmapChoices.sort();
 
   $rootScope.userChoice = $scope.heatmapChoices[0];
   $scope.userChoice = $rootScope.userChoice;

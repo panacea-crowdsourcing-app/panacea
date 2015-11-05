@@ -9,13 +9,13 @@
   <!-- Submit form to re-center map to that location -->
   <form ng-submit="goToGeocodeLocation()" layout="row" layout-align="center center">
     <!-- Search for a location -->
-    <md-input-container layout="row">
+    <md-input-container layout="row" layout-align="center center">
       <label>Location</label>
       <input placeholder="Search a location" autocomplete="off" ng-model="search">
     </md-input-container>
 
     <!-- Choose a disease to display -->
-    <md-input-container layout="row">
+    <md-input-container layout="row" layout-align="center center">
       <label>Disease</label>
       <md-select ng-change="changeHeatmap(userChoice)" ng-model="userChoice">
         <md-option ng-repeat="data in heatmapChoices" ng-value="data">
@@ -27,5 +27,8 @@
   </form>
 
   <!-- Need to replace with an icon -->
-  <md-button ng-click="goToCurrentLocation()"> Home </md-button>
+  <md-button ng-click="goToCurrentLocation()">
+    <md-tooltip md-direction="top">Go to current location.</md-tooltip>
+    <ng-md-icon icon="my_location" style="fill: white" size="22"></ng-md-icon>
+  </md-button>
 </div>
