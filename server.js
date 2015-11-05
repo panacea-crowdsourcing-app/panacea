@@ -17,9 +17,9 @@ var express = require('express')
   , geoKey = process.env.MAPQUEST_GEOKEY || require('./server/geocoder').geoKey
   , Promise = require ('bluebird')
   , io = require('socket.io')
-  , twitterFeeds = require('./tweets')
+  , twitterFeeds = require('./tweets'); // DELETE THIS SEMICOLON
   // , feeds = require('./tweetFile')
-  , jsonFile = require('jsonfile'); /*remember to remove used to remove after presentation*/
+  //, jsonFile = require('jsonfile'); /*remember to remove used to remove after presentation*/
 
 var models = models()
   , Web_SMS = models.Web_SMS
