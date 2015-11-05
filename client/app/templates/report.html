@@ -10,7 +10,7 @@
       </div>
     </md-input-container> -->
 
-    <md-input-container>
+    <md-input-container flex="80">
       <label>Email</label>
       <input ng-model="report.email" type="email" name="email" required />
       <div ng-messages="reportForm.email.$error" ng-if="reportForm.$submitted && reportForm.$dirty">
@@ -47,14 +47,14 @@
       <input ng-model="report.incidence_address" name="incidence_address" />
     </md-input-container>
     -->
-    <md-input-container>
+    <md-input-container flex="25">
       <label>City/town/locality</label>
       <input ng-model="report.incidence_city" name="incidence_city" required />
       <div ng-messages="reportForm.incidence_city.$error" ng-if="reportForm.$submitted && reportForm.$dirty">
         <div ng-message="required">This is required.</div>
       </div>
     </md-input-container>
-    <md-input-container>
+    <md-input-container flex="25">
       <label>State/province/region</label>
       <input ng-model="report.incidence_state" name="incidence_state" />
     </md-input-container>
@@ -62,14 +62,14 @@
       <label>Zip code</label>
       <input ng-model="report.incidence_zip" name="incidence_zip" />
     </md-input-container> -->
-    <md-input-container>
+    <md-input-container flex="25">
       <label>Country</label>
       <input ng-model="report.incidence_country" name="incidence_country" required />
       <div ng-messages="reportForm.incidence_country.$error" ng-if="reportForm.$submitted && reportForm.$dirty">
         <div ng-message="required">This is required.</div>
       </div>
     </md-input-container>
-    <div flex="100" layout="row">
+    <div flex="80" layout="row">
     <md-button class="md-raised" href="#" ng-click="getAddressFromCurrentPos()" flex="50">Autofill with current location</md-button>
     <!-- end of disease location section -->
 
