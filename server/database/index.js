@@ -1,7 +1,6 @@
 var app = require('../../server.js')
   , Sequelize = require('sequelize')
-  , sequelize = require('./database')
-  , dbLogin = require('./dbLogin');
+  , sequelize = require('./database');
 
 if (process.env.DATABASE_URL) {
   // Heroku database connection
@@ -13,6 +12,8 @@ if (process.env.DATABASE_URL) {
   });
 } else {
   // localhost database connection
+  var dbLogin = require('./dbLogin');
+  
   sequelize = new Sequelize('panacea', dbLogin.username, dbLogin.password, {
     host: 'localhost',
     dialect: 'postgres',

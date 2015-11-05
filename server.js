@@ -8,20 +8,18 @@ var express = require('express')
   , pg = require('pg')
   , AlchemyAPI = require('./server/alchemyapi') // Uncomment lines 9 and 10 before push
   , alchemyapi = new AlchemyAPI()
-  , keys = require('./server/twitterKeys')
   , request = require('request')
   , sequelize = require('./server/database/database.js')
   , models = require('./server/database/index.js')
   , serverUtils = require('./server/serverUtils.js')
-  , yandexKey = require('./server/yandexKey')
-  , translate = require('yandex-translate-api')(process.env.YANDEX_KEY || yandexKey.key)
-  , geoKey = require('./server/geocoder')
-  , Promise = require('bluebird')
+  , yandexKey = process.env.YANDEX_KEY || require('./server/yandexKey')
+  , translate = require('yandex-translate-api')(yandexKey.key)
+  , geoKey = process.env.MAPQUEST_GEOKEY || require('./server/geocoder').geoKey
+  , Promise = require ('bluebird')
   , io = require('socket.io')
   , twitterFeeds = require('./tweets')
   // , feeds = require('./tweetFile')
   , jsonFile = require('jsonfile'); /*remember to remove used to remove after presentation*/
-
 
 var models = models()
   , Web_SMS = models.Web_SMS
@@ -30,18 +28,23 @@ var models = models()
 
 var app = express();
 
-
 var server = http.createServer(app);
 
-
-
 // ############ Instantiate the twitter component ####################################
+var twitEnvVars = {
+  consumer_key: process.env.TWITTER_CONSUMER_KEY,
+  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+  access_token: process.env.TWITTER_ACCESS_TOKEN,
+  access_token_secret: process.env.TWITTER_TOKEN_SECRET
+};
+
+var keys = twitEnvVars.consumer_key ? twitEnvVars : require('./server/twitterKeys');
 
 var t = new twitter({
-    consumer_key: process.env.TWITTER_CONSUMER_KEY || keys.consumer_key,
-    consumer_secret: process.env.TWITTER_CONSUMER_SECRET || keys.consumer_secret,
-    access_token: process.env.TWITTER_ACCESS_TOKEN || keys.access_token,
-    access_token_secret: process.env.TWITTER_TOKEN_SECRET || keys.access_token_secret
+  consumer_key: keys.consumer_key,
+  consumer_secret: keys.consumer_secret,
+  access_token: keys.access_token,
+  access_token_secret: keys.access_token_secret
 });
 
 
@@ -117,8 +120,8 @@ var geocoderProvider = 'mapquest';
 var httpAdapter = 'http';
 
 var geoKey = {
-  apiKey: process.env.MAPQUEST_GEOKEY || geoKey.geoKey, // for Mapquest, OpenCage, Google Premier
-  formatter: null         // 'gpx', 'string', ...
+  apiKey: geoKey, // for Mapquest, OpenCage, Google Premier 
+  formatter: null         // 'gpx', 'string', ... 
 };
 
 var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter, geoKey);
@@ -305,108 +308,108 @@ var geocoder = require('node-geocoder')(geocoderProvider, httpAdapter, geoKey);
 
 // ###################### Step 2 Process tweets ... comment out lines 283 to 302 above ################//
 
-Promise.all(twitterFeeds.twitterFeeds)
-  .then( function(tweets) {
-  tweets.forEach( function(tweet) {
-    //get lat and long
-    geocoder.geocode(tweet.location, function(geoResponse) {
-      console.log(tweet);
+// Promise.all(twitterFeeds.twitterFeeds)
+//   .then( function(tweets) {
+//   tweets.forEach( function(tweet) {
+//     //get lat and long
+//     geocoder.geocode(tweet.location, function(geoResponse) {
+//       console.log(tweet);
 
-   })
-  .then( function (location) {
-    //latitude and longitude using mapQuest
-    tweet.latitude = location[0].latitude;
-    tweet.longitude = location[0].longitude;
+//    })
+//   .then( function (location) {
+//     //latitude and longitude using mapQuest
+//     tweet.latitude = location[0].latitude;
+//     tweet.longitude = location[0].longitude;
 
-    // non english translation using Yandex Translator
-    return new Promise( function( resolve, reject){
-      if(tweet.lang !== 'en') {
-        translate.translate(tweet.text, function(error, yandexResponse) {
-          if(yandexResponse.code === 200){
-            tweet.text = yandexResponse.text[0];
-            resolve(tweet);
-          }
-        });
-      }
-    });
-  })
-  .then(function(tweet){
-     //sentiment analysis using Alchemy API
-    return new Promise ( function (resolve, reject){
-      alchemyapi.sentiment("text", tweet.text, {sentiment: 1}, function(response) {
-        if( response["docSentiment"] && ((response["docSentiment"]["type"] === 'neutral' || response["docSentiment"]["type"] === 'negative') )){
-          resolve(tweet);
-        } else {
-          reject(tweet);
-        }
-      });
-    });
+//     // non english translation using Yandex Translator
+//     return new Promise( function( resolve, reject){
+//       if(tweet.lang !== 'en') {
+//         translate.translate(tweet.text, function(error, yandexResponse) {
+//           if(yandexResponse.code === 200){
+//             tweet.text = yandexResponse.text[0];
+//             resolve(tweet);
+//           }
+//         });
+//       }
+//     });
+//   })
+//   .then(function(tweet){
+//      //sentiment analysis using Alchemy API
+//     return new Promise ( function (resolve, reject){
+//       alchemyapi.sentiment("text", tweet.text, {sentiment: 1}, function(response) {
+//         if( response["docSentiment"] && ((response["docSentiment"]["type"] === 'neutral' || response["docSentiment"]["type"] === 'negative') )){
+//           resolve(tweet);
+//         } else {
+//           reject(tweet);
+//         }
+//       });
+//     });
 
 
-  })
-  .then(function(tweet){
-    //taxonomy analysis using Alchemy API
-    var confident = false;
-    return new Promise ( function (resolve, reject){
-      alchemyapi.taxonomy("text", tweet.text, {sentiment: 1}, function(response, error) {
-        response.taxonomy.forEach( function (taxon) {
-          if (!taxon['confident'] && taxon['label'].split('/').indexOf("disease") > 0){
-            confident = true;
-          }
-        });
-        if (confident === true){
-          resolve(tweet)
-        }else{
-          reject(tweet);
-        }
-      });
-    });
-  })
-  .then(function(tweet){
-    //disease classification
-    var classified = false;
-    return new Promise ( function (resolve, reject){
-      alchemyapi.entities("text", tweet.text, {sentiment: 1}, function(response) {
-        response.entities.forEach( function (entity) {
-          if(entity['type']==="HealthCondition" ){
-            classified = true;
-            if(entity['disambiguated']){
-              tweet.diseasename = entity['disambiguated']['name'].toUpperCase();
-            } else {
-              tweet.diseasename = entity['text'].toUpperCase();
-            }
-          }
-        });
-        if(classified){
-          resolve(tweet);
-        } else {
-          reject(tweet);
-        }
-      });
-    });
-  })
-  .then(function(tweet){
-   // save in the database
-    return new Promise( function (resolve, reject){
-      resolve(
-        Social_Media.create({
-          diseasename: tweet.diseasename,
-          text: tweet.text,
-          country: tweet.location,
-          source_type: tweet.source_type,
-          latitude: tweet.latitude,
-          longitude: tweet.longitude,
-          date: tweet.date
-        })
-      );
-    });
-  })
-  .then(function (entry){
-    console.log("Tweets saved to database!");
-    });
-  })//
-})
-.catch(function (error){
-  throw error;
-});
+//   })
+//   .then(function(tweet){
+//     //taxonomy analysis using Alchemy API
+//     var confident = false;
+//     return new Promise ( function (resolve, reject){
+//       alchemyapi.taxonomy("text", tweet.text, {sentiment: 1}, function(response, error) {
+//         response.taxonomy.forEach( function (taxon) {
+//           if (!taxon['confident'] && taxon['label'].split('/').indexOf("disease") > 0){
+//             confident = true;
+//           }
+//         });
+//         if (confident === true){
+//           resolve(tweet)
+//         }else{
+//           reject(tweet);
+//         }
+//       });
+//     });
+//   })
+//   .then(function(tweet){
+//     //disease classification
+//     var classified = false;
+//     return new Promise ( function (resolve, reject){
+//       alchemyapi.entities("text", tweet.text, {sentiment: 1}, function(response) {
+//         response.entities.forEach( function (entity) {
+//           if(entity['type']==="HealthCondition" ){
+//             classified = true;
+//             if(entity['disambiguated']){
+//               tweet.diseasename = entity['disambiguated']['name'].toUpperCase();
+//             } else {
+//               tweet.diseasename = entity['text'].toUpperCase();
+//             }
+//           }
+//         });
+//         if(classified){
+//           resolve(tweet);
+//         } else {
+//           reject(tweet);
+//         }
+//       });
+//     });
+//   })
+//   .then(function(tweet){
+//    // save in the database
+//     return new Promise( function (resolve, reject){
+//       resolve(
+//         Social_Media.create({
+//           diseasename: tweet.diseasename,
+//           text: tweet.text,
+//           country: tweet.location,
+//           source_type: tweet.source_type,
+//           latitude: tweet.latitude,
+//           longitude: tweet.longitude,
+//           date: tweet.date
+//         })
+//       );
+//     });
+//   })
+//   .then(function (entry){
+//     console.log("Tweets saved to database!");
+//     });
+//   })//
+// })
+// .catch(function (error){
+//   throw error;
+// });
 
