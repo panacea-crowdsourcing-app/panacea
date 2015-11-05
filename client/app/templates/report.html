@@ -1,14 +1,14 @@
 <div  class="form-container" ng-controller="ReportController" layout="column" layout-align="center center">
 
   <h2>Submit a Report</h2>
-  <form name="reportForm" novalidate  layout="row" layout-align="center start" layout-wrap flex="auto">
-    <md-input-container>
+  <form name="reportForm" novalidate  layout="row" layout-align="center center" layout-wrap flex="auto">
+<!--     <md-input-container>
       <label>Full name</label>
       <input ng-model="report.persons_name" name="persons_name" required />
       <div ng-messages="reportForm.persons_name.$error" ng-if="reportForm.$submitted && reportForm.$dirty">
        <div ng-message="required">This is required.</div>
       </div>
-    </md-input-container>
+    </md-input-container> -->
 
     <md-input-container>
       <label>Email</label>
@@ -19,29 +19,28 @@
     </md-input-container>
 
     <!-- row that contains Disease and number of cases -->
-    <md-input-container>
+    <md-input-container flex="80">
       <label>Disease</label>
-      <md-select ng-model="report.diseasename" name="diseasename" required>
+      <md-select ng-model="report.name" name="name" required>
         <md-option ng-repeat="disease in diseases" value="{{disease}}">
           {{disease}}
         </md-option>
       </md-select>
-      <div ng-messages="reportForm.diseasename.$error" ng-if="reportForm.$submitted && reportForm.$dirty">
+      <div ng-messages="reportForm.name.$error" ng-if="reportForm.$submitted && reportForm.$dirty">
         <div ng-message="required">This is required.</div>
       </div>
     </md-input-container>
 
-    <md-input-container>
+    <!-- <md-input-container>
       <label>No. of cases</label>
       <input ng-model="report.no_of_cases" type="number" min="1" name="no_of_cases" required />
       <div ng-messages="reportForm.no_of_cases.$error" ng-if="reportForm.$submitted && reportForm.$dirty">
         <div ng-message="required">This is required.</div>
       </div>
-    </md-input-container>
+    </md-input-container> -->
     <!-- end of row -->
 
     <!-- beginning of disease location section -->
-    <md-button class="md-raised" href="#" ng-click="getAddressFromCurrentPos()">Autofill with current location</md-button>
     <!--
     <md-input-container>
       <label>Address</label>
@@ -59,10 +58,10 @@
       <label>State/province/region</label>
       <input ng-model="report.incidence_state" name="incidence_state" />
     </md-input-container>
-    <md-input-container>
+<!--     <md-input-container>
       <label>Zip code</label>
       <input ng-model="report.incidence_zip" name="incidence_zip" />
-    </md-input-container>
+    </md-input-container> -->
     <md-input-container>
       <label>Country</label>
       <input ng-model="report.incidence_country" name="incidence_country" required />
@@ -70,8 +69,11 @@
         <div ng-message="required">This is required.</div>
       </div>
     </md-input-container>
+    <div flex="100" layout="row">
+    <md-button class="md-raised" href="#" ng-click="getAddressFromCurrentPos()" flex="50">Autofill with current location</md-button>
     <!-- end of disease location section -->
 
-    <md-button class="md-raised md-primary" ng-click="reportForm.$valid && submitReport()">Submit</md-button>
+    <md-button class="md-raised md-primary" ng-click="reportForm.$valid && submitReport()" flex="50">Submit</md-button>
+    </div>
   </form>
 <div>
